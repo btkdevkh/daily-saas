@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "monrdv",
+  title: "RDV",
   description: "",
 };
 
@@ -26,11 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${
-          process.env.NODE_ENV === "development"
-            ? "border-3 border-blue-700"
-            : ""
-        }`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
         {children}

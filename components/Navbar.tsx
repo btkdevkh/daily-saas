@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { IoMdAdd } from "react-icons/io";
 
 type NavbarProps = {};
 
 const Navbar = ({}: NavbarProps) => {
   return (
-    <nav className="p-2 border-b border-[#e94d3e]">
+    <nav className="p-2 dark:bg-[#eaffe9] sticky top-0">
       <div className="flex items-center justify-between">
-        <Link href="/" className="flex items-center relative">
+        <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
             width={40}
@@ -15,13 +16,10 @@ const Navbar = ({}: NavbarProps) => {
             alt="logo"
             className="z-1"
           />
-          <h2 className="bg-[#e94d3e] py-0.5 px-2 font-semibold absolute left-8.5 bottom-1">
-            monrdv
-          </h2>
         </Link>
 
-        <button className="bg-green-700 h-[30px] px-4 rounded mr-0.5 font-semibold">
-          rdvs
+        <button className="bg-[#ed3067] h-[30px] px-2 rounded mr-0.5 font-semibold flex items-center gap-1">
+          <IoMdAdd /> RDV
         </button>
       </div>
     </nav>
