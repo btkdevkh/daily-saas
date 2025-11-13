@@ -17,8 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "rdv",
-  description:
-    "Take your rdv to the next level with our intuitive scheduling app.",
+  description: "Une application web pour la gestion de rendez-vous.",
 };
 
 export default function RootLayout({
