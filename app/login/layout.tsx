@@ -6,5 +6,5 @@ export default async function CreateRdvLayout({
 }: {
   children: ReactNode;
 }) {
-  return <>{children}</>;
+  return <main className="bg-[#D9D9D9] min-h-screen">{children}</main>;
 }

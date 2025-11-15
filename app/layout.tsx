@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { IoMdAdd } from "react-icons/io";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "rdv",
-  description: "Une application web pour la gestion de rendez-vous.",
+  title: "Daily SaaS",
+  description: "Gestionnaire des divers utilités",
 };
 
 export default function RootLayout({
