@@ -1,12 +1,13 @@
-# RDV (En cours de développement)
+# Daily SaaS (En cours de développement)
 
-Une application web pour la gestion de rendez-vous développée avec Next.js et TypeScript.
+Gestionnnaire de divers utilités développée avec Next.js et TypeScript.
 
 ## Technologies utilisées
 
 - Next.js
 - TypeScript
 - TailwindCSS
+- SQL
 
 ## Structure du projet
 
@@ -14,6 +15,7 @@ Une application web pour la gestion de rendez-vous développée avec Next.js et 
 - `/components` - Composants réutilisables
 - `/data` - Données mockées (En attendant de l'implémentation la base de donnée)
 - `/types` - Types et interfaces TypeScript
+- `/etc.`
 
 ## Installation
 
