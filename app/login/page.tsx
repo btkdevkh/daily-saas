@@ -70,7 +70,7 @@ export default function CreateRdvPage() {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  className="w-full p-3 shadow bg-[#D9D9D9] rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3C6E71]"
+                  className="w-full p-3 shadow bg-dust-grey rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
                 />
               </div>
 
@@ -80,13 +80,13 @@ export default function CreateRdvPage() {
                   id="password"
                   name="password"
                   placeholder="Mot de passe"
-                  className="w-full p-3 shadow bg-[#D9D9D9] rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3C6E71]"
+                  className="w-full p-3 shadow bg-dust-grey rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full mt-3 p-3.5 rounded-xl shadow font-bold uppercase cursor-pointer text-white bg-[#284B63] hover:bg-[#3C6E71] focus:ring-2 focus:ring-offset-2 focus:ring-[#3C6E71]"
+                className="w-full mt-3 p-3.5 rounded-xl shadow font-bold uppercase cursor-pointer text-white bg-yale-blue hover:bg-stormy-teal focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
               >
                 S'identifier
               </button>

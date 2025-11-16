@@ -10,7 +10,7 @@ export default function CreateRdvLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <main className="bg-[#D9D9D9] min-h-screen flex justify-between">
+      <main className="bg-dust-grey min-h-screen flex justify-between">
         {/* Left Navbar */}
         <LeftNavbar open={open} setOpen={setOpen} />
 

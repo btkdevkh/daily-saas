@@ -7,7 +7,7 @@ export default async function CreateRdvLayout({
   children: ReactNode;
 }) {
   return (
-    <main className="bg-[#D9D9D9] min-h-screen flex justify-center items-center">
+    <main className="bg-dust-grey min-h-screen flex justify-center items-center">
       {children}
     </main>
   );

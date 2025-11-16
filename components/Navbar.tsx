@@ -16,7 +16,7 @@ const Navbar = ({}: NavbarProps) => {
             className="shadow rounded-xl"
           />
 
-          <span className="text-black font-semibold uppercase border-b-2 border-[#D9D9D9]">
+          <span className="text-black font-semibold uppercase border-b-2 border-dust-grey">
             Daily SaaS
           </span>
         </Link>
@@ -24,7 +24,7 @@ const Navbar = ({}: NavbarProps) => {
         <div className="flex items-center gap-3 text-black">
           <div>
             <span className="font-semibold">Bienvenue </span>
-            <span className="border-b-2 border-[#D9D9D9]">BK</span>
+            <span className="border-b-2 border-dust-grey">BK</span>
             <span className="font-semibold"> !</span>
           </div>
           <Image src="/profile.png" width={35} height={35} alt="profile" />
