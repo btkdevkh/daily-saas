@@ -1,23 +1,42 @@
+import { getRdvs } from "@/app/actions/get/rdv";
+import CreateButton from "@/components/CreateButton";
 import PageWrapper from "@/components/PageWrapper";
-import { prisma } from "@/lib/prisma";
 
 const RdvPage = async () => {
-  const data = await prisma.rdv.findMany();
+  const data = await getRdvs();
+
   return (
     <PageWrapper>
-      <div className="p-3 grid md:grid-cols-2 gap-2 text-black">
-        {data.length > 0 ? (
-          data.map((rdv) => (
-            <div key={rdv.id} className="bg-white shadow p-3 rounded">
-              <h2>{rdv.title}</h2>
-              <p>Avec: {rdv.withWhom}</p>
-              <p>Date: {rdv.date}</p>
-              <p>Adresse: {rdv.address}</p>
+      <div className="p-3">
+        <div className="flex justify-between items-center">
+          {data.rdvs && data.rdvs.length === 0 ? (
+            <div>
+              <mark>Il n'y pas de rendez-vous.</mark>
             </div>
-          ))
-        ) : (
-          <></>
-        )}
+          ) : (
+            <span className="text-black font-semibold text-xl border-b-2 border-stormy-teal">
+              Rdvs
+            </span>
+          )}
+
+          {/* Create button */}
+          <CreateButton page="rdv" />
+        </div>
+
+        <br />
+
+        <div className="grid md:grid-cols-6 gap-2 text-black">
+          {data.rdvs &&
+            data.rdvs.length > 0 &&
+            data.rdvs.map((rdv) => (
+              <div key={rdv.id} className="bg-white shadow p-3 rounded">
+                <h2>{rdv.title}</h2>
+                <p>Avec: {rdv.withWhom}</p>
+                <p>Date: {rdv.date}</p>
+                <p>Adresse: {rdv.address}</p>
+              </div>
+            ))}
+        </div>
       </div>
     </PageWrapper>
   );
