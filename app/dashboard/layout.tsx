@@ -16,7 +16,7 @@ export default function CreateRdvLayout({ children }: { children: ReactNode }) {
 
         {/* Children */}
         <div className={`${open ? "w-[calc(100%-250px)]" : "w-[calc(100%)]"}`}>
-          <Navbar />
+          <Navbar open={open} />
           {children}
         </div>
       </main>

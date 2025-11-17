@@ -1,28 +1,23 @@
 "use client";
 
-import { use, useState } from "react";
-import { createRdv } from "@/app/actions/create/rdv";
+import { useState } from "react";
 import PageWrapper from "@/components/PageWrapper";
 import { useRouter } from "next/navigation";
-import { getUserById } from "@/app/actions/get/user";
+import { createUser } from "@/app/actions/create/user";
 
-export default function CreateRdvPage() {
+export default function CreateUserPage() {
   const router = useRouter();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(formData: FormData) {
-    const user = await getUserById(1);
-
     const data = {
-      title: formData.get("title") as string,
-      withWhom: formData.get("withWhom") as string,
-      date: formData.get("date") as string,
-      address: formData.get("address") as string,
-      userId: user.user?.id as number,
+      firstname: formData.get("firstname") as string,
+      lastname: formData.get("lastname") as string,
+      email: formData.get("email") as string,
     };
 
-    const result = await createRdv(data);
+    const result = await createUser(data);
 
     if (result.error) {
       setError(result.error);
@@ -36,7 +31,7 @@ export default function CreateRdvPage() {
       const form = document.querySelector("form") as HTMLFormElement;
       form.reset();
 
-      router.push("/dashboard/rdv");
+      router.push("/dashboard/user");
     }
   }
 
@@ -55,15 +50,15 @@ export default function CreateRdvPage() {
             </div>
           )}
 
-          <h2 className="text-xl">Créer un Rendez-vous</h2>
+          <h2 className="text-xl">Créer un utilisateur</h2>
 
           <div>
             <input
               type="text"
-              id="title"
-              name="title"
+              id="firstname"
+              name="firstname"
               required
-              placeholder="Chez"
+              placeholder="Prénom"
               className="w-full p-3 shadow bg-white rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
             />
           </div>
@@ -71,31 +66,21 @@ export default function CreateRdvPage() {
           <div>
             <input
               type="text"
-              id="withWhom"
-              name="withWhom"
+              id="lastname"
+              name="lastname"
               required
-              placeholder="Avec"
+              placeholder="Nom"
               className="w-full p-3 shadow bg-white rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
             />
           </div>
 
           <div>
             <input
-              type="datetime-local"
-              id="date"
-              name="date"
+              type="email"
+              id="email"
+              name="email"
               required
-              className="w-full p-3 shadow bg-white rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
-            />
-          </div>
-
-          <div>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              required
-              placeholder="Adresse"
+              placeholder="Email"
               className="w-full p-3 shadow bg-white rounded-xl outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
             />
           </div>
