@@ -1,4 +1,4 @@
-import { getRdvs } from "@/app/actions/get/rdv";
+import { getRdvs } from "@/actions/get/rdv";
 import CreateButton from "@/components/CreateButton";
 import PageWrapper from "@/components/PageWrapper";
 

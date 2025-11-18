@@ -1,10 +1,10 @@
 "use client";
 
 import { use, useState } from "react";
-import { createRdv } from "@/app/actions/create/rdv";
+import { createRdv } from "@/actions/create/rdv";
 import PageWrapper from "@/components/PageWrapper";
 import { useRouter } from "next/navigation";
-import { getUserById } from "@/app/actions/get/user";
+import { getUserById } from "@/actions/get/user";
 
 export default function CreateRdvPage() {
   const router = useRouter();

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import PageWrapper from "@/components/PageWrapper";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/app/actions/create/user";
+import { createUser } from "@/actions/create/user";
+import { IUser } from "@/types/interfaces/IUser";
 
 export default function CreateUserPage() {
   const router = useRouter();
@@ -11,10 +12,11 @@ export default function CreateUserPage() {
   const [error, setError] = useState("");
 
   async function handleSubmit(formData: FormData) {
-    const data = {
+    const data: IUser = {
       firstname: formData.get("firstname") as string,
       lastname: formData.get("lastname") as string,
       email: formData.get("email") as string,
+      password: formData.get("password") as string,
     };
 
     const result = await createUser(data);

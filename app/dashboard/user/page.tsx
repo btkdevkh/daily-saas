@@ -1,4 +1,4 @@
-import { getUsers } from "@/app/actions/get/user";
+import { getUsers } from "@/actions/get/user";
 import CreateButton from "@/components/CreateButton";
 import PageWrapper from "@/components/PageWrapper";
 
