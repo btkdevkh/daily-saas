@@ -4,11 +4,11 @@ import Image from "next/image";
 import { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Daily SaaS | Authentification",
+  title: "Daily SaaS | Inscription",
 };
 
 // Custom layout
-export default async function LoginLayout({
+export default async function SignupLayout({
   children,
 }: {
   children: ReactNode;

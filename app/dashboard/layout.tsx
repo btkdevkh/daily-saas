@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ReactNode, useState } from "react";
 
 // Custom layout
-export default function CreateRdvLayout({ children }: { children: ReactNode }) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (

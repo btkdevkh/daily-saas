@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // Custom layout
-export default async function CreateRdvLayout({
+export default async function CreateUserLayout({
   children,
 }: {
   children: ReactNode;

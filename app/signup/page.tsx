@@ -4,29 +4,41 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginUser } from "../../actions/auth/user";
+import { IUser } from "@/types/interfaces/IUser";
+import { createUser } from "../../actions/create/user";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(formData: FormData) {
+    const firstname = formData.get("firstname") as string;
+    const lastname = formData.get("lastname") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirm-password") as string;
 
-    if (!email || !password) {
+    if (!firstname || !lastname || !email || !password || !confirmPassword) {
       setError("Champs obligatoires");
       setMessage("");
       return;
     }
 
-    const data: { email: string; password: string } = {
+    if (password !== confirmPassword) {
+      setError("Les deux mots de passe ne sont pas les mêmes");
+      setMessage("");
+      return;
+    }
+
+    const data: IUser = {
+      firstname,
+      lastname,
       email,
       password,
     };
 
-    const result = await loginUser(data);
+    const result = await createUser(data);
 
     if (result.error) {
       setError(result.error);
@@ -65,7 +77,7 @@ export default function LoginPage() {
 
         <form action={handleSubmit} className="flex flex-col gap-3">
           <h2 className="text-xl font-bold uppercase text-center mb-3">
-            S'identifier
+            S'inscrire
           </h2>
 
           {message && (
@@ -78,6 +90,26 @@ export default function LoginPage() {
               {error}
             </div>
           )}
+
+          <div>
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              placeholder="Prénom *"
+              className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              placeholder="Nom *"
+              className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+            />
+          </div>
 
           <div>
             <input
@@ -99,26 +131,29 @@ export default function LoginPage() {
             />
           </div>
 
+          <div>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Confirmer le mot de passe *"
+              className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+            />
+          </div>
+
           <button
             type="submit"
             className="w-full mt-3 p-3 rounded shadow font-bold uppercase cursor-pointer text-white bg-yale-blue hover:bg-stormy-teal focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
           >
-            S'identifier
+            S'inscrire
           </button>
 
           <div className="flex justify-between items-center">
             <Link
-              href="/signup"
+              href="/login"
               className="text-blue-700 underline text-left text-xs"
             >
-              S'inscrire ?
-            </Link>
-
-            <Link
-              href="/reset-password"
-              className="text-blue-700 underline text-xs"
-            >
-              Mot de passe oublié ?
+              S'identifier ?
             </Link>
           </div>
         </form>
