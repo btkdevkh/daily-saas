@@ -11,10 +11,10 @@ const CreateButton = ({ page }: CreateButtonProps) => {
 
   return (
     <button
-      className="bg-yale-blue py-2 px-4 rounded cursor-pointer"
+      className="bg-yale-blue py-2 px-6 rounded font-semibold cursor-pointer"
       onClick={() => router.push(`/dashboard/${page}/create`)}
     >
-      Create
+      Créer
     </button>
   );
 };

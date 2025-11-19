@@ -16,7 +16,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <LeftNavbar open={open} setOpen={setOpen} />
 
         {/* Children */}
-        <div className={`${open ? "w-[calc(100%-300px)]" : "w-[calc(100%)]"}`}>
+        <div
+          className={`${
+            open ? "w-[calc(100%-300px)]" : "w-[calc(100%)] fade-in"
+          }`}
+        >
           <Navbar open={open} />
           {children}
         </div>
