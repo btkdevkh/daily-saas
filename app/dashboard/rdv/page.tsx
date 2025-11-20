@@ -5,6 +5,7 @@ import ActionButton from "@/components/ActionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Link from "next/link";
 import { PiPencilDuotone } from "react-icons/pi";
+import { format } from "date-fns";
 
 const RdvPage = async () => {
   const data = await getRdvs();
@@ -30,11 +31,13 @@ const RdvPage = async () => {
         {data.rdvs &&
           data.rdvs.length > 0 &&
           data.rdvs.map((rdv) => (
-            <div key={rdv.id} className="bg-white shadow p-3 rounded relative">
+            <div key={rdv.id} className="bg-white shadow p-3 relative">
               <div>
                 <h2>Sujet: {rdv.title}</h2>
                 <p>Avec: {rdv.withWhom}</p>
-                <p>Date: {rdv.date}</p>
+                <p>
+                  Date: {format(new Date(rdv.date), "dd/MM/yyyy à HH'h'mm")}
+                </p>
                 <p>Adresse: {rdv.address}</p>
               </div>
 

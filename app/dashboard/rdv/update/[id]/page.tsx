@@ -99,6 +99,7 @@ export default function UpdateRdvPage() {
             id="date"
             name="date"
             required
+            lang="fr"
             defaultValue={rdv?.date}
             className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
           />

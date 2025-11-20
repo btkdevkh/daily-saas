@@ -7,6 +7,7 @@ Un gestionnnaire de divers utilités développée avec Next.js et TypeScript.
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v4.png?raw=true)
 ![Daily SaaS RDVS](https://github.com/btkdevkh/daily-saas/blob/main/public/rdvs_v1.png?raw=true)
 ![Daily SaaS Crud](https://github.com/btkdevkh/daily-saas/blob/main/public/crud_v1.png?raw=true)
+![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v1.png?raw=true)
 
 ## Technologies utilisées
 
@@ -14,20 +15,29 @@ Un gestionnnaire de divers utilités développée avec Next.js et TypeScript.
 - TypeScript
 - NextAuth
 - TailwindCSS
-- SQL
+- Prisma ORM
 
 ## Structure du projet
 
 - `/app` - Pages et layout de l'application
 - `/components` - Composants réutilisables
-- `/data` - Données mockées (En attendant de l'implémentation la base de donnée)
+- `/data` - Données mockées
 - `/types` - Types et interfaces TypeScript
 - `/etc.`
 
 ## Installation
 
+Créer un fichier `.env` avec les variables ci-dessous
+
 ```bash
-npm install
+DATABASE_URL="url_bdd"
+NEXTAUTH_URL="url_origin"
+AUTH_SECRET="auth_secret"
+NEXT_PUBLIC_CHAT_AI_API_URL="https://votre_domaine.com/api/chat"
+```
+
+```bash
+npm i
 ```
 
 ## Démarrage en développement
