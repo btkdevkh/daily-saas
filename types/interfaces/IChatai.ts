@@ -5,5 +5,7 @@ export interface IChatai {
 
 export interface IChaitaiAsk {
   message: string;
-  replyHistory: IChatai[];
+  messages: IChatai[];
+  questions: IChatai[];
+  error?: string;
 }
