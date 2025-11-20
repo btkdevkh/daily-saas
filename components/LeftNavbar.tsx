@@ -23,7 +23,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
   return (
     <div
-      className={`bg-white shadow text-graphite flex flex-col ${
+      className={`bg-white min-h-screen shadow text-graphite flex flex-col ${
         open ? "w-[300px] fade-out" : "w-[50px] fade-in"
       } py-1 px-1.5`}
     >
