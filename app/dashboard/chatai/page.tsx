@@ -7,7 +7,9 @@ import { HashLoader } from "react-spinners";
 
 import rehypeHighlight from "rehype-highlight";
 import ReactMarkdown from "react-markdown";
-import "highlight.js/styles/github.css";
+import { toString } from "hast-util-to-string";
+import { FaCopy } from "react-icons/fa";
+import "highlight.js/styles/atom-one-dark.css";
 
 const ChatAiPage = () => {
   const msgContainer = useRef<HTMLDivElement | null>(null);
@@ -39,19 +41,22 @@ const ChatAiPage = () => {
 
       <div
         className={`${
-          state.messages.length === 0 ? "max-w-[515px]" : ""
+          state.messages.length === 0 ? "max-w-[600px]" : ""
         } mx-auto text-graphite`}
       >
         <div className="md:flex md:gap-5 overflow-y-auto">
           {/* Historique des questions */}
           {state.questions.length > 0 && (
-            <div className="bg-white p-5 max-h-[87vh] h-full flex-1 mb-5 overflow-y-auto">
+            <div className="bg-white p-5 max-h-[87vh] h-full flex-1 mb-5 overflow-y-auto rounded shadow">
               <h2 className="text-2xl mb-5">Historique des questions</h2>
               <div className="flex flex-col gap-2">
                 {state.questions
                   .filter((q) => q.sender === "user")
                   .map((q, i) => (
-                    <span key={i} className="bg-dust-grey p-2">
+                    <span
+                      key={i}
+                      className="bg-dust-grey p-2 rounded text-sm w-fit"
+                    >
                       {q.text}
                     </span>
                   ))}
@@ -64,7 +69,7 @@ const ChatAiPage = () => {
             ref={msgContainer}
           >
             {state.messages.length === 0 && (
-              <h2 className="text-[1.8rem]">
+              <h2 className="text-[2.1rem] text-center">
                 Bonjour, comment puis-je vous aider ?
               </h2>
             )}
@@ -76,11 +81,43 @@ const ChatAiPage = () => {
                   id={msg.text.split(" ").join("-")}
                   className="flex flex-col gap-3"
                 >
-                  <p className="bg-white p-2 w-fit">
+                  <p className="bg-white py-2 px-4 w-fit rounded shadow">
                     {state.questions[i].text}{" "}
                   </p>
 
-                  <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeHighlight]}
+                    components={{
+                      code({ node, className, children, ...props }) {
+                        if (!node) return;
+                        const codeText = toString(node);
+
+                        return (
+                          <code
+                            className={`${className} rounded my-1 relative`}
+                            {...props}
+                          >
+                            {node.children.some((c) => c.type !== "text") &&
+                              node.tagName === "code" && (
+                                <button
+                                  title="copier"
+                                  className="text-white absolute top-2 right-2 rounded cursor-pointer hover:text-dust-grey"
+                                  onClick={() => {
+                                    window.navigator.clipboard.writeText(
+                                      codeText
+                                    );
+                                  }}
+                                >
+                                  <FaCopy />
+                                </button>
+                              )}
+
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  >
                     {msg.text}
                   </ReactMarkdown>
                 </div>
