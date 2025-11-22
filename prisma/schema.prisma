@@ -20,6 +20,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   rdvs          Rdv[]
+  chatais       Chatai[]
+
   // Optional for WebAuthn support
   Authenticator Authenticator[]
  
@@ -54,7 +56,6 @@ model Session {
   userId       String
   expires      DateTime
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -63,7 +64,6 @@ model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
   @@unique([identifier, token])
 }
  
@@ -78,7 +78,6 @@ model Authenticator {
   credentialBackedUp   Boolean
   transports           String?
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
   @@id([userId, credentialID])
 }
 
@@ -89,8 +88,15 @@ model Rdv {
   date     String
   address  String
   userId   String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Chatai {
+  id        String   @id @default(cuid())
+  userId    String
+  question  String
+  answer    String?
+  createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("rdv")
 }

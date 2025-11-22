@@ -1,42 +1,64 @@
 "use server";
 
 import axios from "axios";
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import { getConnectedUser } from "../auth/user";
 import { IChaitaiAsk } from "@/types/interfaces/IChatai";
+import { getChatais } from "../get/chatai";
 
 const API_URL = process.env.NEXT_PUBLIC_CHAT_AI_API_URL!;
 
 const createChatAi = async (prevState: IChaitaiAsk, formData: FormData) => {
   try {
+    const { user } = await getConnectedUser();
+
+    if (!user) {
+      throw new Error("Identification inconnu");
+    }
+
     const question = formData.get("question") as string;
+
+    const history = await getChatais();
+    const format =
+      history.chatais?.map((chat) => {
+        return {
+          sender: "user",
+          text: chat.question,
+        };
+      }) ?? [];
 
     // User's question
     const userQuestion = { sender: "user", text: question };
-    const questions = [...prevState.questions, userQuestion];
+    const QA = [...prevState.messages, ...format, userQuestion];
 
     // Data structure matched with API endpoint
     const data = {
       message: question,
-      questions: questions,
+      questions: QA,
     };
 
     const res = await axios.post(API_URL, data);
 
     if (res.status !== 200) {
-      throw new Error("Impossible de communiquer avec le bot d'OpenAI");
+      throw new Error("Impossible de communiquer avec API d'OpenAI");
     }
 
     // Bot's response
-    const message = {
-      sender: "bot",
-      text: res.data.answer,
-    };
-    const messages = [...prevState.messages, message];
+    const botAnswer = { sender: "bot", text: res.data.answer };
+    const messages = [...QA, botAnswer];
 
-    return {
-      message: "Le bot a répondu avec success",
-      messages,
-      questions,
-    };
+    // Save to postgresql
+    await prisma.chatai.create({
+      data: {
+        question: question,
+        answer: res.data.answer,
+        userId: user.id,
+      },
+    });
+
+    revalidatePath("/");
+    return { success: true, messages };
   } catch (err) {
     if (err instanceof SyntaxError) {
       return { ...prevState, error: err.message as string };
