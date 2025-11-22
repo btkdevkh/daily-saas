@@ -4,8 +4,14 @@ export interface IChatai {
 }
 
 export interface IChaitaiAsk {
-  message: string;
+  success: boolean;
   messages: IChatai[];
-  questions: IChatai[];
   error?: string;
+}
+
+export interface IChataiModel {
+  id?: string;
+  question: string;
+  answer?: string;
+  createdAt: Date;
 }
