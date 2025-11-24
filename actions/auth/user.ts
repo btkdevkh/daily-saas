@@ -108,8 +108,8 @@ const forgetPassword = async (prevState: PrevState, formData: FormData) => {
 
     // Création du transport SMTP
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
       secure: false, // use TLS (STARTTLS) on port 587
       auth: {
         user: process.env.SMTP_USER,
@@ -204,8 +204,8 @@ const resetPassword = async (
 
     // Création du transport SMTP
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
       secure: false, // use TLS (STARTTLS) on port 587
       auth: {
         user: process.env.SMTP_USER,
