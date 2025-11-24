@@ -43,6 +43,11 @@ DATABASE_URL="url_bdd"
 NEXTAUTH_URL="url_origin"
 AUTH_SECRET="auth_secret"
 MASTER_KEY="master_key"
+SMTP_USER="smtp_user"
+SMTP_PASS="smtp_pass"
+SMTP_HOST="smtp_host"
+SMTP_PORT="smtp_port"
+NEXT_PUBLIC_APP_URL="url_origin"
 NEXT_PUBLIC_CHAT_AI_API_URL="https://votre_domaine.com/api/chat"
 ```
 
