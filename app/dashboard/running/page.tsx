@@ -5,7 +5,12 @@ import RunningList from "@/components/running/RunningList";
 import TabLink from "@/components/TabLink";
 import { IRunning } from "@/types/interfaces/IRunning";
 
-const RunningPage = async () => {
+const RunningPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const order = (await searchParams).order;
   const data = await getRunnings();
 
   const formatRunnings = data?.runnings
@@ -16,9 +21,11 @@ const RunningPage = async () => {
           ? ((r.kilometers as any).toNumber() as number)
           : Number(r.kilometers),
       calories:
-        typeof r.calories === "object" && "toNumber" in r.calories
-          ? ((r.calories as any).toNumber() as number)
-          : Number(r.calories),
+        r.calories !== undefined && r.calories !== null
+          ? "toNumber" in r.calories
+            ? r.calories.toNumber()
+            : Number(r.calories)
+          : Number(r.kilometers) * 68,
       date: String(r.date),
       createdAt:
         r.createdAt instanceof Date
@@ -38,8 +45,8 @@ const RunningPage = async () => {
           </span>
         ) : (
           <div className="flex items-center gap-1">
-            <TabLink url="/dashboard/running" title="Par 12" />
-            <TabLink url="/dashboard/running/all" title="Toutes" />
+            <TabLink url={`/dashboard/running?order=${1}`} title="Calories" />
+            <TabLink url={`/dashboard/running?order=${2}`} title="Distance" />
           </div>
         )}
 
@@ -48,22 +55,26 @@ const RunningPage = async () => {
 
       <div className="flex items-center gap-3">
         <div className="flex-3 flex flex-col gap-3 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded pr-3">
-          {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
-            <div
-              key={i}
-              className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
-            >
-              <span className="text-[#727272]">
-                Activités : {getRunningYear(chunk)}{" "}
-              </span>
+          {order && Number(order) === 1 && (
+            <>
+              {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
+                <div
+                  key={i}
+                  className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
+                >
+                  <span className="text-[#727272]">
+                    Activités : {getRunningYear(chunk)}{" "}
+                  </span>
 
-              <RunningChart
-                runnings={(chunk as IRunning[]).sort((a, b) =>
-                  a.date?.localeCompare(b?.date)
-                )}
-              />
-            </div>
-          ))}
+                  <RunningChart
+                    runnings={(chunk as IRunning[]).sort((a, b) =>
+                      a.date?.localeCompare(b?.date)
+                    )}
+                  />
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         <div className="flex-1 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded pr-3">
