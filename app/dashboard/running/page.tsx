@@ -1,15 +1,32 @@
-import { deleteRunning } from "@/actions/delete/running";
 import { getRunnings } from "@/actions/get/running";
-import ActionButton from "@/components/ActionButton";
 import CreateButton from "@/components/CreateButton";
-import RunningMode from "@/components/running/RunningMode";
-import { format } from "date-fns";
-import Link from "next/link";
-import { PiPencilDuotone } from "react-icons/pi";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import RunningChart from "@/components/running/RunningChart";
+import RunningList from "@/components/running/RunningList";
+import { IRunning } from "@/types/interfaces/IRunning";
 
 const RunningPage = async () => {
   const data = await getRunnings();
+
+  const formatRunnings = data?.runnings
+    ?.map((r) => ({
+      ...r,
+      kilometers:
+        typeof r.kilometers === "object" && "toNumber" in r.kilometers
+          ? ((r.kilometers as any).toNumber() as number)
+          : Number(r.kilometers),
+      calories:
+        typeof r.calories === "object" && "toNumber" in r.calories
+          ? ((r.calories as any).toNumber() as number)
+          : Number(r.calories),
+      date: String(r.date),
+      createdAt:
+        r.createdAt instanceof Date
+          ? r.createdAt.toISOString()
+          : String(r.createdAt),
+      durations:
+        typeof r.durations === "string" ? r.durations : Number(r.durations),
+    }))
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 
   return (
     <div className="p-3">
@@ -20,7 +37,7 @@ const RunningPage = async () => {
           </span>
         ) : (
           <span className="text-graphite font-semibold uppercase border-b-2 border-stormy-teal">
-            Running
+            Course à pied
           </span>
         )}
 
@@ -28,67 +45,55 @@ const RunningPage = async () => {
         <CreateButton page="running" />
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-graphite h-[87.5vh] overflow-y-auto rounded">
-        {data.runnings &&
-          data.runnings.length > 0 &&
-          data.runnings.map((running) => (
+      <div className="flex items-center gap-3">
+        <div className="flex-2 flex flex-col gap-3 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded pr-3">
+          {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
             <div
-              key={running.id}
-              className="bg-white shadow p-3 relative rounded"
+              key={i}
+              className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
             >
-              <div className="flex flex-col gap-5">
-                <div className="flex justify-between items-center">
-                  <span className="bg-amber-300 p-2 rounded-full">
-                    <RunningMode mode={running.mode} />
-                  </span>
-                  <span>{format(new Date(running.date), "dd/MM/yyyy")}</span>
-                </div>
+              <span className="text-[#727272]">
+                Activités en {getRunningYear(chunk)}{" "}
+              </span>
 
-                <hr className="h-px border-none bg-dust-grey" />
-
-                <div className="flex justify-between">
-                  <div className="flex flex-col items-center gap-2 p-1">
-                    <span className="font-bold">
-                      {Number(running.kilometers)}
-                    </span>
-                    <span>Kilomètres</span>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-2 p-1">
-                    <span className="font-bold">{running.durations}</span>
-                    <span>Temps</span>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-2 p-1">
-                    <span className="font-bold">
-                      {Number(running.calories)}
-                    </span>
-                    <span>Calories</span>
-                  </div>
-                </div>
-
-                <div className="justify-end flex gap-2">
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
-                    <Link href={`/dashboard/running/update/${running.id}`}>
-                      <PiPencilDuotone size={20} color="orange" />
-                    </Link>
-                  </div>
-
-                  <ActionButton
-                    id={running.id}
-                    handler={deleteRunning as (id?: string) => void}
-                  >
-                    <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
-                      <RiDeleteBin6Line size={20} color="crimson" />
-                    </div>
-                  </ActionButton>
-                </div>
-              </div>
+              <RunningChart
+                runnings={(chunk as IRunning[]).sort((a, b) =>
+                  a.createdAt?.localeCompare(b?.createdAt)
+                )}
+              />
             </div>
           ))}
+        </div>
+
+        <div className="flex-1 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded pr-3">
+          <RunningList runnings={data.runnings ?? []} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default RunningPage;
+
+// Helpers
+function chunkArray(array: any[], size: number) {
+  const result: any[] = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(
+      array
+        .sort((a, b) => b.createdAt?.localeCompare(a?.createdAt))
+        .slice(i, i + size)
+    );
+  }
+  return result;
+}
+
+function getRunningYear(array: any[]) {
+  const years = array.map((arr) => new Date(arr.date).getFullYear());
+
+  if (years.every((y) => y === years[0])) {
+    return years[0];
+  }
+
+  return years;
+}
