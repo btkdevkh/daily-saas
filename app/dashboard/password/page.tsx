@@ -14,7 +14,7 @@ const PasswordPage = async () => {
           </span>
         ) : (
           <span className="text-graphite font-semibold uppercase border-b-2 border-stormy-teal">
-            Mots de passe
+            Mot de passe
           </span>
         )}
 

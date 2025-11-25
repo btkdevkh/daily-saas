@@ -10,6 +10,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { signOut, useSession } from "next-auth/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
 
 type LeftNavbarProps = {
   open: boolean;
@@ -60,7 +61,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
               {open && (
                 <span
-                  className={`shadow p-1.5 w-full uppercase ${
+                  className={`w-full shadow p-1.5 uppercase ${
                     pathname.includes(menu.pathname)
                       ? "text-stormy-teal font-semibold"
                       : ""
@@ -103,7 +104,7 @@ const ICON_SIZE = 25;
 
 const MENU = [
   {
-    id: 1,
+    id: uuidv4(),
     title: "Utilisateurs",
     pathname: "/dashboard/user",
     show: true,
@@ -112,7 +113,25 @@ const MENU = [
     access: "Admin",
   },
   {
-    id: 2,
+    id: uuidv4(),
+    title: "Course à pied",
+    pathname: "/dashboard/running",
+    show: false,
+    icon: <FaRunning size={ICON_SIZE} color="#353535" />,
+    iconActive: <FaRunning size={ICON_SIZE} color="#3C6E71" />,
+    access: "User",
+  },
+  {
+    id: uuidv4(),
+    title: "Chat I.A",
+    pathname: "/dashboard/chatai",
+    show: false,
+    icon: <RiRobot2Fill size={ICON_SIZE} color="#353535" />,
+    iconActive: <RiRobot2Fill size={ICON_SIZE} color="#3C6E71" />,
+    access: "User",
+  },
+  {
+    id: uuidv4(),
     title: "Rendez-vous",
     pathname: "/dashboard/rdv",
     show: false,
@@ -121,30 +140,12 @@ const MENU = [
     access: "User",
   },
   {
-    id: 3,
-    title: "Mots de passe",
+    id: uuidv4(),
+    title: "Mot de passe",
     pathname: "/dashboard/password",
     show: false,
     icon: <MdOutlinePassword size={ICON_SIZE} color="#353535" />,
     iconActive: <MdOutlinePassword size={ICON_SIZE} color="#3C6E71" />,
-    access: "User",
-  },
-  {
-    id: 4,
-    title: "Running",
-    pathname: "/dashboard/running",
-    show: false,
-    icon: <FaRunning size={ICON_SIZE} color="#353535" />,
-    iconActive: <FaRunning size={ICON_SIZE} color="#3C6E71" />,
-    access: "User",
-  },
-  {
-    id: 5,
-    title: "Chat I.A",
-    pathname: "/dashboard/chatai",
-    show: false,
-    icon: <RiRobot2Fill size={ICON_SIZE} color="#353535" />,
-    iconActive: <RiRobot2Fill size={ICON_SIZE} color="#3C6E71" />,
     access: "User",
   },
 ];
