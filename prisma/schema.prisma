@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,32 +7,30 @@ datasource db {
 }
 
 model User {
-  id            String @id @default(cuid())
+  id            String               @id @default(cuid())
   firstname     String
   lastname      String
-  email         String @unique
+  email         String               @unique
   password      String
   role          String
   name          String?
   image         String?
   emailVerified DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
   accounts      Account[]
-  sessions      Session[]
-  rdvs          Rdv[]
+  Authenticator Authenticator[]
   chatais       Chatai[]
   passwords     Password[]
+  resetTokens   PasswordResetToken[]
+  authCodes     AuthCode[]
+  rdvs          Rdv[]
   runnings      Running[]
-  resetTokens   PasswordResetToken[] 
-
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sessions      Session[]
 }
- 
+
 model Account {
-  id                String @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   type              String
   provider          String
@@ -45,34 +42,33 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
-  id           String @id @default(cuid())
-  sessionToken String @unique
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
   userId       String
   expires      DateTime
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
+
   @@unique([identifier, token])
 }
- 
-// Optional for WebAuthn support
+
 model Authenticator {
-  credentialID         String @unique
+  credentialID         String  @unique
   userId               String
   providerAccountId    String
   credentialPublicKey  String
@@ -80,32 +76,40 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([userId, credentialID])
 }
 
 model PasswordResetToken {
-  id          String   @id @default(cuid())
-  token       String   @unique
-  expiresAt   DateTime
-  createdAt   DateTime @default(now())
-  used        Boolean  @default(false)
-
-  userId      String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  used      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Models
-model Rdv {
-  id       String @id @default(cuid())
-  title    String
-  withWhom String
-  date     String
-  address  String
+model AuthCode {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  expiresAt DateTime
   createdAt DateTime @default(now())
+  used      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  userId   String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Rdv {
+  id        String   @id @default(cuid())
+  title     String
+  withWhom  String
+  date      String
+  address   String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Password {
@@ -115,30 +119,27 @@ model Password {
   sites     String[]
   note      String
   createdAt DateTime @default(now())
-
   userId    String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Running {
-  id          String   @id @default(cuid())
-  mode        String
-  kilometers  Decimal  @db.Decimal(10, 2)
-  durations   String
-  calories    Decimal  @db.Decimal(10, 2)
-  date        String
-  createdAt   DateTime @default(now())
-
-  userId      String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  mode       String
+  kilometers Decimal  @db.Decimal(10, 2)
+  durations  String
+  calories   Decimal  @db.Decimal(10, 2)
+  date       String
+  createdAt  DateTime @default(now())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Chatai {
   id        String   @id @default(cuid())
+  userId    String
   question  String
   answer    String?
   createdAt DateTime @default(now())
-
-  userId    String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

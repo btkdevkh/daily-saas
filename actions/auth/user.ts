@@ -1,6 +1,7 @@
 "use server";
 
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import { randomBytes, createHash } from "crypto";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
@@ -9,38 +10,96 @@ import { LoginPrevState } from "@/types/LoginPrevState";
 import { getUserByEmail, getUserById } from "../get/user";
 import { PrevState } from "@/types/PrevState";
 import nodemailer from "nodemailer";
-import { addHours } from "date-fns";
+import { addHours, addMinutes } from "date-fns";
 
 const loginUser = async (prevState: LoginPrevState, formData: FormData) => {
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    if (!email || !password) {
+    if (!email && !prevState.code) {
       throw new Error("Champs obligatoires");
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+    // Password mode
+    if (password) {
+      const user = await prisma.user.findUnique({
+        where: { email },
+      });
 
-    if (!user) {
-      throw new Error("Identification inconnu");
+      if (!user) {
+        throw new Error("Identification inconnu");
+      }
+
+      const matched = await bcrypt.compare(password, user.password);
+
+      if (!matched) {
+        throw new Error("Identification inconnu");
+      }
+
+      return {
+        ...prevState,
+        success: true,
+        message: "Identification réussi",
+        email,
+        password,
+        mode: "password",
+      };
+    } else {
+      // Unique code mode
+      const user = await prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (!user) {
+        throw new Error("Identification inconnu");
+      }
+
+      // Send unique code to user
+      const uniqueCode = generateCode();
+      const hashedCode = createHash("sha256").update(uniqueCode).digest("hex");
+
+      // Création du transport SMTP
+      const transporter = nodemailer.createTransport({
+        host: process.env.NEXT_PUBLIC_SMTP_HOST,
+        port: Number(process.env.NEXT_PUBLIC_SMTP_PORT),
+        secure: false, // use TLS (STARTTLS) on port 587
+        auth: {
+          user: process.env.NEXT_PUBLIC_SMTP_USER,
+          pass: process.env.NEXT_PUBLIC_SMTP_PASS,
+        },
+      });
+
+      // Save in DB
+      await prisma.authCode.create({
+        data: {
+          code: hashedCode,
+          expiresAt: addMinutes(new Date(), 15),
+          used: false,
+          userId: user.id,
+        },
+      });
+
+      await transporter.sendMail({
+        from: `"Support" <${process.env.NEXT_PUBLIC_SMTP_USER}>`,
+        to: email,
+        subject: "Identification par mot de passe",
+        html: `
+        <p>Voici, votre code à l'usage unique :</p>
+        <p><b>${uniqueCode}</b></p>
+        <p>Ce code expire dans 15 minutes.</p>
+      `,
+      });
+
+      return {
+        ...prevState,
+        success: false,
+        message: "",
+        email,
+        password,
+        mode: "code",
+      };
     }
-
-    const matched = await bcrypt.compare(password, user.password);
-
-    if (!matched) {
-      throw new Error("Identification inconnu");
-    }
-
-    return {
-      ...prevState,
-      success: true,
-      message: "Identification réussi",
-      email,
-      password,
-    };
   } catch (err) {
     if (err instanceof SyntaxError) {
       return { ...prevState, success: false, message: err.message as string };
@@ -243,3 +302,7 @@ const resetPassword = async (
 };
 
 export { loginUser, getConnectedUser, forgetPassword, resetPassword };
+
+const generateCode = () => {
+  return crypto.randomInt(0, 1000000).toString().padStart(6, "0");
+};

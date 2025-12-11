@@ -3,4 +3,6 @@ export type LoginPrevState = {
   message: string;
   email: string;
   password: string;
+  code: string;
+  mode: "password" | "code" | string;
 };
