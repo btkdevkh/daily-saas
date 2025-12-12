@@ -35,33 +35,37 @@ const RunningRecapChart = ({ runnings }: { runnings: IRunning[] }) => {
 
   const CustomLegend = () => {
     return (
-      <div className="flex gap-5 p-3 text-graphite">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-stormy-teal" />
-          <span>
-            <b>Kilométrage :</b> {totalKm.toFixed(1)} km
-          </span>
+      <div className="flex gap-5 p-3 flex-wrap justify-center text-graphite">
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-stormy-teal" />
+            <span className="font-semibold">Kilométrage</span>
+          </div>
+          <span>{totalKm.toFixed(1)} km</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-[#ff5e00]" />
-          <span>
-            <b>Calories :</b> {totalCalories.toFixed(2)} kcal
-          </span>
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-[#ff5e00]" />
+            <span className="font-semibold">Calories</span>
+          </div>
+          <span>{totalCalories.toFixed(2)} kcal</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-[#e53935]" />
-          <span>
-            <b>Durée totale :</b> {formatDuration(totalDuration)}
-          </span>
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-[#e53935]" />
+            <span className="font-semibold">Durée totale</span>
+          </div>
+          <span>{formatDuration(totalDuration)}</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-[#1976d2]" />
-          <span>
-            <b>Pace moyen :</b> {formatPace(averagePace)}
-          </span>
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-[#1976d2]" />
+            <span className="font-semibold">Pace moyen</span>
+          </div>
+          <span>{formatPace(averagePace)}</span>
         </div>
       </div>
     );

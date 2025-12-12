@@ -1,4 +1,5 @@
 import BackButton from "@/components/BackButton";
+import ChildrenWrapper from "@/components/ChildrenWrapper";
 import PageWrapper from "@/components/PageWrapper";
 import TabLink from "@/components/TabLink";
 import { Metadata } from "next";
@@ -17,16 +18,11 @@ export default async function CreateRunningLayout({
   return (
     <PageWrapper>
       <div className="flex justify-between items-center p-3">
-        <div className="flex items-center gap-1">
-          <TabLink url="/dashboard/running/create" title="Créer" />
-        </div>
-
+        <TabLink url="/dashboard/running/create" title="Créer" />
         <BackButton />
       </div>
 
-      <div className="w-[500px] mx-auto bg-dust-grey flex items-center p-8">
-        {children}
-      </div>
+      <ChildrenWrapper>{children}</ChildrenWrapper>
     </PageWrapper>
   );
 }

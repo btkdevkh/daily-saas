@@ -5,7 +5,11 @@ type PageWrapperProps = {
 };
 
 const PageWrapper = ({ children }: PageWrapperProps) => {
-  return <main className="min-h-screen w-full bg-dust-grey">{children}</main>;
+  return (
+    <main className="min-h-screen min-w-[320px] w-full bg-dust-grey">
+      {children}
+    </main>
+  );
 };
 
 export default PageWrapper;

@@ -7,7 +7,7 @@ import { ReactNode, Suspense, useState } from "react";
 
 // Custom layout
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <Suspense>

@@ -1,19 +1,23 @@
-import BackButton from "@/components/BackButton";
 import ChataiForm from "@/components/chatai/ChataiForm";
 import { getChatais } from "@/actions/get/chatai";
 import TabLink from "@/components/TabLink";
 
-const ChatAiPage = async () => {
+const ChatAiPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const width = (await searchParams).w;
   const data = await getChatais();
 
   return (
-    <div className="p-3">
+    <div
+      className={`px-3 pt-3 max-h-[calc(100vh-7vh)] min-w-[320px] w-[calc(100vw-${
+        width ? width : "50"
+      }px)] overflow-y-auto`}
+    >
       <div className="flex justify-between items-center mb-3">
-        <div className="flex items-center gap-1">
-          <TabLink url="/dashboard/chatai" title="Chat I.A" />
-        </div>
-
-        <BackButton />
+        <TabLink url="/dashboard/chatai" title="Chat I.A" />
       </div>
 
       <div

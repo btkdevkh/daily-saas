@@ -3,6 +3,7 @@ import PageWrapper from "@/components/PageWrapper";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton";
 import TabLink from "@/components/TabLink";
+import ChildrenWrapper from "@/components/ChildrenWrapper";
 
 export const metadata: Metadata = {
   title: "Daily SaaS | Création",
@@ -17,16 +18,11 @@ export default async function CreateUserLayout({
   return (
     <PageWrapper>
       <div className="flex justify-between items-center p-3">
-        <div className="flex items-center gap-1">
-          <TabLink url="/dashboard/user/create" title="Créer" />
-        </div>
-
+        <TabLink url="/dashboard/user/create" title="Créer" />
         <BackButton />
       </div>
 
-      <div className="w-[500px] mx-auto bg-dust-grey flex items-center p-8">
-        {children}
-      </div>
+      <ChildrenWrapper>{children}</ChildrenWrapper>
     </PageWrapper>
   );
 }

@@ -31,56 +31,46 @@ const ChataiForm = ({ messages }: ChataiFormProps) => {
   }, [state]);
 
   return (
-    <div>
+    <div className="md:flex md:gap-3">
+      {/* Historique des questions */}
+      <ChataiQuestionHistory messages={messages} />
+
       <div
-        className={`${
-          messages.length === 0 ? "max-w-[600px]" : ""
-        } mx-auto text-graphite`}
+        className={`flex flex-col gap-5 flex-3 overflow-y-auto ${
+          messages.length > 0 ? "bg-white p-3" : ""
+        } rounded`}
+        ref={msgContainer}
       >
-        <div className="md:flex md:gap-5 overflow-y-auto">
-          {/* Historique des questions */}
-          <ChataiQuestionHistory messages={messages} />
+        {messages.length === 0 && (
+          <h2 className="text-[2rem]">Bonjour, comment puis-je vous aider ?</h2>
+        )}
 
-          <div
-            className="w-full h-[85vh] mx-auto flex flex-col gap-5 flex-3 overflow-y-auto px-3"
-            ref={msgContainer}
-          >
-            {messages.length === 0 && (
-              <h2 className="text-[2rem]">
-                Bonjour, comment puis-je vous aider ?
-              </h2>
-            )}
+        {/* Historique des réponses */}
+        <ChataiResponseHistory messages={messages} />
 
-            {/* Historique des réponses */}
-            <div className="flex flex-col gap-5">
-              <ChataiResponseHistory messages={messages} />
-            </div>
-
-            <form
-              action={formAction}
-              className="flex flex-col justify-center items-center gap-0.5"
+        <form
+          action={formAction}
+          className="flex flex-col justify-center items-center gap-0.5"
+        >
+          <div className="w-full relative">
+            <input
+              name="question"
+              placeholder="Posez une question..."
+              className="w-full max-h-[150px] p-2 bg-white focus:bg-none border-2 border-yale-blue focus:border-stormy-teal outline-none rounded-lg"
+            />
+            <button
+              type="submit"
+              disabled={isPending}
+              className="p-1 hover:bg-white transition rounded-lg cursor-pointer absolute top-1.5 right-1.5"
             >
-              <div className="w-full relative">
-                <input
-                  name="question"
-                  placeholder="Posez une question..."
-                  className="w-full max-h-[150px] p-2 bg-white focus:bg-none border-2 border-yale-blue focus:border-stormy-teal outline-none rounded-lg"
-                />
-                <button
-                  type="submit"
-                  disabled={isPending}
-                  className="p-1 hover:bg-white transition rounded-lg cursor-pointer absolute top-1.5 right-1.5"
-                >
-                  {isPending ? (
-                    <HashLoader size={25} color="#36d7b7" />
-                  ) : (
-                    <RiRobot2Fill size={25} color="#36d7b7" />
-                  )}
-                </button>
-              </div>
-            </form>
+              {isPending ? (
+                <HashLoader size={25} color="#36d7b7" />
+              ) : (
+                <RiRobot2Fill size={25} color="#36d7b7" />
+              )}
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

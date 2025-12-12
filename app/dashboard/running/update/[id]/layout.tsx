@@ -1,4 +1,5 @@
 import BackButton from "@/components/BackButton";
+import ChildrenWrapper from "@/components/ChildrenWrapper";
 import PageWrapper from "@/components/PageWrapper";
 import TabLink from "@/components/TabLink";
 import { Metadata } from "next";
@@ -20,16 +21,11 @@ export default async function UpdateRunningLayout({
   return (
     <PageWrapper>
       <div className="flex justify-between items-center p-3">
-        <div className="flex items-center gap-1">
-          <TabLink url={`/dashboard/running/update/${id}`} title="Modifier" />
-        </div>
-
+        <TabLink url={`/dashboard/running/update/${id}`} title="Modifier" />
         <BackButton />
       </div>
 
-      <div className="w-[500px] mx-auto bg-dust-grey flex items-center p-8">
-        {children}
-      </div>
+      <ChildrenWrapper>{children}</ChildrenWrapper>
     </PageWrapper>
   );
 }

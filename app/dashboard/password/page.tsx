@@ -14,9 +14,7 @@ const PasswordPage = async () => {
             Aucune donnée disponible
           </span>
         ) : (
-          <div className="flex items-center gap-1">
-            <TabLink url="/dashboard/password" title="Mot de passe" />
-          </div>
+          <TabLink url="/dashboard/password" title="Mot de passe" />
         )}
 
         <CreateButton page="password" />

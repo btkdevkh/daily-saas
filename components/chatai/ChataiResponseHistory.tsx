@@ -14,7 +14,7 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
     <>
       {messages.map((msg, i) => (
         <div key={i} className="flex flex-col gap-3">
-          <p className="bg-white py-2 px-4 w-fit rounded shadow">
+          <p className="bg-dust-grey p-2 w-fit rounded shadow">
             {msg.question}
           </p>
 
