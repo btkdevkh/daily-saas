@@ -16,7 +16,7 @@ const CreateButton = ({ page }: CreateButtonProps) => {
       onClick={() => router.push(`/dashboard/${page}/create`)}
     >
       <IoMdAdd size={20} />
-      <span>Créer</span>
+      <span className="hidden md:block">Créer</span>
     </button>
   );
 };

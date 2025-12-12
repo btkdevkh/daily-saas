@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { IoCalendarNumberSharp } from "react-icons/io5";
 import { MdOutlinePassword } from "react-icons/md";
 import { RiRobot2Fill } from "react-icons/ri";
@@ -19,13 +19,24 @@ type LeftNavbarProps = {
 
 const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
   const { data: session } = useSession();
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const order = searchParams.get("order") ?? 1;
 
+  useEffect(() => {
+    if (open && pathname === "/dashboard/chatai") {
+      return router.replace(`${pathname}?w=300`);
+    }
+
+    if (!open && pathname === "/dashboard/chatai") {
+      return router.replace(`${pathname}?w=0`);
+    }
+  }, [open, pathname]);
+
   return (
     <div
-      className={`bg-white h-screen shadow text-graphite flex flex-col ${
+      className={`bg-white min-h-screen shadow text-graphite flex flex-col ${
         open ? "w-[300px] fade-out" : "w-[50px] fade-in"
       } py-1 px-1.5`}
     >
@@ -39,7 +50,9 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
           <button
             type="button"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open);
+            }}
             className="cursor-pointer hover:bg-[rgb(0,0,0,0.2)] rounded-full p-2 transition"
           >
             <GiHamburgerMenu size={23} />
@@ -91,7 +104,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
         <button
           type="button"
           title="Déconnexion"
-          className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold mt-auto mb-3 self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase"
+          className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold mt-auto mb-15 self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase"
           onClick={() => signOut()}
         >
           <AiOutlineLogout size={28} /> <span>Déconnexion</span>
@@ -100,7 +113,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
         <button
           type="button"
           title="Déconnexion"
-          className="w-fit py-1.5 px-1.5 rounded-full text-graphite mt-auto mb- self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition"
+          className="w-fit py-1.5 px-1.5 rounded-full text-graphite mt-auto mb-13 self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition"
           onClick={() => signOut()}
         >
           <AiOutlineLogout size={28} />

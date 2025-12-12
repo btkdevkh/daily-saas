@@ -9,7 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const RunningList = ({ runnings }: { runnings: Running[] }) => {
   return (
-    <div className="grid gap-3 text-graphite">
+    <div className="grid gap-1 text-graphite">
       {runnings &&
         runnings.length > 0 &&
         runnings.map((running) => (

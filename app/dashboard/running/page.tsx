@@ -57,11 +57,11 @@ const RunningPage = async ({
         <CreateButton page="running" />
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col md:flex-row items-center gap-3 max-h-[calc(100vh-120px)]">
         <div
-          className={`flex-3 flex flex-col gap-3 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded ${
-            order && Number(order) === 1 ? "pr-3" : ""
-          }`}
+          className={`w-full max-h-[50vh] md:max-h-[87vh] overflow-y-auto overflow-x-hidden flex flex-col gap-1 rounded ${
+            order && Number(order) === 1 ? "pr-1" : ""
+          } flex-3 shadow`}
         >
           {order && Number(order) === 1 && (
             <>
@@ -101,7 +101,7 @@ const RunningPage = async ({
         </div>
 
         {order && Number(order) === 1 && (
-          <div className="flex-1 h-[87.5vh] overflow-y-auto overflow-x-hidden rounded pr-3">
+          <div className="w-full max-h-[43vh] md:max-h-[87vh] overflow-y-auto overflow-x-hidden rounded pr-1 shadow md:flex-2 xl:flex-1">
             <RunningList runnings={data.runnings ?? []} />
           </div>
         )}

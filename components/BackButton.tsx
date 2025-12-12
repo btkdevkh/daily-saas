@@ -16,7 +16,7 @@ const BackButton = ({ url }: BackButtonProps) => {
       onClick={() => router.back()}
     >
       <IoMdArrowRoundBack size={20} />
-      <span>Retour</span>
+      <span className="hidden md:block">Retour</span>
     </button>
   );
 };
