@@ -47,7 +47,6 @@ const loginUser = async (prevState: LoginPrevState, formData: FormData) => {
       };
     } else {
       // CODE MODE
-
       if (!prevState.code) {
         const user = await prisma.user.findUnique({
           where: { email },
