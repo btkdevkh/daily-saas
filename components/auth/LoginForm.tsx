@@ -7,12 +7,23 @@ import { loginUser } from "../../actions/auth/user";
 import { signIn } from "next-auth/react";
 import SubmitButton from "../SubmitButton";
 import { IoMdSend } from "react-icons/io";
+import { TiDelete } from "react-icons/ti";
 
 export default function LoginForm() {
   const router = useRouter();
   const [loginWithPassword, setLoginWithPassword] = useState(false);
   const [code, setCode] = useState("");
   const [openModal, setOpenModal] = useState(true);
+  const [numbers] = useState(() => {
+    const arr = Array.from({ length: 10 }, (_, i) => i);
+
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
+  });
 
   const [state, formAction, isPending] = useActionState(loginUser, {
     success: false,
@@ -26,19 +37,30 @@ export default function LoginForm() {
   useEffect(() => {
     if (code) {
       state.code = code;
+    } else {
+      state.code = "";
     }
   }, [code]);
 
   useEffect(() => {
     if (state.success && state.message) {
-      // Signin NextAuth
-      signIn("credentials", {
-        email: state.email,
-        password: state.password,
-        redirect: false,
-      });
+      // Signin NextAuth with MODE
+      if (state.mode === "password") {
+        signIn("password-login", {
+          email: state.email,
+          password: state.password,
+          redirect: false,
+        });
+      } else {
+        signIn("otp-login", {
+          email: state.email,
+          code: state.code,
+          redirect: false,
+        });
+      }
 
       setTimeout(() => router.push("/"), 1000);
+      setOpenModal(false);
     }
   }, [state]);
 
@@ -55,7 +77,7 @@ export default function LoginForm() {
           </div>
         )}
 
-        {!state.success && state.message && (
+        {!state.success && state.message && state.mode !== "code" && (
           <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
             {state.message}
           </div>
@@ -73,13 +95,11 @@ export default function LoginForm() {
 
         {!loginWithPassword && (
           <div className="flex justify-between">
-            <span className="text-left text-xs">Un code vous sera envoyé</span>
-
             <button
               className="text-blue-700 underline text-left text-xs cursor-pointer"
               onClick={() => setLoginWithPassword(true)}
             >
-              S'identifier par le mot de passe
+              S'identifier par le mot de passe ?
             </button>
           </div>
         )}
@@ -98,10 +118,10 @@ export default function LoginForm() {
 
             <button
               type="button"
-              className="text-blue-700 text-left text-xs cursor-pointer"
+              className="text-blue-700 underline text-left text-xs cursor-pointer"
               onClick={() => setLoginWithPassword(false)}
             >
-              S'identifier par un code unique
+              S'identifier par un code unique ?
             </button>
           </>
         )}
@@ -123,23 +143,28 @@ export default function LoginForm() {
 
         {/* Code modal */}
         {openModal && !state.success && state.mode === "code" && (
-          <div
-            className="bg-[rgba(0,0,0,0.7)] absolute top-0 left-0 bottom-0 right-0 px-8 flex items-center modal"
-            onClick={(e) => {
-              if ((e.target as HTMLDivElement).classList.contains("modal")) {
-                setOpenModal((prev) => !prev);
-              }
-            }}
-          >
-            <div className="bg-white w-[345px] flex flex-col gap-1.5 p-3 rounded">
+          <div className="bg-[rgba(0,0,0,0.7)] absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center p-8">
+            <div className="bg-white md:w-full w-[436px] mx-auto md:mx-0 flex flex-col gap-1.5 p-3 rounded shadow">
               <div className="flex justify-between gap-1">
-                <input
-                  type="text"
-                  value={code}
-                  placeholder="Code unique"
-                  className="w-full p-3 shadow bg-white outline-graphite rounded"
-                  onChange={(e) => setCode(e.target.value)}
-                />
+                <div className="w-full relative">
+                  <input
+                    type="text"
+                    name="code"
+                    value={code}
+                    placeholder="Code unique"
+                    className="w-full p-3 shadow bg-white outline-graphite rounded"
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+
+                  {code && (
+                    <button
+                      className="absolute top-3 right-2 cursor-pointer"
+                      onClick={() => setCode("")}
+                    >
+                      <TiDelete size={25} />
+                    </button>
+                  )}
+                </div>
 
                 <button
                   type="submit"
@@ -150,10 +175,11 @@ export default function LoginForm() {
               </div>
 
               <div className="grid grid-cols-5 gap-0.5">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                {numbers.map((num) => (
                   <span
                     key={num}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       if (code.length >= 6) return;
                       setCode((prev) => prev + num);
                     }}
@@ -163,6 +189,20 @@ export default function LoginForm() {
                   </span>
                 ))}
               </div>
+
+              {!state.success && state.message && (
+                <>
+                  <div className="bg-red-100 text-red-700 p-3 rounded">
+                    {state.message}
+                  </div>
+                  <button
+                    className="text-blue-700 underline text-right text-xs cursor-pointer"
+                    onClick={() => setOpenModal(false)}
+                  >
+                    Redemandez-en !
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
