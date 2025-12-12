@@ -9,15 +9,16 @@ Un SaaS de gestionnnaire d'utilités développée avec Next.js et TypeScript.
 - Chat I.A d'OpenAI
 
 ![Daily SaaS Signup](https://github.com/btkdevkh/daily-saas/blob/main/public/signup_v3.png?raw=true)
-![Daily SaaS Login](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v5.png?raw=true)
+![Daily SaaS Login](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v6.png?raw=true)
+![Daily SaaS Login code](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v6_code.png?raw=true)
 ![Daily SaaS Forget](https://github.com/btkdevkh/daily-saas/blob/main/public/forgetpass_v2.png?raw=true)
 ![Daily SaaS Reset](https://github.com/btkdevkh/daily-saas/blob/main/public/resetpass_v2.png?raw=true)
 
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v9.png?raw=true)
 ![Daily SaaS Rdv](https://github.com/btkdevkh/daily-saas/blob/main/public/rdv_v5.png?raw=true)
 ![Daily SaaS Password](https://github.com/btkdevkh/daily-saas/blob/main/public/password_v3.png?raw=true)
-![Daily SaaS Running](https://github.com/btkdevkh/daily-saas/blob/main/public/running_v4.png?raw=true)
-![Daily SaaS Running Recap](https://github.com/btkdevkh/daily-saas/blob/main/public/running_recap_v1.png?raw=true)
+![Daily SaaS Running](https://github.com/btkdevkh/daily-saas/blob/main/public/running_v5.png?raw=true)
+![Daily SaaS Running Recap](https://github.com/btkdevkh/daily-saas/blob/main/public/running_recap_v2.png?raw=true)
 ![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v8.png?raw=true)
 
 ## Technologies utilisées

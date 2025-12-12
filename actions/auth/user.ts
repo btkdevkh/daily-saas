@@ -21,7 +21,7 @@ const loginUser = async (prevState: LoginPrevState, formData: FormData) => {
       throw new Error("Champs obligatoires");
     }
 
-    // Password mode
+    // PASSWORD MODE
     if (password) {
       const user = await prisma.user.findUnique({
         where: { email },
@@ -46,59 +46,105 @@ const loginUser = async (prevState: LoginPrevState, formData: FormData) => {
         mode: "password",
       };
     } else {
-      // Unique code mode
-      const user = await prisma.user.findUnique({
-        where: { email },
-      });
+      // CODE MODE
 
-      if (!user) {
-        throw new Error("Identification inconnu");
+      if (!prevState.code) {
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
+
+        if (!user) {
+          throw new Error("Identification inconnu");
+        }
+
+        // Send unique code to user
+        const uniqueCode = generateCode();
+        const hashedCode = createHash("sha256")
+          .update(uniqueCode)
+          .digest("hex");
+
+        // Création du transport SMTP
+        const transporter = nodemailer.createTransport({
+          host: process.env.NEXT_PUBLIC_SMTP_HOST,
+          port: Number(process.env.NEXT_PUBLIC_SMTP_PORT),
+          secure: false, // use TLS (STARTTLS) on port 587
+          auth: {
+            user: process.env.NEXT_PUBLIC_SMTP_USER,
+            pass: process.env.NEXT_PUBLIC_SMTP_PASS,
+          },
+        });
+
+        // Save in DB
+        await prisma.authCode.create({
+          data: {
+            code: hashedCode,
+            expiresAt: addMinutes(new Date(), 15),
+            used: false,
+            userId: user.id,
+          },
+        });
+
+        await transporter.sendMail({
+          from: `"Support" <${process.env.NEXT_PUBLIC_SMTP_USER}>`,
+          to: email,
+          subject: "Identification par code unique",
+          html: `
+            <p>Voici, votre code à l'usage unique :</p>
+            <p><b>${uniqueCode}</b></p>
+            <p>Ce code expire dans 15 minutes.</p>
+          `,
+        });
+
+        return {
+          ...prevState,
+          success: false,
+          email: user.email,
+          message: "",
+          mode: "code",
+        };
+      } else {
+        if (!prevState.code) {
+          throw new Error("Champs obligatoires");
+        }
+
+        // Rehash code to compare
+        const hashedCodeToCompare = createHash("sha256")
+          .update(prevState.code)
+          .digest("hex");
+
+        const codeRecord = await prisma.authCode.findFirst({
+          where: {
+            code: hashedCodeToCompare,
+            used: false,
+            expiresAt: { gt: new Date() },
+          },
+        });
+
+        if (!codeRecord) {
+          throw new Error("Code invalide ou expiré, réessayez !");
+        }
+
+        // Update AuthCode table
+        await prisma.authCode.update({
+          where: { id: codeRecord.id },
+          data: { used: true },
+        });
+
+        const { user } = await getUserById(codeRecord.userId);
+
+        if (!user) {
+          throw new Error("Identification inconnu");
+        }
+
+        return {
+          ...prevState,
+          success: true,
+          email: user.email,
+          message: "Identification réussi",
+          mode: "code",
+          code: hashedCodeToCompare,
+        };
       }
-
-      // Send unique code to user
-      const uniqueCode = generateCode();
-      const hashedCode = createHash("sha256").update(uniqueCode).digest("hex");
-
-      // Création du transport SMTP
-      const transporter = nodemailer.createTransport({
-        host: process.env.NEXT_PUBLIC_SMTP_HOST,
-        port: Number(process.env.NEXT_PUBLIC_SMTP_PORT),
-        secure: false, // use TLS (STARTTLS) on port 587
-        auth: {
-          user: process.env.NEXT_PUBLIC_SMTP_USER,
-          pass: process.env.NEXT_PUBLIC_SMTP_PASS,
-        },
-      });
-
-      // Save in DB
-      await prisma.authCode.create({
-        data: {
-          code: hashedCode,
-          expiresAt: addMinutes(new Date(), 15),
-          used: false,
-          userId: user.id,
-        },
-      });
-
-      await transporter.sendMail({
-        from: `"Support" <${process.env.NEXT_PUBLIC_SMTP_USER}>`,
-        to: email,
-        subject: "Identification par mot de passe",
-        html: `
-        <p>Voici, votre code à l'usage unique :</p>
-        <p><b>${uniqueCode}</b></p>
-        <p>Ce code expire dans 15 minutes.</p>
-      `,
-      });
-
-      return {
-        ...prevState,
-        success: false,
-        message: "",
-        email,
-        password,
-        mode: "code",
-      };
     }
   } catch (err) {
     if (err instanceof SyntaxError) {
