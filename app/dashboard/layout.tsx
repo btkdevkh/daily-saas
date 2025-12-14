@@ -17,14 +17,16 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           {/* Left Navbar */}
           <LeftNavbar open={open} setOpen={setOpen} />
 
-          {/* Children */}
           <div
             className={`${
               open ? "w-[calc(100%-300px)]" : "w-[calc(100%)] fade-in"
             }`}
           >
+            {/* Main Navbar */}
             <Navbar open={open} />
-            {children}
+
+            {/* Children */}
+            <div className="max-h-screen p-3 overflow-hidden">{children}</div>
           </div>
         </div>
       </PageWrapper>

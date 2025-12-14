@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import PageWrapper from "@/components/PageWrapper";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton";
 import TabLink from "@/components/TabLink";
-import ChildrenWrapper from "@/components/ChildrenWrapper";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 
 export const metadata: Metadata = {
   title: "Daily SaaS | Modification",
@@ -19,13 +18,13 @@ export default async function UpdateUserLayout({
 }) {
   const { id } = await params;
   return (
-    <PageWrapper>
-      <div className="flex justify-between items-center p-3">
+    <>
+      <div className="flex justify-between items-center mb-3">
         <TabLink url={`/dashboard/user/update/${id}`} title="Modifier" />
         <BackButton />
       </div>
 
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-    </PageWrapper>
+      <DashboardSectionWrapper>{children}</DashboardSectionWrapper>
+    </>
   );
 }

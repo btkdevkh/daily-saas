@@ -1,6 +1,5 @@
 import BackButton from "@/components/BackButton";
-import ChildrenWrapper from "@/components/ChildrenWrapper";
-import PageWrapper from "@/components/PageWrapper";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import TabLink from "@/components/TabLink";
 import { Metadata } from "next";
 import { ReactNode } from "react";
@@ -19,13 +18,13 @@ export default async function UpdateRunningLayout({
 }) {
   const { id } = await params;
   return (
-    <PageWrapper>
-      <div className="flex justify-between items-center p-3">
+    <>
+      <div className="flex justify-between items-center mb-3">
         <TabLink url={`/dashboard/running/update/${id}`} title="Modifier" />
         <BackButton />
       </div>
 
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-    </PageWrapper>
+      <DashboardSectionWrapper>{children}</DashboardSectionWrapper>
+    </>
   );
 }

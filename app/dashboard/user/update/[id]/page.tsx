@@ -1,4 +1,5 @@
 import { getUserById } from "@/actions/get/user";
+import FormWrapper from "@/components/FormWrapper";
 import UpdateUserForm from "@/components/user/update/UpdateUserForm";
 
 type UpdateUserPageProps = {
@@ -10,8 +11,8 @@ export default async function UpdateUserPage({ params }: UpdateUserPageProps) {
   const { user } = await getUserById(id);
 
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <UpdateUserForm user={user} />
-    </div>
+    </FormWrapper>
   );
 }

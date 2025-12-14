@@ -1,9 +1,10 @@
+import FormWrapper from "@/components/FormWrapper";
 import CreateRunningForm from "@/components/running/create/CreateRunningForm";
 
 export default function CreateRunningPage() {
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <CreateRunningForm />
-    </div>
+    </FormWrapper>
   );
 }

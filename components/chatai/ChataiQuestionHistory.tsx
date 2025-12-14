@@ -11,8 +11,9 @@ const ChataiQuestionHistory = ({ messages }: ChataiQuestionHistoryProps) => {
   return (
     <>
       {messages.length > 0 && (
-        <div className="bg-white max-h-screen h-full p-3 flex-1 mb-5 md:mb-0 overflow-y-auto rounded shadow relative">
-          <h2 className="text-2xl mb-5">Historique des questions</h2>
+        <div className="bg-white max-h-screen h-fit p-3 md:flex-1 overflow-auto rounded shadow relative">
+          <h2 className="text-xl mb-5">Historiques</h2>
+
           <div className="flex flex-col gap-2">
             {messages.map((msg, i) => (
               <span key={i} className="bg-dust-grey p-2 rounded text-sm w-fit">

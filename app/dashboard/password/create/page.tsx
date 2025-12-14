@@ -1,9 +1,10 @@
+import FormWrapper from "@/components/FormWrapper";
 import CreatePasswordForm from "@/components/password/create/CreatePasswordForm";
 
 export default function CreatePasswordPage() {
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <CreatePasswordForm />
-    </div>
+    </FormWrapper>
   );
 }

@@ -1,5 +1,6 @@
 import { getRunnings } from "@/actions/get/running";
 import CreateButton from "@/components/CreateButton";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import RunningChart from "@/components/running/RunningChart";
 import RunningList from "@/components/running/RunningList";
 import RunningRecapChart from "@/components/running/RunningRecapChart";
@@ -38,7 +39,7 @@ const RunningPage = async ({
     .sort((a, b) => a.date.localeCompare(b.date));
 
   return (
-    <div className="p-3">
+    <>
       <div className="flex justify-between items-center mb-3">
         {data.runnings && data.runnings.length === 0 ? (
           <span className="bg-green-100 text-green-700 py-2 px-4 rounded">
@@ -57,56 +58,58 @@ const RunningPage = async ({
         <CreateButton page="running" />
       </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-3 max-h-[calc(100vh-120px)]">
-        <div
-          className={`w-full max-h-[50vh] md:max-h-[87vh] overflow-y-auto overflow-x-hidden flex flex-col gap-1 rounded ${
-            order && Number(order) === 1 ? "pr-1" : ""
-          } flex-3 shadow`}
-        >
+      <DashboardSectionWrapper>
+        <div className="flex flex-col md:flex-row gap-3 h-full">
+          <div
+            className={`w-full flex flex-col gap-1 rounded ${
+              order && Number(order) === 1 ? "pr-1" : ""
+            } flex-3 shadow h-1/2 md:h-full overflow-auto`}
+          >
+            {order && Number(order) === 1 && (
+              <>
+                {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
+                  <div
+                    key={i}
+                    className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
+                  >
+                    <span className="text-graphite">
+                      <b>Activités :</b> {getRunningYear(chunk)}
+                    </span>
+
+                    <RunningChart
+                      runnings={(chunk as IRunning[]).sort((a, b) =>
+                        a.date?.localeCompare(b?.date)
+                      )}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+
+            {order && Number(order) === 2 && formatRunnings && (
+              <div className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded">
+                <span className="text-graphite">
+                  <b>Récapitulatif : </b>
+                  {new Date(formatRunnings[0].date).getFullYear()} -{" "}
+                  {new Date(
+                    formatRunnings[formatRunnings.length - 1].date
+                  ).getFullYear()}
+                </span>
+                <br />
+
+                <RunningRecapChart runnings={formatRunnings ?? []} />
+              </div>
+            )}
+          </div>
+
           {order && Number(order) === 1 && (
-            <>
-              {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
-                <div
-                  key={i}
-                  className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
-                >
-                  <span className="text-graphite">
-                    <b>Activités :</b> {getRunningYear(chunk)}
-                  </span>
-
-                  <RunningChart
-                    runnings={(chunk as IRunning[]).sort((a, b) =>
-                      a.date?.localeCompare(b?.date)
-                    )}
-                  />
-                </div>
-              ))}
-            </>
-          )}
-
-          {order && Number(order) === 2 && formatRunnings && (
-            <div className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded">
-              <span className="text-graphite">
-                <b>Récapitulatif : </b>
-                {new Date(formatRunnings[0].date).getFullYear()} -{" "}
-                {new Date(
-                  formatRunnings[formatRunnings.length - 1].date
-                ).getFullYear()}
-              </span>
-              <br />
-
-              <RunningRecapChart runnings={formatRunnings ?? []} />
+            <div className="w-full rounded pr-1 shadow md:flex-2 xl:flex-1 h-1/2 md:h-full overflow-auto">
+              <RunningList runnings={data.runnings ?? []} />
             </div>
           )}
         </div>
-
-        {order && Number(order) === 1 && (
-          <div className="w-full max-h-[43vh] md:max-h-[87vh] overflow-y-auto overflow-x-hidden rounded pr-1 shadow md:flex-2 xl:flex-1">
-            <RunningList runnings={data.runnings ?? []} />
-          </div>
-        )}
-      </div>
-    </div>
+      </DashboardSectionWrapper>
+    </>
   );
 };
 

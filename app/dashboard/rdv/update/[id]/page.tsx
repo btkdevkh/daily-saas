@@ -1,4 +1,5 @@
 import { getRdvById } from "@/actions/get/rdv";
+import FormWrapper from "@/components/FormWrapper";
 import UpdateRdvForm from "@/components/rdv/update/UpdateRdvForm";
 
 type UpdateRdvPageProps = {
@@ -10,8 +11,8 @@ export default async function UpdateRdvPage({ params }: UpdateRdvPageProps) {
   const { rdv } = await getRdvById(id);
 
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <UpdateRdvForm rdv={rdv} />
-    </div>
+    </FormWrapper>
   );
 }

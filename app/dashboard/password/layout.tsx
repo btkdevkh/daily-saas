@@ -1,4 +1,3 @@
-import PageWrapper from "@/components/PageWrapper";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
@@ -12,5 +11,5 @@ export default async function PasswordLayout({
 }: {
   children: ReactNode;
 }) {
-  return <PageWrapper>{children}</PageWrapper>;
+  return <>{children}</>;
 }
