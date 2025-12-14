@@ -13,10 +13,12 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
   return (
     <>
       {messages.map((msg, i) => (
-        <div key={i} className="flex flex-col gap-3">
-          <p className="bg-dust-grey p-2 w-fit rounded shadow">
-            {msg.question}
-          </p>
+        <div key={i} className="flex flex-col gap-5">
+          <div>
+            <p className="bg-dust-grey p-2 w-fit rounded shadow">
+              {msg.question}
+            </p>
+          </div>
 
           <ReactMarkdown
             rehypePlugins={[rehypeHighlight]}
@@ -27,7 +29,7 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
 
                 return (
                   <code
-                    className={`${className} rounded my-1 relative`}
+                    className={`${className} w-full rounded relative`}
                     {...props}
                   >
                     {node.children.some((c) => c.type !== "text") &&

@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import PageWrapper from "@/components/PageWrapper";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton";
 import TabLink from "@/components/TabLink";
-import ChildrenWrapper from "@/components/ChildrenWrapper";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 
 export const metadata: Metadata = {
   title: "Daily SaaS | Création",
@@ -16,13 +15,13 @@ export default async function CreateUserLayout({
   children: ReactNode;
 }) {
   return (
-    <PageWrapper>
-      <div className="flex justify-between items-center p-3">
+    <>
+      <div className="flex justify-between items-center mb-3">
         <TabLink url="/dashboard/user/create" title="Créer" />
         <BackButton />
       </div>
 
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-    </PageWrapper>
+      <DashboardSectionWrapper>{children}</DashboardSectionWrapper>
+    </>
   );
 }

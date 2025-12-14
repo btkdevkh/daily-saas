@@ -1,6 +1,5 @@
 import BackButton from "@/components/BackButton";
-import ChildrenWrapper from "@/components/ChildrenWrapper";
-import PageWrapper from "@/components/PageWrapper";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import TabLink from "@/components/TabLink";
 import { Metadata } from "next";
 import { ReactNode } from "react";
@@ -16,13 +15,13 @@ export default async function CreateRdvLayout({
   children: ReactNode;
 }) {
   return (
-    <PageWrapper>
-      <div className="flex justify-between items-center p-3">
+    <>
+      <div className="flex justify-between items-center mb-3">
         <TabLink url={`/dashboard/rdv/create`} title="Créer" />
         <BackButton />
       </div>
 
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-    </PageWrapper>
+      <DashboardSectionWrapper>{children}</DashboardSectionWrapper>
+    </>
   );
 }

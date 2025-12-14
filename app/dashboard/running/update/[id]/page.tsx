@@ -1,4 +1,5 @@
 import { getRunningById } from "@/actions/get/running";
+import FormWrapper from "@/components/FormWrapper";
 import UpdateRunningForm from "@/components/running/update/UpdateRunningForm";
 
 type UpdateRunningPageProps = {
@@ -12,8 +13,8 @@ export default async function UpdateRunningPage({
   const { running } = await getRunningById(id);
 
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <UpdateRunningForm running={running} />
-    </div>
+    </FormWrapper>
   );
 }

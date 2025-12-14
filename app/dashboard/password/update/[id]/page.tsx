@@ -1,4 +1,5 @@
 import { getPasswordById } from "@/actions/get/password";
+import FormWrapper from "@/components/FormWrapper";
 import UpdatePasswordForm from "@/components/password/update/UpdatePasswordForm";
 
 type UpdatePasswordPageProps = {
@@ -12,11 +13,11 @@ export default async function UpdatePasswordPage({
   const { password, decryptedPassword } = await getPasswordById(id);
 
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <UpdatePasswordForm
         password={password}
         decryptedPassword={decryptedPassword}
       />
-    </div>
+    </FormWrapper>
   );
 }

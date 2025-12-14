@@ -1,9 +1,10 @@
+import FormWrapper from "@/components/FormWrapper";
 import CreateRdvForm from "@/components/rdv/create/CreateRdvForm";
 
 export default function CreateRdvPage() {
   return (
-    <div className="w-full text-graphite">
+    <FormWrapper>
       <CreateRdvForm />
-    </div>
+    </FormWrapper>
   );
 }
