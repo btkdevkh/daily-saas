@@ -1,3 +1,3 @@
 export const UI = {
-  dashboardSectionHeightVh: "100vh",
+  dashboardSectionHeightSvh: "100svh",
 };

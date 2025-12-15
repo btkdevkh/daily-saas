@@ -25,6 +25,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
   return (
     <div
+      id="root-left-navbar-parent"
       className={`bg-white shadow text-graphite flex flex-col justify-between ${
         open ? "w-[300px] fade-out" : "w-[50px] fade-in"
       } py-1 px-1.5`}

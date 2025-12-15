@@ -4,17 +4,17 @@ import CreateUserFormExternal from "@/components/user/create/CreateUserFormExter
 export default function SignupPage() {
   return (
     <div className="w-full text-graphite">
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col items-center justify-center gap-5">
+      <div className="flex flex-col">
+        <div className="flex flex-col items-center justify-center">
           <Image
             src="/logo.png"
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             alt="logo"
             loading="eager"
           />
 
-          <h2 className="text-4xl font-bold uppercase text-center">
+          <h2 className="text-3xl font-bold uppercase text-center">
             Daily SaaS
           </h2>
         </div>
