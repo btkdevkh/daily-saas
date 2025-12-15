@@ -2,33 +2,35 @@
 
 import { BiSolidFileExport } from "react-icons/bi";
 
-type CSVValue = string | number | boolean | null | undefined;
+type CSVValue = any | null | undefined;
 
 type ExportButtonProps<T extends Record<string, CSVValue>> = {
   title: string;
   data: T[];
+  fileName: string;
   label?: string;
 };
 
 const ExportButton = <T extends Record<string, CSVValue>>({
   title,
   data,
+  fileName,
   label,
 }: ExportButtonProps<T>) => {
   const handleExport = () => {
     const dataExported = objectToCSV(data);
-    downloadCSV(dataExported, "daily_saas_runnings.csv");
+    downloadCSV(dataExported, fileName);
   };
 
   return (
     <button
       title={`Exporter en ${label}`}
-      className="bg-stormy-teal flex items-center gap-1 p-2 rounded font-semibold cursor-pointer uppercase"
+      className="bg-stormy-teal flex items-center gap-1 py-2 px-2 rounded font-semibold cursor-pointer uppercase"
       onClick={handleExport}
     >
       <BiSolidFileExport size={20} />
       <span className="hidden md:block">{title}</span>
-      <small className="text-[10px] text-graphite bg-amber-400 rounded py-0.5 px-1">
+      <small className="text-[10px] text-graphite bg-amber-400 rounded py-0.5 px-1 hidden md:block">
         {label}
       </small>
     </button>

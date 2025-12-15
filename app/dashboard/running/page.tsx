@@ -57,6 +57,7 @@ const RunningPage = async ({
           <ExportButton
             title="Exporter"
             label="CSV"
+            fileName="runnings.csv"
             data={formatRunnings ?? []}
           />
           <CreateButton page="running" />

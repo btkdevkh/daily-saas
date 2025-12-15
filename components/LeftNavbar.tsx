@@ -25,7 +25,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
   return (
     <div
-      className={`bg-white min-h-screen shadow text-graphite flex flex-col ${
+      className={`bg-white shadow text-graphite flex flex-col justify-between ${
         open ? "w-[300px] fade-out" : "w-[50px] fade-in"
       } py-1 px-1.5`}
     >
@@ -93,7 +93,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
         <button
           type="button"
           title="Déconnexion"
-          className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold mt-auto mb-2 self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase"
+          className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase"
           onClick={() => signOut()}
         >
           <AiOutlineLogout size={28} /> <span>Déconnexion</span>
@@ -102,7 +102,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
         <button
           type="button"
           title="Déconnexion"
-          className="w-fit py-1.5 px-1.5 rounded-full text-graphite mt-auto mb-1 self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition"
+          className="w-fit py-1.5 px-1.5 rounded-full text-graphite self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition"
           onClick={() => signOut()}
         >
           <AiOutlineLogout size={28} />
