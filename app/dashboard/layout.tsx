@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <Suspense>
       <PageWrapper>
         <title>Daily SaaS | Tableau de bord</title>
-        <div className="bg-dust-grey flex justify-between">
+        <div className="bg-dust-grey h-screen flex justify-between">
           {/* Left Navbar */}
           <LeftNavbar open={open} setOpen={setOpen} />
 

@@ -10,6 +10,7 @@ import { PiPencilDuotone } from "react-icons/pi";
 import Link from "next/link";
 import TabLink from "@/components/TabLink";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
+import ExportButton from "@/components/ExportButton";
 
 const UserPage = async () => {
   const { user } = await getConnectedUser();
@@ -33,7 +34,15 @@ const UserPage = async () => {
           </div>
         )}
 
-        <CreateButton page="user" />
+        <div className="flex gap-1 items-center">
+          <ExportButton
+            title="Exporter"
+            label="CSV"
+            fileName="users.csv"
+            data={data.users ? data.users : []}
+          />
+          <CreateButton page="user" />
+        </div>
       </div>
 
       <DashboardSectionWrapper>
