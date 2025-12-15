@@ -42,6 +42,12 @@ code {
   word-break: break-word;
 }
 
+.toast-compact {
+  min-height: auto;
+  padding: 12px;
+  font-size: 14px;
+}
+
 .fade-out {
   animation: fadeOut 0.2s ease-out forwards;
 }

@@ -4,9 +4,8 @@ import { ReactNode } from "react";
 const DashboardSectionWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      // className={`h-[calc(${UI.dashboardSectionHeight}-125px)]`}
       style={{
-        height: `calc(${UI.dashboardSectionHeightVh} - 125px)`,
+        height: `calc(${UI.dashboardSectionHeightSvh} - 120px)`,
         overflow: "hidden",
         // backgroundColor: "orange",
       }}

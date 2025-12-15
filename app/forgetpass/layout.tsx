@@ -15,11 +15,11 @@ export default async function ForgetPassLayout({
 }) {
   return (
     <PageWrapper>
-      <div className="flex items-center">
-        <div className="h-screen w-[500px] mx-auto bg-dust-grey flex items-center p-8">
+      <div className="h-svh flex items-center">
+        <div className="w-[500px] mx-auto bg-dust-grey flex items-center p-8">
           {children}
         </div>
-        <div className="hidden md:flex justify-center items-center h-screen md:w-[calc(100%-300px)] bg-stormy-teal ">
+        <div className="hidden md:flex justify-center items-center h-svh md:w-[calc(100%-300px)] bg-stormy-teal ">
           <Image
             src="/background.svg"
             width={1000}
