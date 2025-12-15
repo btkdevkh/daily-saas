@@ -1,6 +1,7 @@
 import { getRunnings } from "@/actions/get/running";
 import CreateButton from "@/components/CreateButton";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
+import ExportButton from "@/components/ExportButton";
 import RunningChart from "@/components/running/RunningChart";
 import RunningList from "@/components/running/RunningList";
 import RunningRecapChart from "@/components/running/RunningRecapChart";
@@ -48,14 +49,18 @@ const RunningPage = async ({
         ) : (
           <div className="flex items-center gap-1">
             <TabLink url={`/dashboard/running?order=${1}`} title="Activités" />
-            <TabLink
-              url={`/dashboard/running?order=${2}`}
-              title="Récapitulatif"
-            />
+            <TabLink url={`/dashboard/running?order=${2}`} title="Résumé" />
           </div>
         )}
 
-        <CreateButton page="running" />
+        <div className="flex gap-1 items-center">
+          <ExportButton
+            title="Exporter"
+            label="CSV"
+            data={formatRunnings ?? []}
+          />
+          <CreateButton page="running" />
+        </div>
       </div>
 
       <DashboardSectionWrapper>
@@ -67,7 +72,7 @@ const RunningPage = async ({
           >
             {order && Number(order) === 1 && (
               <>
-                {chunkArray(formatRunnings ?? [], 12).map((chunk, i) => (
+                {chunkArray(formatRunnings ?? [], 6).map((chunk, i) => (
                   <div
                     key={i}
                     className="bg-white pb-3 pt-4 px-3 flex flex-col items-center justify-center gap-1 rounded"
