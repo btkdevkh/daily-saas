@@ -5,7 +5,11 @@ type PageWrapperProps = {
 };
 
 const PageWrapper = ({ children }: PageWrapperProps) => {
-  return <main className="h-svh w-full bg-dust-grey">{children}</main>;
+  return (
+    <main className="h-svh w-full bg-dust-grey overflow-hidden">
+      {children}
+    </main>
+  );
 };
 
 export default PageWrapper;

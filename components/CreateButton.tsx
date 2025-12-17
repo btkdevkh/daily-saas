@@ -1,5 +1,6 @@
 "use client";
 
+import { UI } from "@/lib/ui-config";
 import { useRouter } from "next/navigation";
 import { IoMdAdd } from "react-icons/io";
 
@@ -12,10 +13,10 @@ const CreateButton = ({ page }: CreateButtonProps) => {
 
   return (
     <button
-      className="bg-stormy-teal flex items-center gap-1 py-2 px-2 md:px-3 rounded font-semibold cursor-pointer uppercase"
+      className="md:w-[175px] bg-stormy-teal flex justify-center items-center gap-2 py-2 px-2 md:px-3 rounded font-semibold cursor-pointer uppercase"
       onClick={() => router.push(`/dashboard/${page}/create`)}
     >
-      <IoMdAdd size={20} />
+      <IoMdAdd size={UI.iconSize} />
       <span className="hidden md:block">Créer</span>
     </button>
   );

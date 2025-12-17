@@ -19,7 +19,7 @@ export default async function UpdatePasswordLayout({
   const { id } = await params;
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center gap-2 mb-3">
         <TabLink url={`/dashboard/password/update/${id}`} title="Modifier" />
         <BackButton />
       </div>

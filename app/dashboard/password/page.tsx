@@ -9,16 +9,20 @@ const PasswordPage = async () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className={`flex justify-between gap-2 items-center mb-1`}>
         {data.passwords && data.passwords.length === 0 ? (
           <span className="bg-green-100 text-green-700 py-2 px-4 rounded">
             Aucune donnée disponible
           </span>
         ) : (
-          <TabLink url="/dashboard/password" title="Mot de passe" />
+          <div className="w-full flex items-center gap-1">
+            <TabLink url="/dashboard/password" title="Mot de passe" />
+          </div>
         )}
 
-        <CreateButton page="password" />
+        <div className="flex items-center">
+          <CreateButton page="password" />
+        </div>
       </div>
 
       <DashboardSectionWrapper>

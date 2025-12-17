@@ -16,7 +16,7 @@ export default async function CreatePasswordLayout({
 }) {
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center gap-2 mb-3">
         <TabLink url={`/dashboard/password/create`} title="Créer" />
         <BackButton />
       </div>
