@@ -1,20 +1,23 @@
 "use client";
 
-type SearchBasicProps<T extends Object> = {
-  data: T[];
+import { Dispatch, SetStateAction, useState } from "react";
+
+type SearchBasicProps = {
+  term: string;
+  setTerm: Dispatch<SetStateAction<string>>;
 };
 
-const SearchBasic = <T extends Object>({ data }: SearchBasicProps<T>) => {
+const SearchBasic = ({ term, setTerm }: SearchBasicProps) => {
   return (
-    <>
-      <form className="text-graphite">
-        <input
-          type="text"
-          placeholder="🔍︎"
-          className="w-24 md:w-60 p-1.5 md:p-2 shadow bg-white rounded outline-none"
-        />
-      </form>
-    </>
+    <form className="w-full text-graphite">
+      <input
+        type="text"
+        placeholder="🔍 Rechercher..."
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
+        className="bg-white w-full md:w-50 p-2 focus:border-2 border-stormy-teal outline-none shadow rounded"
+      />
+    </form>
   );
 };
 

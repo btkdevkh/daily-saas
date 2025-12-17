@@ -41,25 +41,27 @@ const RunningPage = async ({
 
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center gap-2 mb-3">
         {data.runnings && data.runnings.length === 0 ? (
           <span className="bg-green-100 text-green-700 py-2 px-4 rounded">
             Aucune donnée disponible
           </span>
         ) : (
-          <div className="flex items-center gap-1">
+          <div className="w-full flex items-center gap-1">
             <TabLink url={`/dashboard/running?order=${1}`} title="Activités" />
             <TabLink url={`/dashboard/running?order=${2}`} title="Résumé" />
           </div>
         )}
 
         <div className="flex gap-1 items-center">
-          <ExportButton
-            title="Exporter"
-            label="CSV"
-            fileName="runnings.csv"
-            data={formatRunnings ?? []}
-          />
+          {formatRunnings && formatRunnings.length > 0 && (
+            <ExportButton
+              title="Exporter"
+              label="CSV"
+              fileName="runnings.csv"
+              data={formatRunnings}
+            />
+          )}
           <CreateButton page="running" />
         </div>
       </div>
@@ -69,7 +71,7 @@ const RunningPage = async ({
           <div
             className={`w-full flex flex-col gap-1 rounded ${
               order && Number(order) === 1 ? "pr-1" : ""
-            } flex-3 shadow h-1/2 md:h-full overflow-auto`}
+            } flex-3 h-1/2 md:h-full overflow-auto`}
           >
             {order && Number(order) === 1 && (
               <>
@@ -109,7 +111,7 @@ const RunningPage = async ({
           </div>
 
           {order && Number(order) === 1 && (
-            <div className="w-full rounded pr-1 shadow md:flex-2 xl:flex-1 h-1/2 md:h-full overflow-auto">
+            <div className="w-full rounded pr-1 md:flex-2 xl:flex-1 h-1/2 md:h-full overflow-auto">
               <RunningList runnings={data.runnings ?? []} />
             </div>
           )}

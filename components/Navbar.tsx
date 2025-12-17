@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { IoMdRefresh } from "react-icons/io";
 
 type NavbarProps = {
   open: boolean;
@@ -31,11 +32,23 @@ const Navbar = ({ open }: NavbarProps) => {
           </span>
         )}
 
-        <div className="text-white font-semibold bg-[#3cbf99] w-[35px] h-[35px] rounded-full flex items-center justify-center shadow">
-          <span>
-            {session?.user.name?.split(" ")[0][0]}
-            {session?.user.name?.split(" ")[1][0]}
-          </span>
+        <div className="flex gap-3 items-center">
+          <button
+            type="submit"
+            title="Actualiser"
+            className="w-[35px] h-[35px] flex justify-center items-center hover:bg-[rgb(0,0,0,0.1)] cursor-pointer rounded-full"
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            <IoMdRefresh size={25} className="text-graphite" />
+          </button>
+          <div className="text-white font-semibold bg-[#3cbf99] w-[35px] h-[35px] rounded-full flex items-center justify-center shadow">
+            <span>
+              {session?.user.name?.split(" ")[0][0]}
+              {session?.user.name?.split(" ")[1][0]}
+            </span>
+          </div>
         </div>
       </div>
     </nav>
