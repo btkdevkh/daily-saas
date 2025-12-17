@@ -1,7 +1,9 @@
 import { getPasswords } from "@/actions/get/password";
 import CreateButton from "@/components/CreateButton";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
+import ExportButton from "@/components/ExportButton";
 import PasswordList from "@/components/password/PasswordList";
+import SearchBasic from "@/components/SearchBasic";
 import TabLink from "@/components/TabLink";
 
 const PasswordPage = async () => {
@@ -18,7 +20,16 @@ const PasswordPage = async () => {
           <TabLink url="/dashboard/password" title="Mot de passe" />
         )}
 
-        <CreateButton page="password" />
+        <div className="flex gap-1 items-center">
+          <SearchBasic data={data.passwords ?? []} />
+          <ExportButton
+            title="Exporter"
+            label="CSV"
+            fileName="passwords.csv"
+            data={data.passwords ? data.passwords : []}
+          />
+          <CreateButton page="password" />
+        </div>
       </div>
 
       <DashboardSectionWrapper>

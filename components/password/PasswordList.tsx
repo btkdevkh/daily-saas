@@ -39,13 +39,13 @@ const PasswordList = ({ passwords }: PasswordListProps) => {
   };
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 text-graphite">
+    <div className="h-full grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 text-graphite overflow-auto pr-1">
       {passwords &&
         passwords.length > 0 &&
         passwords.map((password) => (
           <div
             key={password.id}
-            className="bg-white flex flex-col gap-5 shadow p-3 relative rounded overflow-hidden"
+            className="bg-white flex flex-col gap-5 shadow p-3 relative rounded"
           >
             <div className="flex flex-col gap-3 justify-between">
               <div className="flex flex-col gap-3 flex-1">
