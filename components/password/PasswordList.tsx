@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Password } from "@prisma/client";
 import { FaEye } from "react-icons/fa";
 import { MdOutlineContentCopy } from "react-icons/md";
@@ -10,17 +10,16 @@ import ActionButton from "../ActionButton";
 import { deletePassword } from "@/actions/delete/password";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaEyeSlash } from "react-icons/fa";
-import SearchBasic from "../SearchBasic";
-import ExportButton from "../ExportButton";
-import { UI } from "@/lib/ui-config";
+import { useSearchBar } from "@/context/SearchBarContext";
 
 type PasswordListProps = {
   passwords: Password[];
 };
 
 const PasswordList = ({ passwords }: PasswordListProps) => {
+  const { term, setSearchData } = useSearchBar();
+
   const [id, setId] = useState("");
-  const [term, setTerm] = useState("");
   const [seePassword, setSeePassword] = useState(false);
   const [seeUsername, setSeeUsername] = useState(false);
   const [copied, setCopied] = useState({
@@ -51,20 +50,12 @@ const PasswordList = ({ passwords }: PasswordListProps) => {
     pwd.sites.some((site) => site.toLowerCase().includes(term.toLowerCase()))
   );
 
+  useEffect(() => {
+    setSearchData(filteredPasswords);
+  }, [term]);
+
   return (
     <>
-      {filteredPasswords && filteredPasswords.length > 0 && (
-        <div className={`flex justify-between gap-2 mb-${UI.mbWithSearchBar}`}>
-          <SearchBasic term={term} setTerm={setTerm} />
-          <ExportButton
-            title="Exporter"
-            label="CSV"
-            fileName="passwords.csv"
-            data={filteredPasswords}
-          />
-        </div>
-      )}
-
       <div
         className={`${
           term !== "" ? "h-fit" : "h-[91%] md:h-[93%]"

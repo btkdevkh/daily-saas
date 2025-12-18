@@ -1,23 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useEffect } from "react";
 import { User } from "@prisma/client";
-import { MdAdminPanelSettings } from "react-icons/md";
-import { deleteUser } from "@/actions/delete/user";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { PiPencilDuotone } from "react-icons/pi";
 import ActionButton from "../ActionButton";
-import SearchBasic from "../SearchBasic";
-import { UI } from "@/lib/ui-config";
-import ExportButton from "../ExportButton";
+import { PiPencilDuotone } from "react-icons/pi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { deleteUser } from "@/actions/delete/user";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { useSearchBar } from "@/context/SearchBarContext";
 
 type UserListProps = {
   users: User[];
 };
 
 const UserList = ({ users }: UserListProps) => {
-  const [term, setTerm] = useState("");
+  const { term, setSearchData } = useSearchBar();
 
   const filteredUsers = users.filter((user) =>
     `${user.firstname.toLowerCase()} ${user.lastname.toLowerCase()}`.includes(
@@ -25,20 +23,12 @@ const UserList = ({ users }: UserListProps) => {
     )
   );
 
+  useEffect(() => {
+    setSearchData(filteredUsers);
+  }, [term]);
+
   return (
     <>
-      {filteredUsers && filteredUsers.length > 0 && (
-        <div className={`flex justify-between gap-2 mb-${UI.mbWithSearchBar}`}>
-          <SearchBasic term={term} setTerm={setTerm} />
-          <ExportButton
-            title="Exporter"
-            label="CSV"
-            fileName="users.csv"
-            data={filteredUsers}
-          />
-        </div>
-      )}
-
       <div
         className={`grid md:grid-cols-2 ${
           filteredUsers.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"

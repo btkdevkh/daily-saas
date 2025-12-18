@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import TabLink from "@/components/TabLink";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import UserList from "@/components/user/UserList";
+import { UI } from "@/lib/ui-config";
+import ExportData from "@/components/ExportData";
 
 const UserPage = async () => {
   const { user } = await getConnectedUser();
@@ -17,7 +19,9 @@ const UserPage = async () => {
 
   return (
     <>
-      <div className={`flex justify-between items-center gap-2 mb-1`}>
+      <div
+        className={`flex justify-between items-center gap-2 mb-${UI.mbWithSearchBar}`}
+      >
         {data.users && data.users.length === 0 ? (
           <span className="bg-green-100 text-green-700 py-2 px-4 rounded">
             Aucune donnée disponible
@@ -28,7 +32,8 @@ const UserPage = async () => {
           </div>
         )}
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
+          <ExportData title="Exporter" label="CSV" fileName="users.csv" />
           <CreateButton page="user" />
         </div>
       </div>

@@ -16,11 +16,11 @@ const TabLink = ({ url, title }: TabLinkProps) => {
   return (
     <Link
       href={url}
-      className={`w-full md:w-50 font-semibold uppercase border-b-3 border-white ${
+      className={`w-fit font-semibold uppercase border-b-3 border-white ${
         pathname === url || `${pathname}?order=${order}` === url
           ? "bg-graphite"
           : "bg-[#979696]"
-      } text-white text-center shadow py-2 px-3 rounded`}
+      } text-white text-center shadow py-1 px-2.5`}
     >
       {title}
     </Link>
