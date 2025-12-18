@@ -11,6 +11,7 @@ import { signOut, useSession } from "next-auth/react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
+import { useSearchBar } from "@/context/SearchBarContext";
 
 type LeftNavbarProps = {
   open: boolean;
@@ -18,10 +19,17 @@ type LeftNavbarProps = {
 };
 
 const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
+  const { setTerm, setSearchData } = useSearchBar();
+
   const { data: session } = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const order = searchParams.get("order") ?? 1;
+
+  const resetContextState = () => {
+    setTerm("");
+    setSearchData(null);
+  };
 
   return (
     <div
@@ -64,6 +72,7 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
                     : menu.pathname
                 }
                 className={`flex items-center gap-2 ${open ? "p-1" : ""}`}
+                onClick={resetContextState}
               >
                 <span className="shadow p-1.5 hover:bg-[rgb(0,0,0,0.1)] transition">
                   {pathname.includes(menu.pathname) ||

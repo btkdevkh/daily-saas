@@ -13,7 +13,7 @@ const CreateButton = ({ page }: CreateButtonProps) => {
 
   return (
     <button
-      className="md:w-[175px] bg-stormy-teal flex justify-center items-center gap-2 py-2 px-2 md:px-3 rounded font-semibold cursor-pointer uppercase"
+      className="w-fit bg-stormy-teal flex justify-center items-center gap-1 p-2 md:px-3 font-semibold cursor-pointer uppercase rounded"
       onClick={() => router.push(`/dashboard/${page}/create`)}
     >
       <IoMdAdd size={UI.iconSize} />

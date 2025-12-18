@@ -13,7 +13,7 @@ const BackButton = ({ url }: BackButtonProps) => {
 
   return (
     <button
-      className="md:w-[175px] bg-stormy-teal flex justify-center items-center gap-1 p-2 rounded font-semibold cursor-pointer uppercase"
+      className="w-fit bg-stormy-teal flex justify-center items-center gap-1 p-2 md:px-3 font-semibold cursor-pointer uppercase rounded"
       onClick={() => router.back()}
     >
       <IoMdArrowRoundBack size={UI.iconSize} />

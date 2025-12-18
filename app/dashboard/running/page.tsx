@@ -1,12 +1,12 @@
+import TabLink from "@/components/TabLink";
+import ExportData from "@/components/ExportData";
 import { getRunnings } from "@/actions/get/running";
 import CreateButton from "@/components/CreateButton";
-import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
-import ExportButton from "@/components/ExportButton";
-import RunningChart from "@/components/running/RunningChart";
-import RunningList from "@/components/running/RunningList";
-import RunningRecapChart from "@/components/running/RunningRecapChart";
-import TabLink from "@/components/TabLink";
 import { IRunning } from "@/types/interfaces/IRunning";
+import RunningList from "@/components/running/RunningList";
+import RunningChart from "@/components/running/RunningChart";
+import RunningRecapChart from "@/components/running/RunningRecapChart";
+import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 
 const RunningPage = async ({
   searchParams,
@@ -54,14 +54,12 @@ const RunningPage = async ({
         )}
 
         <div className="flex gap-1 items-center">
-          {formatRunnings && formatRunnings.length > 0 && (
-            <ExportButton
-              title="Exporter"
-              label="CSV"
-              fileName="runnings.csv"
-              data={formatRunnings}
-            />
-          )}
+          <ExportData
+            title="Exporter"
+            label="CSV"
+            fileName="runnings.csv"
+            data={formatRunnings}
+          />
           <CreateButton page="running" />
         </div>
       </div>

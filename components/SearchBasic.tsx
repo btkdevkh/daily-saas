@@ -15,7 +15,7 @@ const SearchBasic = ({ term, setTerm }: SearchBasicProps) => {
         placeholder="🔍 Rechercher..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        className="bg-white w-full md:w-50 p-2 focus:border-2 border-stormy-teal outline-none shadow rounded"
+        className="bg-white w-full md:w-60 py-1 px-2 focus:border-2 border-stormy-teal outline-none shadow rounded-xl"
       />
     </form>
   );

@@ -3,7 +3,7 @@
 import { UI } from "@/lib/ui-config";
 import { BiSolidFileExport } from "react-icons/bi";
 
-type CSVValue = any | null | undefined;
+type CSVValue = any | null | unknown | undefined;
 
 type ExportButtonProps<T extends Record<string, CSVValue>> = {
   title: string;
@@ -26,12 +26,12 @@ const ExportButton = <T extends Record<string, CSVValue>>({
   return (
     <button
       title={`Exporter en ${label}`}
-      className="md:w-[175px] bg-stormy-teal flex items-center gap-2 p-2 rounded font-semibold cursor-pointer uppercase"
+      className="w-fit bg-stormy-teal flex items-center gap-1 p-2 md:pr-3 rounded font-semibold cursor-pointer uppercase"
       onClick={handleExport}
     >
       <BiSolidFileExport size={UI.iconSize} />
       <span className="hidden md:block">{title}</span>
-      <small className="text-[10px] text-graphite bg-amber-400 rounded py-0.5 px-1 hidden md:block">
+      <small className="text-[10px] text-graphite bg-amber-400 py-0.5 px-1 hidden md:block rounded">
         {label}
       </small>
     </button>
