@@ -9,6 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { deleteUser } from "@/actions/delete/user";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { useSearchBar } from "@/context/SearchBarContext";
+import { UI } from "@/lib/ui-config";
 
 type UserListProps = {
   users: User[];
@@ -30,9 +31,8 @@ const UserList = ({ users }: UserListProps) => {
   return (
     <>
       <div
-        className={`h-fit grid md:grid-cols-2 ${
-          filteredUsers.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"
-        } gap-1 text-graphite`}
+        className={`max-h-full h-fit grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite overflow-auto`}
+        onScroll={UI.indicatorScroll}
       >
         {filteredUsers &&
           filteredUsers.length > 0 &&
