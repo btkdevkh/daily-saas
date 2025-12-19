@@ -11,6 +11,7 @@ import { deletePassword } from "@/actions/delete/password";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaEyeSlash } from "react-icons/fa";
 import { useSearchBar } from "@/context/SearchBarContext";
+import { UI } from "@/lib/ui-config";
 
 type PasswordListProps = {
   passwords: Password[];
@@ -57,9 +58,8 @@ const PasswordList = ({ passwords }: PasswordListProps) => {
   return (
     <>
       <div
-        className={`${
-          term !== "" ? "h-fit" : "h-full"
-        } grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 text-graphite overflow-auto pr-1`}
+        className={`max-h-full h-fit grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 text-graphite overflow-auto pr-1`}
+        onScroll={UI.indicatorScroll}
       >
         {filteredPasswords &&
           filteredPasswords.length > 0 &&

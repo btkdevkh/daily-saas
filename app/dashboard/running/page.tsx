@@ -7,6 +7,7 @@ import RunningList from "@/components/running/RunningList";
 import RunningChart from "@/components/running/RunningChart";
 import RunningRecapChart from "@/components/running/RunningRecapChart";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
+import RunningChartWrapper from "@/components/running/RunningChartWrapper";
 
 const RunningPage = async ({
   searchParams,
@@ -68,11 +69,7 @@ const RunningPage = async ({
 
       <DashboardSectionWrapper>
         <div className="flex flex-col md:flex-row gap-3 h-full">
-          <div
-            className={`w-full flex flex-col gap-1 rounded ${
-              order && Number(order) === 1 ? "pr-1" : ""
-            } flex-3 h-1/2 md:h-full overflow-auto`}
-          >
+          <RunningChartWrapper order={order ? Number(order) : 1}>
             {order && Number(order) === 1 && (
               <>
                 {chunkArray(formatRunnings ?? [], 6).map((chunk, i) => (
@@ -108,12 +105,10 @@ const RunningPage = async ({
                 <RunningRecapChart runnings={formatRunnings ?? []} />
               </div>
             )}
-          </div>
+          </RunningChartWrapper>
 
           {order && Number(order) === 1 && (
-            <div className="w-full rounded pr-1 md:flex-2 xl:flex-1 h-1/2 md:h-full overflow-auto">
-              <RunningList runnings={data.runnings ?? []} />
-            </div>
+            <RunningList runnings={formatRunnings ?? []} />
           )}
         </div>
       </DashboardSectionWrapper>

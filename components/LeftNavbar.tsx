@@ -29,6 +29,11 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
   const resetContextState = () => {
     setTerm("");
     setSearchData(null);
+
+    const scrollIndicator = document.getElementById(
+      "scroll-indicator"
+    ) as HTMLDivElement;
+    scrollIndicator.style.width = `${0}%`;
   };
 
   return (

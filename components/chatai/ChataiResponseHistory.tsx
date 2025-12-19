@@ -8,6 +8,7 @@ import { Chatai } from "@prisma/client";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
 import "highlight.js/styles/atom-one-dark.css";
+import { UI } from "@/lib/ui-config";
 
 type ChataiResponseHistoryProps = {
   messages: Chatai[];
@@ -25,10 +26,11 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
 
   return (
     <div
-      className={`${
-        messages.length > 0 ? "bg-white p-3 h-fit" : ""
+      className={`max-h-full h-fit ${
+        messages.length > 0 ? "bg-white p-3" : ""
       } overflow-auto rounded`}
       ref={msgContainer}
+      onScroll={UI.indicatorScroll}
     >
       {messages.map((msg, i) => (
         <div key={i} className="flex flex-col gap-3 relative">

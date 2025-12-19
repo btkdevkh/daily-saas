@@ -9,6 +9,7 @@ import ActionButton from "@/components/ActionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiPencilDuotone } from "react-icons/pi";
 import { useSearchBar } from "@/context/SearchBarContext";
+import { UI } from "@/lib/ui-config";
 
 type RdvListProps = {
   rdvs: Rdv[];
@@ -26,7 +27,8 @@ const RdvList = ({ rdvs }: RdvListProps) => {
 
   return (
     <div
-      className={`h-fit grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite`}
+      className={`max-h-full h-fit grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite overflow-auto`}
+      onScroll={UI.indicatorScroll}
     >
       {filteredRdvs &&
         filteredRdvs.length > 0 &&
