@@ -20,7 +20,7 @@ const ChatAiPage = async () => {
             data.chatais && data.chatais.length === 0 ? "max-w-[600px]" : ""
           } mx-auto text-graphite`}
         >
-          <div className={`flex flex-col md:flex-row gap-3 h-[calc(100%)]`}>
+          <div className={`flex flex-col md:flex-row gap-3 h-full`}>
             <ChataiQuestionHistory messages={data?.chatais ?? []} />
 
             <div className="flex-3 flex flex-col gap-3 overflow-hidden">

@@ -25,7 +25,9 @@ const RdvList = ({ rdvs }: RdvListProps) => {
   }, [term]);
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite">
+    <div
+      className={`h-fit grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite`}
+    >
       {filteredRdvs &&
         filteredRdvs.length > 0 &&
         filteredRdvs.map((rdv) => (

@@ -30,9 +30,9 @@ const UserList = ({ users }: UserListProps) => {
   return (
     <>
       <div
-        className={`grid md:grid-cols-2 ${
+        className={`h-fit grid md:grid-cols-2 ${
           filteredUsers.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"
-        }  gap-1 text-graphite`}
+        } gap-1 text-graphite`}
       >
         {filteredUsers &&
           filteredUsers.length > 0 &&

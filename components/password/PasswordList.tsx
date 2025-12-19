@@ -58,7 +58,7 @@ const PasswordList = ({ passwords }: PasswordListProps) => {
     <>
       <div
         className={`${
-          term !== "" ? "h-fit" : "h-[91%] md:h-[93%]"
+          term !== "" ? "h-fit" : "h-full"
         } grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 text-graphite overflow-auto pr-1`}
       >
         {filteredPasswords &&
