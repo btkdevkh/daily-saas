@@ -14,7 +14,7 @@ Un SaaS de gestionnnaire d'utilités développée avec Next.js et TypeScript.
 
 - L'export des données vers CSV
 - La barre de recherche des données
-- L'envoie d'mail le rapel de RDV dans 3 jours
+- L'envoie d'e-mail automatique du rappel de RDV dans 3 jours
 
 ![Daily SaaS Login code](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v6_code.png?raw=true)
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v10.png?raw=true)
