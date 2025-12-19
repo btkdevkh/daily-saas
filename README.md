@@ -1,6 +1,6 @@
-# Daily SaaS (En cours de développement)
+# Daily SaaS
 
-Un SaaS de gestionnnaire d'utilités développée avec Next.js et TypeScript.
+Un SaaS de gestionnnaire d'utilités.
 
 ## Features (Existantes)
 
@@ -44,6 +44,9 @@ Un SaaS de gestionnnaire d'utilités développée avec Next.js et TypeScript.
 Créer un fichier `.env` avec les variables ci-dessous
 
 ```bash
+POSTGRES_USER="postgres_user"
+POSTGRES_PASSWORD="postgres_password"
+POSTGRES_DB="postgres_db"
 DATABASE_URL="url_bdd"
 NEXTAUTH_URL="url_origin"
 AUTH_SECRET="auth_secret"
@@ -54,6 +57,8 @@ NEXT_PUBLIC_SMTP_HOST="smtp_host"
 NEXT_PUBLIC_SMTP_PORT="smtp_port"
 NEXT_PUBLIC_APP_URL="url_origin"
 NEXT_PUBLIC_CHAT_AI_API_URL="https://votre_domaine.com/api/chat"
+CRON_SECRET="cron_secret"
+APP_URL="url_origin"
 ```
 
 Le `NEXT_PUBLIC_MASTER_KEY` peut être générer avec cette commande sous Linux: `openssl rand -hex 16`
