@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { format } from "date-fns";
 import { Rdv } from "@prisma/client";
 import { deleteRdv } from "@/actions/delete/rdv";
 import ActionButton from "@/components/ActionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiPencilDuotone } from "react-icons/pi";
-import { format } from "date-fns";
 import { useSearchBar } from "@/context/SearchBarContext";
-import { useEffect } from "react";
-import { notifyRdv } from "@/actions/post/rdv";
 
 type RdvListProps = {
   rdvs: Rdv[];
@@ -24,11 +23,6 @@ const RdvList = ({ rdvs }: RdvListProps) => {
   useEffect(() => {
     setSearchData(filteredRdvs);
   }, [term]);
-
-  useEffect(() => {
-    // Notify RDV
-    notifyRdv();
-  }, []);
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1 text-graphite">

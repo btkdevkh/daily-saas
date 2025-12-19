@@ -54,12 +54,14 @@ const RunningPage = async ({
         )}
 
         <div className="flex gap-1 items-center">
-          <ExportData
-            title="Exporter"
-            label="CSV"
-            fileName="runnings.csv"
-            data={formatRunnings}
-          />
+          {formatRunnings && formatRunnings.length > 0 && (
+            <ExportData
+              title="Exporter"
+              label="CSV"
+              fileName="runnings.csv"
+              data={formatRunnings}
+            />
+          )}
           <CreateButton page="running" />
         </div>
       </div>

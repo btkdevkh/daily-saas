@@ -22,7 +22,9 @@ const RdvPage = async () => {
         )}
 
         <div className="flex items-center gap-1">
-          <ExportData title="Exporter" label="CSV" fileName="rdvs.csv" />
+          {data.rdvs && data.rdvs.length > 0 && (
+            <ExportData title="Exporter" label="CSV" fileName="rdvs.csv" />
+          )}
           <CreateButton page="rdv" />
         </div>
       </div>
