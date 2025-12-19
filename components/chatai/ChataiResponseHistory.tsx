@@ -26,7 +26,7 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
   return (
     <div
       className={`${
-        messages.length > 0 ? "bg-white p-3 h-full" : ""
+        messages.length > 0 ? "bg-white p-3 h-fit" : ""
       } overflow-auto rounded`}
       ref={msgContainer}
     >
