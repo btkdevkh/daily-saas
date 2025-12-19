@@ -4,6 +4,7 @@ import SessionProviderClient from "@/components/SessionProviderClient";
 import PageWrapper from "@/components/PageWrapper";
 import { ToastContainer } from "react-toastify";
 import "./globals.css";
+import "@/lib/cron-dev";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

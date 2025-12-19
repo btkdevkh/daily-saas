@@ -25,7 +25,9 @@ const PasswordPage = async () => {
         )}
 
         <div className="flex items-center gap-1">
-          <ExportData title="Exporter" label="CSV" fileName="passwords.csv" />
+          {data.passwords && data.passwords.length > 0 && (
+            <ExportData title="Exporter" label="CSV" fileName="passwords.csv" />
+          )}
           <CreateButton page="password" />
         </div>
       </div>
