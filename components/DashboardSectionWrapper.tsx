@@ -5,7 +5,7 @@ const DashboardSectionWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
       style={{
-        height: `calc(${UI.dashboardSectionHeightSvh} - 120px)`,
+        height: `calc(${UI.dashboardSectionHeightSvh} - 125px)`,
         overflow: "hidden",
         // backgroundColor: "orange",
       }}
