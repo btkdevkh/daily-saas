@@ -12,6 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchBar } from "@/context/SearchBarContext";
+import Clock from "./Clock";
 
 type LeftNavbarProps = {
   open: boolean;
@@ -105,14 +106,18 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
       </div>
 
       {open ? (
-        <button
-          type="button"
-          title="Déconnexion"
-          className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase"
-          onClick={() => signOut()}
-        >
-          <AiOutlineLogout size={28} /> <span>Déconnexion</span>
-        </button>
+        <>
+          <Clock />
+
+          <button
+            type="button"
+            title="Déconnexion"
+            className="w-fit flex items-center gap-2 py-2 px-4 shadow text-graphite font-semibold self-center cursor-pointer hover:bg-[rgb(0,0,0,0.1)] transition uppercase mb-2"
+            onClick={() => signOut()}
+          >
+            <AiOutlineLogout size={28} /> <span>Déconnexion</span>
+          </button>
+        </>
       ) : (
         <button
           type="button"
