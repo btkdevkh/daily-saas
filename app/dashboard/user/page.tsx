@@ -1,3 +1,4 @@
+import { UI } from "@/lib/ui-config";
 import { getConnectedUser } from "@/actions/auth/user";
 import { getUsers } from "@/actions/get/user";
 import CreateButton from "@/components/CreateButton";
@@ -5,8 +6,10 @@ import { redirect } from "next/navigation";
 import TabLink from "@/components/TabLink";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import UserList from "@/components/user/UserList";
-import { UI } from "@/lib/ui-config";
 import ExportData from "@/components/ExportData";
+import ImportButton from "@/components/ImportButton";
+import ModalWrapper from "@/components/ModalWrapper";
+import UserImportForm from "@/components/user/UserImportForm";
 
 const UserPage = async () => {
   const { user } = await getConnectedUser();
@@ -33,6 +36,7 @@ const UserPage = async () => {
         )}
 
         <div className="flex items-center gap-1">
+          <ImportButton title="Importer" label="CSV" />
           <ExportData title="Exporter" label="CSV" fileName="users.csv" />
           <CreateButton page="user" />
         </div>
@@ -41,6 +45,11 @@ const UserPage = async () => {
       <DashboardSectionWrapper>
         <UserList users={data.users ?? []} />
       </DashboardSectionWrapper>
+
+      {/* Modal */}
+      <ModalWrapper>
+        <UserImportForm />
+      </ModalWrapper>
     </>
   );
 };

@@ -5,6 +5,7 @@ import PageWrapper from "@/components/PageWrapper";
 import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import "@/lib/cron-dev";
+import ModalContextProvider from "@/context/ModalContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh min-w-[320px] overflow-hidden`}
       >
         <SessionProviderClient>
-          <PageWrapper>{children}</PageWrapper>
+          <ModalContextProvider>
+            <PageWrapper>{children}</PageWrapper>
+          </ModalContextProvider>
           <ToastContainer />
         </SessionProviderClient>
       </body>

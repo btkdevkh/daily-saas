@@ -1,5 +1,6 @@
 "use client";
 
+import { notify } from "@/lib/notification";
 import { UI } from "@/lib/ui-config";
 import { BiSolidFileExport } from "react-icons/bi";
 
@@ -21,6 +22,7 @@ const ExportButton = <T extends Record<string, CSVValue>>({
   const handleExport = () => {
     const dataExported = objectToCSV(data);
     downloadCSV(dataExported, fileName);
+    notify(true, "Données exportées", fileName);
   };
 
   return (
