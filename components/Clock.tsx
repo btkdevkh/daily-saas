@@ -61,15 +61,15 @@ const Clock = () => {
       })}
 
       <div
-        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[35%] bg-graphite "
+        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[35%] bg-graphite rounded"
         ref={hourRef}
       ></div>
       <div
-        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[40%] bg-graphite "
+        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[40%] bg-graphite rounded"
         ref={minuteRef}
       ></div>
       <div
-        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[50%] bg-red-500 "
+        className="absolute left-1/2 bottom-1/2 -translate-x-1/2 origin-bottom z-10 w-1 h-[50%] bg-red-500 rounded"
         ref={secondRef}
       ></div>
       <div className="absolute left-1/2 bottom-1/2 -translate-y-1/2 -translate-x-1/2 origin-bottom-left z-1000 w-5 h-5 rounded-full top-1/2 bg-red-500"></div>

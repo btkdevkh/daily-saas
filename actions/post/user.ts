@@ -1,11 +1,13 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";
+import { prisma } from "@/lib/prisma";
+import { getUsers } from "../get/user";
+import { User } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { PrevState } from "@/types/PrevState";
 
-export async function createUser(prevState: PrevState, formData: FormData) {
+const createUser = async (prevState: PrevState, formData: FormData) => {
   try {
     const firstname = formData.get("firstname") as string;
     const lastname = formData.get("lastname") as string;
@@ -54,4 +56,84 @@ export async function createUser(prevState: PrevState, formData: FormData) {
       };
     }
   }
-}
+};
+
+const createImportUser = async (prevState: PrevState, formData: FormData) => {
+  try {
+    const importFile = formData.get("import-file") as File;
+
+    if (importFile.size === 0) {
+      throw new Error("Champ obligatoire");
+    }
+
+    const text = await importFile.text();
+    const rows = text.split("\n");
+
+    const headers = rows[0].split(",");
+
+    const data = rows.slice(1).map((row) => {
+      const values = row.split(",");
+      return Object.fromEntries(
+        headers.map((h, i) => [h.trim(), stripQuotes(values[i]?.trim())])
+      );
+    });
+
+    const users = await getUsers();
+
+    if (!users.users) {
+      throw new Error("Aucune donnée disponible");
+    }
+
+    // Version optimale (si beaucoup de données)
+    // const userIds = new Set(users.users.map((u) => u.id));
+    // const filteredData = data.filter((d) => !userIds.has(d.id));
+
+    const filteredData = (data as User[])
+      .filter((datum) => !users.users.some((user) => user.id === datum.id))
+      .map((u) => ({
+        id: u.id,
+        firstname: u.firstname,
+        lastname: u.lastname,
+        email: u.email,
+        password: u.password,
+        role: u.role,
+        createdAt: new Date(u.createdAt),
+        updatedAt: new Date(u.updatedAt),
+      }));
+
+    if (filteredData.length === 0) {
+      throw new Error("Les données existent déja dans la base de donnée");
+    }
+
+    await prisma.user.createMany({
+      data: filteredData,
+    });
+
+    revalidatePath("/");
+
+    return {
+      ...prevState,
+      success: true,
+      message: "Utilisateurs importés",
+    };
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      return { ...prevState, success: false, message: err.message as string };
+    } else if (typeof err === "object" && err !== null && "message" in err) {
+      return { ...prevState, success: false, message: err.message as string };
+    } else {
+      return {
+        ...prevState,
+        success: false,
+        message: "Internal server error" as string,
+      };
+    }
+  }
+};
+
+export { createUser, createImportUser };
+
+const stripQuotes = (value: unknown) => {
+  if (typeof value !== "string") return value;
+  return value.replace(/^"(.*)"$/, "$1");
+};

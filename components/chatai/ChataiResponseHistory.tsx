@@ -6,9 +6,9 @@ import rehypeHighlight from "rehype-highlight";
 import { toString } from "hast-util-to-string";
 import { Chatai } from "@prisma/client";
 import { MdOutlineContentCopy } from "react-icons/md";
-import { toast } from "react-toastify";
 import "highlight.js/styles/atom-one-dark.css";
 import { UI } from "@/lib/ui-config";
+import { notify } from "@/lib/notification";
 
 type ChataiResponseHistoryProps = {
   messages: Chatai[];
@@ -61,13 +61,7 @@ const ChataiResponseHistory = ({ messages }: ChataiResponseHistoryProps) => {
                             window.navigator.clipboard
                               .writeText(codeText)
                               .then(() => {
-                                toast.success("Copié", {
-                                  toastId: codeText,
-                                  pauseOnHover: false,
-                                  autoClose: 500,
-                                  className: "toast-compact",
-                                  position: "bottom-center",
-                                });
+                                notify(true, "Copié", codeText, 500);
                               });
                           }}
                         >

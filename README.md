@@ -12,16 +12,19 @@ Un SaaS de gestionnnaire d'utilités.
 
 ## Features (Récemment ajoutées)
 
+- Une horloge local
+- L'import des données depuis CSV
 - L'export des données vers CSV
 - La barre de recherche des données
 - L'envoie d'e-mail automatique du rappel de RDV dans 3 jours
 
 ![Daily SaaS Login code](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v6_code.png?raw=true)
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v10.png?raw=true)
+![Daily SaaS Users Import](https://github.com/btkdevkh/daily-saas/blob/main/public/users_import_v1.png?raw=true)
 ![Daily SaaS Rdv](https://github.com/btkdevkh/daily-saas/blob/main/public/rdv_v6.png?raw=true)
 ![Daily SaaS Rapel Rdv](https://github.com/btkdevkh/daily-saas/blob/main/public/notif_rdv.png?raw=true)
 ![Daily SaaS Running](https://github.com/btkdevkh/daily-saas/blob/main/public/running_v6.png?raw=true)
-![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v9.png?raw=true)
+![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v10.png?raw=true)
 
 ## Technologies utilisées
 
