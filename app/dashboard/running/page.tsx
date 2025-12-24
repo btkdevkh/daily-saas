@@ -8,6 +8,9 @@ import RunningChart from "@/components/running/RunningChart";
 import RunningRecapChart from "@/components/running/RunningRecapChart";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import RunningChartWrapper from "@/components/running/RunningChartWrapper";
+import ImportButton from "@/components/ImportButton";
+import ModalWrapper from "@/components/ModalWrapper";
+import RunningImportForm from "@/components/running/RunningImportForm";
 
 const RunningPage = async ({
   searchParams,
@@ -55,6 +58,7 @@ const RunningPage = async ({
         )}
 
         <div className="flex gap-1 items-center">
+          <ImportButton title="Importer" label="CSV" />
           {formatRunnings && formatRunnings.length > 0 && (
             <ExportData
               title="Exporter"
@@ -63,6 +67,7 @@ const RunningPage = async ({
               data={formatRunnings}
             />
           )}
+
           <CreateButton page="running" />
         </div>
       </div>
@@ -112,6 +117,11 @@ const RunningPage = async ({
           )}
         </div>
       </DashboardSectionWrapper>
+
+      {/* Modal */}
+      <ModalWrapper>
+        <RunningImportForm />
+      </ModalWrapper>
     </>
   );
 };
