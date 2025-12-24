@@ -6,6 +6,7 @@ import { getUsers } from "../get/user";
 import { User } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { PrevState } from "@/types/PrevState";
+import { stripQuotes } from "@/utils/utils";
 
 const createUser = async (prevState: PrevState, formData: FormData) => {
   try {
@@ -132,8 +133,3 @@ const createImportUser = async (prevState: PrevState, formData: FormData) => {
 };
 
 export { createUser, createImportUser };
-
-const stripQuotes = (value: unknown) => {
-  if (typeof value !== "string") return value;
-  return value.replace(/^"(.*)"$/, "$1");
-};
