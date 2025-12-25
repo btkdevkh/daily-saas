@@ -103,7 +103,9 @@ const createImportUser = async (prevState: PrevState, formData: FormData) => {
       }));
 
     if (filteredData.length === 0) {
-      throw new Error("Les données existent déja dans la base de donnée");
+      throw new Error(
+        "Toutes les données existent déja dans la base de donnée"
+      );
     }
 
     await prisma.user.createMany({

@@ -5,8 +5,11 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { getConnectedUser } from "../auth/user";
 import { PrevState } from "@/types/PrevState";
+import { stripQuotes } from "@/utils/utils";
+import { getPasswords } from "../get/password";
+import { Password } from "@prisma/client";
 
-export async function createPassword(prevState: PrevState, formData: FormData) {
+const createPassword = async (prevState: PrevState, formData: FormData) => {
   try {
     const { user } = await getConnectedUser();
 
@@ -59,7 +62,85 @@ export async function createPassword(prevState: PrevState, formData: FormData) {
       };
     }
   }
-}
+};
+
+const createImportPassword = async (
+  prevState: PrevState,
+  formData: FormData
+) => {
+  try {
+    const importFile = formData.get("import-file") as File;
+
+    if (importFile.size === 0) {
+      throw new Error("Champ obligatoire");
+    }
+
+    const text = await importFile.text();
+    const rows = text.split("\n");
+    const headers = rows[0].split(",");
+
+    const data = rows.slice(1).map((row) => {
+      const values = row.split(",");
+      return Object.fromEntries(
+        headers.map((h, i) => [h.trim(), stripQuotes(values[i]?.trim())])
+      );
+    });
+
+    const response = await getPasswords();
+
+    if (!response.passwords) {
+      throw new Error("Aucune donnée disponible");
+    }
+
+    // Version optimale (si beaucoup de données)
+    // const userIds = new Set(users.users.map((u) => u.id));
+    // const filteredData = data.filter((d) => !userIds.has(d.id));
+
+    const filteredData = (data as Password[])
+      .filter((datum) => !response.passwords.some((pwd) => pwd.id === datum.id))
+      .map((pwd) => ({
+        id: pwd.id,
+        username: pwd.username,
+        password: encrypt(pwd.password),
+        sites: [pwd.sites.toString()],
+        note: pwd.note,
+        userId: pwd.userId,
+        createdAt: new Date(pwd.createdAt),
+      })) as Password[];
+
+    if (filteredData.length === 0) {
+      throw new Error(
+        "Toutes les données existent déja dans la base de donnée"
+      );
+    }
+
+    await prisma.password.createMany({
+      data: filteredData,
+    });
+
+    revalidatePath("/");
+
+    return {
+      ...prevState,
+      success: true,
+      message: "Mot de passe importés",
+    };
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      return { ...prevState, success: false, message: err.message as string };
+    } else if (typeof err === "object" && err !== null && "message" in err) {
+      return { ...prevState, success: false, message: err.message as string };
+    } else {
+      return {
+        ...prevState,
+        success: false,
+        message: "Internal server error" as string,
+      };
+    }
+  }
+};
+
+export { createPassword, createImportPassword };
 
 // Helpers
 // Clé maître depuis .env

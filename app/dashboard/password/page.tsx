@@ -2,6 +2,9 @@ import { getPasswords } from "@/actions/get/password";
 import CreateButton from "@/components/CreateButton";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import ExportData from "@/components/ExportData";
+import ImportButton from "@/components/ImportButton";
+import ModalWrapper from "@/components/ModalWrapper";
+import PasswordImportForm from "@/components/password/PasswordImportForm";
 import PasswordList from "@/components/password/PasswordList";
 import TabLink from "@/components/TabLink";
 import { UI } from "@/lib/ui-config";
@@ -25,6 +28,7 @@ const PasswordPage = async () => {
         )}
 
         <div className="flex items-center gap-1">
+          <ImportButton title="Importer" label="CSV" />
           {data.passwords && data.passwords.length > 0 && (
             <ExportData title="Exporter" label="CSV" fileName="passwords.csv" />
           )}
@@ -35,6 +39,10 @@ const PasswordPage = async () => {
       <DashboardSectionWrapper>
         <PasswordList passwords={data.passwords ?? []} />
       </DashboardSectionWrapper>
+
+      <ModalWrapper>
+        <PasswordImportForm passwords={data.passwords ?? []} />
+      </ModalWrapper>
     </>
   );
 };

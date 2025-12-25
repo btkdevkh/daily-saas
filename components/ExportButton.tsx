@@ -20,7 +20,22 @@ const ExportButton = <T extends Record<string, CSVValue>>({
   label,
 }: ExportButtonProps<T>) => {
   const handleExport = () => {
-    const dataExported = objectToCSV(data);
+    const formatData = data.map((datum) => {
+      if (datum.updatedAt) {
+        return {
+          ...datum,
+          createdAt: datum.createdAt.toISOString(),
+          updatedAt: datum.createdAt.toISOString(),
+        };
+      }
+
+      return {
+        ...datum,
+        createdAt: datum.createdAt.toISOString(),
+      };
+    });
+
+    const dataExported = objectToCSV(formatData);
     downloadCSV(dataExported, fileName);
     notify(true, "Données exportées", fileName);
   };

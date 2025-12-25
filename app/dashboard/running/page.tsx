@@ -34,10 +34,7 @@ const RunningPage = async ({
             : Number(r.calories)
           : Number(r.kilometers) * 68,
       date: String(r.date),
-      createdAt:
-        r.createdAt instanceof Date
-          ? r.createdAt.toISOString()
-          : String(r.createdAt),
+      createdAt: new Date(r.createdAt),
       durations:
         typeof r.durations === "string" ? r.durations : Number(r.durations),
     }))
@@ -120,7 +117,7 @@ const RunningPage = async ({
 
       {/* Modal */}
       <ModalWrapper>
-        <RunningImportForm />
+        <RunningImportForm runnings={formatRunnings ?? []} />
       </ModalWrapper>
     </>
   );

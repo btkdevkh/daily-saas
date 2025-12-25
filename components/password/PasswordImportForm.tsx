@@ -2,21 +2,24 @@
 
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import SubmitButton from "../SubmitButton";
-import { createImportUser } from "@/actions/post/user";
 import { useModalContext } from "@/context/ModalContext";
 import { notify } from "@/lib/notification";
-import { getUsers } from "@/actions/get/user";
-import { User } from "@prisma/client";
+import { Password } from "@prisma/client";
 import { stripQuotes } from "@/utils/utils";
+import { createImportPassword } from "@/actions/post/password";
 
-const UserImportForm = () => {
+type PasswordImportFormProps = {
+  passwords: Password[];
+};
+
+const PasswordImportForm = ({ passwords }: PasswordImportFormProps) => {
   const { setOpenModal } = useModalContext();
 
   // UI interaction
-  const [dataImport, setDataImport] = useState<User[]>([]);
+  const [dataImport, setDataImport] = useState<Password[]>([]);
   const [file, setFile] = useState<File | null>(null);
 
-  const [state, formAction, isPending] = useActionState(createImportUser, {
+  const [state, formAction, isPending] = useActionState(createImportPassword, {
     success: false,
     message: "",
   });
@@ -47,19 +50,9 @@ const UserImportForm = () => {
         );
       });
 
-      const users = await getUsers();
-      const filteredData = (data as User[])
-        .filter((datum) => !users.users?.some((user) => user.id === datum.id))
-        .map((u) => ({
-          id: u.id,
-          firstname: u.firstname,
-          lastname: u.lastname,
-          email: u.email,
-          password: u.password,
-          role: u.role,
-          createdAt: new Date(u.createdAt),
-          updatedAt: new Date(u.updatedAt),
-        })) as User[];
+      const filteredData = (data as Password[]).filter(
+        (datum) => !passwords?.some((pwd) => pwd.id === datum.id)
+      );
 
       setDataImport(filteredData);
     }
@@ -69,11 +62,11 @@ const UserImportForm = () => {
     <div className="min-w-[320px] max-w-[500px] bg-dust-grey p-5 text-graphite text-center rounded">
       <form action={formAction} className="flex flex-col gap-3">
         <h2 className="text-lg font-bold uppercase">
-          Importer des utilisateurs
+          Importer des mot de passe
         </h2>
         <p className="text-xs font-semibold">
-          ⚠️ Cette fonctionalité n'est utils que si vous voulez importer des
-          utilisateurs sauvegardés depuis un fichier de type CSV. Dans le cas
+          ⚠️ Cette fonctionalité n'est utils que si vous voulez importer des mot
+          de passe sauvegardés depuis un fichier de type CSV. Dans le cas
           contraire, veuillez utiliser plutôt celle depuis le formulaire.
         </p>
 
@@ -101,8 +94,8 @@ const UserImportForm = () => {
           {dataImport.length > 0 && (
             <div className="text-left text-[0.8rem] font-semibold italic text-green-700">
               {dataImport.length === 1
-                ? "1 utilisateur(trice) sera importé."
-                : `${dataImport.length} utilisateurs seront importés.`}
+                ? "1 mot de passe sera importé."
+                : `${dataImport.length} mot de passe seront importés.`}
             </div>
           )}
 
@@ -130,4 +123,4 @@ const UserImportForm = () => {
   );
 };
 
-export default UserImportForm;
+export default PasswordImportForm;

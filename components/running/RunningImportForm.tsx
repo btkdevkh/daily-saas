@@ -2,18 +2,25 @@
 
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import SubmitButton from "../SubmitButton";
-import { createImportUser } from "@/actions/post/user";
 import { useModalContext } from "@/context/ModalContext";
 import { notify } from "@/lib/notification";
 import { Running } from "@prisma/client";
 import { stripQuotes } from "@/utils/utils";
-import { getRunnings } from "@/actions/get/running";
+import { IRunning } from "@/types/interfaces/IRunning";
+import { createImportRunning } from "@/actions/post/running";
 
-const RunningImportForm = () => {
+type RunningImportFormProps = {
+  runnings: IRunning[];
+};
+
+const RunningImportForm = ({ runnings }: RunningImportFormProps) => {
   const { setOpenModal } = useModalContext();
-  const [dataImport, setDataImport] = useState<Running[]>([]);
 
-  const [state, formAction, isPending] = useActionState(createImportUser, {
+  // UI interaction
+  const [dataImport, setDataImport] = useState<Running[]>([]);
+  const [file, setFile] = useState<File | null>(null);
+
+  const [state, formAction, isPending] = useActionState(createImportRunning, {
     success: false,
     message: "",
   });
@@ -31,38 +38,33 @@ const RunningImportForm = () => {
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileTaken = e.target.files[0];
+      setFile(fileTaken);
 
       const text = await fileTaken.text();
       const rows = text.split("\n");
       const headers = rows[0].split(",");
-      const data = rows.slice(1).map((row) => {
+
+      const dataCSV = rows.slice(1).map((row) => {
         const values = row.split(",");
         return Object.fromEntries(
           headers.map((h, i) => [h.trim(), stripQuotes(values[i]?.trim())])
         );
       });
 
-      const response = await getRunnings();
-
-      const filteredData = (data as Running[]).filter(
-        (datum) =>
-          !response.runnings?.some((running) => running.id === datum.id)
+      const filteredData = (dataCSV as Running[]).filter(
+        (datum) => !runnings.some((running) => running.id === datum.id)
       );
       setDataImport(filteredData);
     }
   };
 
-  console.log(dataImport);
-
   return (
     <div className="min-w-[320px] max-w-[500px] bg-dust-grey p-5 text-graphite text-center rounded">
       <form action={formAction} className="flex flex-col gap-3">
-        <h2 className="text-lg font-bold uppercase">
-          Importer des utilisateurs
-        </h2>
+        <h2 className="text-lg font-bold uppercase">Importer des activités</h2>
         <p className="text-xs font-semibold">
           ⚠️ Cette fonctionalité n'est utils que si vous voulez importer des
-          utilisateurs sauvegardés depuis un fichier de type CSV. Dans le cas
+          activités sauvegardés depuis un fichier de type CSV. Dans le cas
           contraire, veuillez utiliser plutôt celle depuis le formulaire.
         </p>
 
@@ -82,7 +84,6 @@ const RunningImportForm = () => {
             type="file"
             id="import-file"
             name="import-file"
-            placeholder="Confirmer le mot de passe *"
             className="w-full p-3 shadow bg-white rounded outline-none focus:border-2 border-stormy-teal"
             onChange={handleChangeFile}
           />
@@ -90,12 +91,32 @@ const RunningImportForm = () => {
           {/* Sup. intéraction UI */}
           {dataImport.length > 0 && (
             <div className="text-left text-[0.8rem] font-semibold italic text-green-700">
-              <b>{dataImport.length}</b> activités seront importés.{" "}
+              {dataImport.length === 1
+                ? "1 activité sera importé."
+                : `${dataImport.length} activités seront importés.`}
+            </div>
+          )}
+
+          {dataImport.length === 0 && file && (
+            <div className="text-left text-[0.8rem] font-semibold italic text-red-700">
+              Toutes les données dans le CSV existent déja dans la base de
+              donnée.
             </div>
           )}
         </div>
 
-        <SubmitButton isPending={isPending} />
+        <div className="flex gap-2">
+          <button
+            type="button"
+            disabled={isPending}
+            className="w-full mt-3 p-3 rounded shadow font-bold cursor-pointer text-white bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal uppercase flex justify-center items-center"
+            onClick={() => setOpenModal(false)}
+          >
+            Annuler
+          </button>
+
+          <SubmitButton isPending={isPending} title="Importer" />
+        </div>
       </form>
     </div>
   );
