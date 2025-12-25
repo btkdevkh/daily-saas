@@ -14,6 +14,9 @@ const getPasswords = async () => {
       where: {
         userId: user.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     const formatedPasswords = passwords.map((password) => {
