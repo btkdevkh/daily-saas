@@ -27,6 +27,7 @@ model User {
   rdvs          Rdv[]
   runnings      Running[]
   sessions      Session[]
+  bankAccounts  BankAccount[]
 }
 
 model Account {
@@ -142,4 +143,34 @@ model Chatai {
   answer    String?
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BankAccount {
+  id            String   @id @default(cuid())
+  type          String
+  label         String
+  userId        String
+  balance       Decimal
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  incomes       Income[]
+  expenses      Expense[]
+}
+
+model Income {
+  id              String      @id @default(cuid())
+  bankAccountId   String
+  income          Decimal
+  object          String
+  createdAt       DateTime    @default(now())
+  bankAccount     BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+}
+
+model Expense {
+  id              String      @id @default(cuid())
+  bankAccountId   String
+  expense         Decimal
+  object          String
+  createdAt       DateTime    @default(now())
+  bankAccount     BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
 }
