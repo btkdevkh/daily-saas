@@ -11,6 +11,11 @@ const BankPage = async () => {
     return {
       ...b,
       balance: Number(b.balance),
+      incomes: b.incomes.map((inc) => ({ ...inc, income: Number(inc.income) })),
+      expenses: b.expenses.map((exp) => ({
+        ...exp,
+        expense: Number(exp.expense),
+      })),
     };
   });
 
@@ -33,7 +38,14 @@ const BankPage = async () => {
       </div>
 
       <DashboardSectionWrapper>
-        <BankList bankAccounts={formatData ?? []} />
+        <div className="flex flex-col md:flex-row gap-3 h-full">
+          <BankList bankAccounts={formatData ?? []} />
+
+          {/* Graphique */}
+          <div className="flex-1 hidden md:block">
+            <></>
+          </div>
+        </div>
       </DashboardSectionWrapper>
     </>
   );

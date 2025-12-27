@@ -24,7 +24,7 @@ const ModalWrapper = ({ children }: { children: ReactNode }) => {
             className="bg-red-700 p-1.5 absolute top-1 right-1 cursor-pointer"
             onClick={() => setOpenModal(false)}
           >
-            <MdClose size={UI.iconSize} />
+            <MdClose size={UI.iconSize} color="white" />
           </button>
 
           <div className="p-3">{children}</div>

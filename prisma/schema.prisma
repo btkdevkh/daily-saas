@@ -161,6 +161,7 @@ model Income {
   id              String      @id @default(cuid())
   bankAccountId   String
   income          Decimal
+  object          String
   createdAt       DateTime    @default(now())
   bankAccount     BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
 }
@@ -169,6 +170,7 @@ model Expense {
   id              String      @id @default(cuid())
   bankAccountId   String
   expense         Decimal
+  object          String
   createdAt       DateTime    @default(now())
   bankAccount     BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
 }

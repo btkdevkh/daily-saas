@@ -8,6 +8,7 @@ Un SaaS de gestionnnaire d'utilités.
 - Gestionnaire des rendez-vous
 - Gestionnaire des mots de passe
 - Gestionnaire des course à pied
+- Gestionnaire des budgets
 - Chat I.A d'OpenAI
 
 ## Features (Récemment ajoutées)
@@ -17,11 +18,13 @@ Un SaaS de gestionnnaire d'utilités.
 - L'export des données vers CSV
 - La barre de recherche des données
 - L'envoie d'e-mail automatique du rappel de RDV dans 3 jours
+- La gestion de dépense et revenu
 
 ![Daily SaaS Login](https://github.com/btkdevkh/daily-saas/blob/main/public/login_v6_code.png?raw=true)
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v12.png?raw=true)
 ![Daily SaaS Rapel Rdv](https://github.com/btkdevkh/daily-saas/blob/main/public/notif_rdv.png?raw=true)
 ![Daily SaaS Running](https://github.com/btkdevkh/daily-saas/blob/main/public/running_v7.png?raw=true)
+![Daily SaaS Balance](https://github.com/btkdevkh/daily-saas/blob/main/public/balance_v1.png?raw=true)
 ![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v10.png?raw=true)
 
 ## Technologies utilisées
