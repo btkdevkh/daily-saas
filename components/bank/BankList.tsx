@@ -48,14 +48,13 @@ const BankList = ({ bankAccounts }: BankListProps) => {
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-3">
                 <div className="flex gap-2">
-                  <small className="bg-amber-400 py-1 px-2 w-fit font-bold rounded-xl">
+                  <small className="bg-amber-400 py-1 px-3 w-fit font-bold rounded-xl">
                     {bankAccount.type === "saving" ? "Épargne" : "Chèque"}
                   </small>
-                  <small className="bg-blue-700 text-white py-1 px-2 w-fit font-bold rounded-xl">
+                  <small className="bg-blue-700 text-white py-1 px-3 w-fit font-bold rounded-xl">
                     {bankAccount.label}
                   </small>
                 </div>
-                <hr />
 
                 <div className="flex gap-3 items-center justify-center p-6 bg-light-teal rounded">
                   <span className="text-white text-2xl md:text-3xl font-bold border-b-2 border-white">
@@ -64,9 +63,6 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                       maximumFractionDigits: 2,
                     })}{" "}
                     €
-                  </span>
-                  <span className="w-fit font-semibold uppercase text-xs self-end">
-                    Balance
                   </span>
                 </div>
 
@@ -89,19 +85,15 @@ const BankList = ({ bankAccounts }: BankListProps) => {
               </div>
 
               {/* Revenues */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  {bankAccount.incomes && bankAccount.incomes.length > 0 ? (
-                    <h2 className="w-18 bg-green-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
-                      Revenus
-                    </h2>
-                  ) : (
-                    <h2 className="w-20 bg-amber-400 py-1 px-2 text-xs font-semibold rounded-xl">
-                      0 Revenu
-                    </h2>
-                  )}
+                  <h2 className="w-20 text-center bg-green-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
+                    {bankAccount.incomes && bankAccount.incomes.length > 0
+                      ? "Revenus"
+                      : "0 Revenu"}
+                  </h2>
 
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-full p-2 transition">
+                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
                     <button
                       type="button"
                       className="cursor-pointer"
@@ -119,56 +111,61 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                     </button>
                   </div>
                 </div>
-                <hr />
 
                 {bankAccount.incomes &&
                   bankAccount.incomes.length > 0 &&
                   bankAccount.incomes.map((income) => (
                     <div
                       key={income.id}
-                      className="relative flex items-center justify-between bg-dust-grey p-2 rounded"
+                      className="relative flex flex-col gap-0.5 bg-dust-grey p-2 rounded"
                     >
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-semibold">
+                          {formatDateFR(income.createdAt)}
+                        </span>
+                        <button
+                          className="cursor-pointer"
+                          onClick={() => {
+                            if (confirm("Souhaitez-vous continuer ?")) {
+                              deleteBankIncome(
+                                income.id,
+                                bankAccount.id,
+                                income.income
+                              );
+                            }
+                          }}
+                        >
+                          <div className="rounded-full transition">
+                            <RiDeleteBin6Line size={15} color="crimson" />
+                          </div>
+                        </button>
+                      </div>
+
                       <div className="flex gap-3">
                         <span className="font-bold text-green-700">
-                          +{income.income.toFixed(2)}€
+                          +
+                          {income.income.toLocaleString("fr-FR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                          €
                         </span>
                         <span>{income.object}</span>
                       </div>
-
-                      <button
-                        className="cursor-pointer"
-                        onClick={() => {
-                          if (confirm("Souhaitez-vous continuer ?")) {
-                            deleteBankIncome(
-                              income.id,
-                              bankAccount.id,
-                              income.income
-                            );
-                          }
-                        }}
-                      >
-                        <div className="rounded-full transition">
-                          <RiDeleteBin6Line size={15} color="crimson" />
-                        </div>
-                      </button>
                     </div>
                   ))}
               </div>
 
               {/* Expenses */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                  {bankAccount.expenses && bankAccount.expenses.length > 0 ? (
-                    <h2 className="w-18 bg-red-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
-                      Dépenses
-                    </h2>
-                  ) : (
-                    <h2 className="w-20 bg-amber-400 py-1 px-2 text-xs font-semibold rounded-xl">
-                      0 Dépense
-                    </h2>
-                  )}
+                  <h2 className="w-20 text-center bg-red-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
+                    {bankAccount.expenses && bankAccount.expenses.length > 0
+                      ? "Dépenses"
+                      : "0 Dépense"}
+                  </h2>
 
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-full p-2 transition">
+                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
                     <button
                       type="button"
                       className="cursor-pointer"
@@ -186,38 +183,47 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                     </button>
                   </div>
                 </div>
-                <hr />
 
                 {bankAccount.expenses &&
                   bankAccount.expenses.length > 0 &&
                   bankAccount.expenses.map((expense) => (
                     <div
                       key={expense.id}
-                      className="relative flex items-center justify-between bg-dust-grey p-2 rounded"
+                      className="relative flex flex-col gap-0.5 bg-dust-grey p-2 rounded"
                     >
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-semibold">
+                          {formatDateFR(expense.createdAt)}
+                        </span>
+                        <button
+                          className="cursor-pointer"
+                          onClick={() => {
+                            if (confirm("Souhaitez-vous continuer ?")) {
+                              deleteBankExpense(
+                                expense.id,
+                                bankAccount.id,
+                                expense.expense
+                              );
+                            }
+                          }}
+                        >
+                          <div className="rounded-full transition">
+                            <RiDeleteBin6Line size={15} color="crimson" />
+                          </div>
+                        </button>
+                      </div>
+
                       <div className="flex gap-3">
                         <span className="font-bold text-red-700">
-                          -{expense.expense.toFixed(2)}€
+                          -
+                          {expense.expense.toLocaleString("fr-FR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                          €
                         </span>
                         <span>{expense.object}</span>
                       </div>
-
-                      <button
-                        className="cursor-pointer"
-                        onClick={() => {
-                          if (confirm("Souhaitez-vous continuer ?")) {
-                            deleteBankExpense(
-                              expense.id,
-                              bankAccount.id,
-                              expense.expense
-                            );
-                          }
-                        }}
-                      >
-                        <div className="rounded-full transition">
-                          <RiDeleteBin6Line size={15} color="crimson" />
-                        </div>
-                      </button>
                     </div>
                   ))}
               </div>
@@ -244,3 +250,17 @@ const BankList = ({ bankAccounts }: BankListProps) => {
 };
 
 export default BankList;
+
+function formatDateFR(date: Date) {
+  const formatted = date.toLocaleDateString("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Europe/Paris",
+  });
+
+  return (
+    formatted.charAt(0).toUpperCase() + formatted.slice(1).replace(".", "")
+  );
+}
