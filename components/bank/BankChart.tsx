@@ -29,6 +29,7 @@ const BankChart = ({
         width: "100%",
         height: "100%",
         maxWidth: "500px",
+        margin: "auto",
         aspectRatio: 1,
       }}
       responsive
@@ -48,7 +49,7 @@ const BankChart = ({
           <Cell key={`cell-${index}`} fill={COLORS[index]} />
         ))}
       </Pie>
-      <Tooltip formatter={(v) => `${v} €`} />
+      <Tooltip formatter={(v) => `${Number(v).toFixed(2)} €`} />
       <Legend verticalAlign="top" iconType="circle" />
       {/* <Legend content={renderLegend} /> */}
     </PieChart>

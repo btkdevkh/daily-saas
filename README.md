@@ -24,7 +24,7 @@ Un SaaS de gestionnnaire d'utilités.
 ![Daily SaaS Users](https://github.com/btkdevkh/daily-saas/blob/main/public/users_v12.png?raw=true)
 ![Daily SaaS Rapel Rdv](https://github.com/btkdevkh/daily-saas/blob/main/public/notif_rdv.png?raw=true)
 ![Daily SaaS Running](https://github.com/btkdevkh/daily-saas/blob/main/public/running_v7.png?raw=true)
-![Daily SaaS Balance](https://github.com/btkdevkh/daily-saas/blob/main/public/balance_v1.png?raw=true)
+![Daily SaaS Balance](https://github.com/btkdevkh/daily-saas/blob/main/public/balance_v2.png?raw=true)
 ![Daily SaaS Chat AI](https://github.com/btkdevkh/daily-saas/blob/main/public/chatai_v10.png?raw=true)
 
 ## Technologies utilisées

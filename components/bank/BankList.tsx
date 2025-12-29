@@ -36,7 +36,7 @@ const BankList = ({ bankAccounts }: BankListProps) => {
 
   return (
     <div
-      className={`max-h-full h-fit flex-1 grid gap-2 text-graphite overflow-auto`}
+      className={`max-h-full flex-1 grid gap-2 text-graphite overflow-auto`}
       onScroll={UI.indicatorScroll}
     >
       {bankAccounts &&
@@ -44,7 +44,7 @@ const BankList = ({ bankAccounts }: BankListProps) => {
         bankAccounts.map((bankAccount) => (
           <div
             key={bankAccount.id}
-            className="bg-white shadow p-3 rounded md:mr-1 grid gap-3 md:grid-cols-2"
+            className="bg-white p-3 grid gap-3 md:grid-cols-2 md:mr-1 shadow rounded"
           >
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-3">
@@ -76,167 +76,175 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-3 items-center justify-center p-6 bg-light-teal rounded">
-                  <span className="text-white text-2xl md:text-3xl font-bold border-b-2 border-white">
+                <div className="flex gap-3 items-center justify-center p-10 bg-light-teal rounded">
+                  <span className="text-white text-3xl md:text-4xl font-bold border-b-2 border-white">
                     {bankAccount.balance.toLocaleString("fr-FR", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}{" "}
                     €
                   </span>
-                  <small className="font-bold uppercase text-[0.7rem] self-end">
-                    Solde
-                  </small>
                 </div>
               </div>
 
-              {/* Revenues */}
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="w-20 text-center bg-green-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
-                    {bankAccount.incomes && bankAccount.incomes.length > 0
-                      ? "Revenus"
-                      : "0 Revenu"}
-                  </h2>
+              <div
+                className={`flex flex-col gap-${
+                  bankAccount.incomes?.length === 0 ? "0" : "3"
+                }`}
+              >
+                {/* Revenues */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center">
+                    <h2 className="w-20 text-center bg-green-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
+                      {bankAccount.incomes && bankAccount.incomes.length > 0
+                        ? "Revenus"
+                        : "0 Revenu"}
+                    </h2>
 
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
-                    <button
-                      type="button"
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setOpenModal(true);
-                        setSelectedAccount((prev) => ({
-                          ...prev,
-                          id: bankAccount.id,
-                          income: true,
-                          expense: false,
-                        }));
-                      }}
-                    >
-                      <IoMdAdd size={20} />
-                    </button>
+                    <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
+                      <button
+                        type="button"
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setOpenModal(true);
+                          setSelectedAccount((prev) => ({
+                            ...prev,
+                            id: bankAccount.id,
+                            income: true,
+                            expense: false,
+                          }));
+                        }}
+                      >
+                        <IoMdAdd size={20} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="max-h-[30svh] flex flex-col gap-1 overflow-auto">
+                    {bankAccount.incomes &&
+                      bankAccount.incomes.length > 0 &&
+                      bankAccount.incomes.map((income) => (
+                        <div
+                          key={income.id}
+                          className="relative flex flex-col gap-0.5 bg-green-50 p-2 rounded"
+                        >
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs font-semibold">
+                              {formatDateFR(income.createdAt)}
+                            </span>
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                if (confirm("Souhaitez-vous continuer ?")) {
+                                  deleteBankIncome(
+                                    income.id,
+                                    bankAccount.id,
+                                    income.income
+                                  );
+                                }
+                              }}
+                            >
+                              <div className="rounded-full transition">
+                                <RiDeleteBin6Line size={15} color="crimson" />
+                              </div>
+                            </button>
+                          </div>
+
+                          <div className="flex gap-3">
+                            <span className="font-bold text-green-700">
+                              +{" "}
+                              {income.income.toLocaleString("fr-FR", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}{" "}
+                              €
+                            </span>
+                            <span>{income.object}</span>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
 
-                {bankAccount.incomes &&
-                  bankAccount.incomes.length > 0 &&
-                  bankAccount.incomes.map((income) => (
-                    <div
-                      key={income.id}
-                      className="relative flex flex-col gap-0.5 bg-dust-grey p-2 rounded"
-                    >
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs font-semibold">
-                          {formatDateFR(income.createdAt)}
-                        </span>
-                        <button
-                          className="cursor-pointer"
-                          onClick={() => {
-                            if (confirm("Souhaitez-vous continuer ?")) {
-                              deleteBankIncome(
-                                income.id,
-                                bankAccount.id,
-                                income.income
-                              );
-                            }
-                          }}
-                        >
-                          <div className="rounded-full transition">
-                            <RiDeleteBin6Line size={15} color="crimson" />
-                          </div>
-                        </button>
-                      </div>
+                {/* Expenses */}
+                <div
+                  className={`flex flex-col gap-${
+                    bankAccount.expenses?.length === 0 ? "0" : "2"
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <h2 className="w-20 text-center bg-red-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
+                      {bankAccount.expenses && bankAccount.expenses.length > 0
+                        ? "Dépenses"
+                        : "0 Dépense"}
+                    </h2>
 
-                      <div className="flex gap-3">
-                        <span className="font-bold text-green-700">
-                          +{" "}
-                          {income.income.toLocaleString("fr-FR", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}{" "}
-                          €
-                        </span>
-                        <span>{income.object}</span>
-                      </div>
+                    <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
+                      <button
+                        type="button"
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setOpenModal(true);
+                          setSelectedAccount((prev) => ({
+                            ...prev,
+                            id: bankAccount.id,
+                            income: false,
+                            expense: true,
+                          }));
+                        }}
+                      >
+                        <IoMdAdd size={20} />
+                      </button>
                     </div>
-                  ))}
-              </div>
+                  </div>
 
-              {/* Expenses */}
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="w-20 text-center bg-red-700 text-white py-1 px-2 text-xs font-semibold rounded-xl">
-                    {bankAccount.expenses && bankAccount.expenses.length > 0
-                      ? "Dépenses"
-                      : "0 Dépense"}
-                  </h2>
+                  <div className="max-h-[30svh] flex flex-col gap-1 overflow-auto">
+                    {bankAccount.expenses &&
+                      bankAccount.expenses.length > 0 &&
+                      bankAccount.expenses.map((expense) => (
+                        <div key={expense.id} className="bg-red-50 p-2 rounded">
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs font-semibold">
+                              {formatDateFR(expense.createdAt)}
+                            </span>
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                if (confirm("Souhaitez-vous continuer ?")) {
+                                  deleteBankExpense(
+                                    expense.id,
+                                    bankAccount.id,
+                                    expense.expense
+                                  );
+                                }
+                              }}
+                            >
+                              <div className="rounded-full transition">
+                                <RiDeleteBin6Line size={15} color="crimson" />
+                              </div>
+                            </button>
+                          </div>
 
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] flex justify-center items-center rounded-xl py-0.5 px-2 transition">
-                    <button
-                      type="button"
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setOpenModal(true);
-                        setSelectedAccount((prev) => ({
-                          ...prev,
-                          id: bankAccount.id,
-                          income: false,
-                          expense: true,
-                        }));
-                      }}
-                    >
-                      <IoMdAdd size={20} />
-                    </button>
+                          <div className="flex gap-3">
+                            <span className="font-bold text-red-700">
+                              -{" "}
+                              {expense.expense.toLocaleString("fr-FR", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}{" "}
+                              €
+                            </span>
+                            <span>{expense.object}</span>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
-
-                {bankAccount.expenses &&
-                  bankAccount.expenses.length > 0 &&
-                  bankAccount.expenses.map((expense) => (
-                    <div
-                      key={expense.id}
-                      className="relative flex flex-col gap-0.5 bg-dust-grey p-2 rounded"
-                    >
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs font-semibold">
-                          {formatDateFR(expense.createdAt)}
-                        </span>
-                        <button
-                          className="cursor-pointer"
-                          onClick={() => {
-                            if (confirm("Souhaitez-vous continuer ?")) {
-                              deleteBankExpense(
-                                expense.id,
-                                bankAccount.id,
-                                expense.expense
-                              );
-                            }
-                          }}
-                        >
-                          <div className="rounded-full transition">
-                            <RiDeleteBin6Line size={15} color="crimson" />
-                          </div>
-                        </button>
-                      </div>
-
-                      <div className="flex gap-3">
-                        <span className="font-bold text-red-700">
-                          -{" "}
-                          {expense.expense.toLocaleString("fr-FR", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}{" "}
-                          €
-                        </span>
-                        <span>{expense.object}</span>
-                      </div>
-                    </div>
-                  ))}
               </div>
             </div>
 
             {/* Chart */}
-            <div className="bg-dust-grey md:block rounded pt-3">
+            <div className="bg-teal-50 md:block rounded pt-3 overflow-auto">
               <BankChart bankAccount={bankAccount} />
             </div>
 
