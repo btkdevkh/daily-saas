@@ -52,7 +52,7 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
           name="firstname"
           placeholder="Prénom *"
           defaultValue={user?.firstname}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -63,7 +63,7 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
           name="lastname"
           placeholder="NOM *"
           defaultValue={user?.lastname}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -74,7 +74,7 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
           name="email"
           placeholder="Email *"
           defaultValue={user?.email}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -84,7 +84,7 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
             id="role"
             name="role"
             defaultValue={user.role}
-            className="w-full p-2.5 bg-white outline-stormy-teal shadow rounded"
+            className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           >
             <option value="User">User</option>
             <option value="Admin">Admin</option>

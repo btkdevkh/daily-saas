@@ -44,7 +44,7 @@ const BankList = ({ bankAccounts }: BankListProps) => {
         bankAccounts.map((bankAccount) => (
           <div
             key={bankAccount.id}
-            className="bg-white p-3 grid gap-3 md:grid-cols-2 md:mr-1 shadow rounded"
+            className="bg-white p-3 grid gap-3 md:grid-cols-2 md:mr-1 relative shadow rounded"
           >
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-3">

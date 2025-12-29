@@ -40,7 +40,7 @@ export default function ForgetPassForm() {
           id="email"
           name="email"
           placeholder="Email *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
       <SubmitButton

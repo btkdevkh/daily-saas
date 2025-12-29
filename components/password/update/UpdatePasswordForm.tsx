@@ -56,7 +56,7 @@ export default function UpdatePasswordForm({
           name="username"
           placeholder="Username"
           defaultValue={password?.username}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -67,7 +67,7 @@ export default function UpdatePasswordForm({
           name="password"
           placeholder="Password"
           defaultValue={decryptedPassword}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
 
         <button
@@ -86,7 +86,7 @@ export default function UpdatePasswordForm({
           name="sites"
           placeholder="Sites"
           defaultValue={password?.sites}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -96,7 +96,7 @@ export default function UpdatePasswordForm({
           name="note"
           placeholder="Note"
           defaultValue={password?.note}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

@@ -12,7 +12,7 @@ const ModalWrapper = ({ children }: { children: ReactNode }) => {
     <>
       {openModal && (
         <div
-          className="w-[calc(100%+50px)] h-full absolute top-0 bottom-0 -left-[50px] right-0 z-1000 bg-[rgb(0,0,0,0.7)] flex items-center justify-center"
+          className="w-[calc(100%+50px)] h-full absolute top-0 bottom-0 -left-[50px] right-0 z-1000 bg-[rgb(0,0,0,0.7)] flex flex-col items-center justify-center"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setOpenModal(false);
@@ -21,7 +21,7 @@ const ModalWrapper = ({ children }: { children: ReactNode }) => {
         >
           <button
             type="button"
-            className="bg-red-700 p-1.5 absolute top-1 right-1 cursor-pointer"
+            className="bg-red-700 p-1.5 absolute top-1 right-1 cursor-pointer rounded"
             onClick={() => setOpenModal(false)}
           >
             <MdClose size={UI.iconSize} color="white" />

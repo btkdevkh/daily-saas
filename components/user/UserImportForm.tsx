@@ -78,12 +78,12 @@ const UserImportForm = () => {
         </p>
 
         {state.success && state.message && (
-          <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+          <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
             {state.message}
           </div>
         )}
         {!state.success && state.message && (
-          <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+          <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
             {state.message}
           </div>
         )}
@@ -93,7 +93,7 @@ const UserImportForm = () => {
             type="file"
             id="import-file"
             name="import-file"
-            className="w-full p-3 shadow bg-white rounded outline-none focus:border-2 border-stormy-teal"
+            className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
             onChange={handleChangeFile}
           />
 
@@ -118,12 +118,12 @@ const UserImportForm = () => {
           <button
             type="button"
             disabled={isPending}
-            className="w-full mt-3 p-3 rounded shadow font-bold cursor-pointer text-white bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal uppercase flex justify-center items-center"
+            className="w-full mt-3 p-2 rounded shadow font-bold cursor-pointer text-white bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal uppercase flex justify-center items-center"
             onClick={() => setOpenModal(false)}
           >
             Annuler
           </button>
-          <SubmitButton isPending={isPending} title="Importer" />
+          <SubmitButton isPending={isPending} title="Importer" padding={2} />
         </div>
       </form>
     </div>

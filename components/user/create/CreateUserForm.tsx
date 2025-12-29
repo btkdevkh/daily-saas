@@ -42,7 +42,7 @@ const CreateUserForm = () => {
           id="firstname"
           name="firstname"
           placeholder="Prénom *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -52,7 +52,7 @@ const CreateUserForm = () => {
           id="lastname"
           name="lastname"
           placeholder="NOM *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -62,7 +62,7 @@ const CreateUserForm = () => {
           id="email"
           name="email"
           placeholder="Email *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -72,7 +72,7 @@ const CreateUserForm = () => {
           id="password"
           name="password"
           placeholder="Mot de passe *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -82,7 +82,7 @@ const CreateUserForm = () => {
           id="confirm-password"
           name="confirm-password"
           placeholder="Confirmer le mot de passe *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -91,7 +91,7 @@ const CreateUserForm = () => {
           <select
             id="role"
             name="role"
-            className="w-full p-2.5 bg-white outline-stormy-teal shadow rounded"
+            className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           >
             <option value="User">User</option>
             <option value="Admin">Admin</option>

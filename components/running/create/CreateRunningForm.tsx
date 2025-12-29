@@ -39,7 +39,7 @@ export default function CreateRunningForm() {
         <select
           id="mode"
           name="mode"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         >
           <option value="treadmill">Tapis de course</option>
           <option value="outside">Dehors</option>
@@ -53,7 +53,7 @@ export default function CreateRunningForm() {
           name="kilometers"
           placeholder="Kilomètres"
           step="any"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -63,7 +63,7 @@ export default function CreateRunningForm() {
           id="durations"
           name="durations"
           placeholder="Temps (00:00:00)"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -74,7 +74,7 @@ export default function CreateRunningForm() {
           name="calories"
           step="any"
           placeholder="Calories"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -83,7 +83,7 @@ export default function CreateRunningForm() {
           type="date"
           id="date"
           name="date"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

@@ -176,7 +176,7 @@ const MENU = [
   },
   {
     id: uuidv4(),
-    title: "Balances",
+    title: "Banques",
     pathname: "/dashboard/bank",
     show: false,
     icon: <BiSolidCreditCard size={ICON_SIZE} color="#353535" />,
