@@ -2,26 +2,33 @@
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createRunning } from "@/actions/post/running";
 import SubmitButton from "@/components/SubmitButton";
+import { updateBankAccount } from "@/actions/update/bank";
+import { IBankAccount } from "@/types/interfaces/IBankAccount";
 
-export default function CreateRunningForm() {
+type UpdateBankAccountFormProps = {
+  bankAccount?: IBankAccount;
+};
+
+const UpdateBankAccountForm = ({ bankAccount }: UpdateBankAccountFormProps) => {
   const router = useRouter();
-  const [state, formAction, isPending] = useActionState(createRunning, {
+
+  const [state, formAction, isPending] = useActionState(updateBankAccount, {
+    id: bankAccount?.id ?? "",
     success: false,
     message: "",
   });
 
   useEffect(() => {
     if (state.success) {
-      setTimeout(() => router.push("/dashboard/running?order=1"), 1000);
+      setTimeout(() => router.push("/dashboard/bank"), 1000);
     }
   }, [state.success]);
 
   return (
     <form action={formAction} className="flex flex-col gap-3">
       <h2 className="text-xl font-bold mb-3 uppercase">
-        Enregistrer vos course à pied
+        Modifier un compte bancaire
       </h2>
 
       {state.success && state.message && (
@@ -37,32 +44,23 @@ export default function CreateRunningForm() {
 
       <div>
         <select
-          id="mode"
-          name="mode"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          id="type"
+          name="type"
+          defaultValue={bankAccount?.type}
+          className="w-full p-2.5 bg-white outline-stormy-teal shadow rounded"
         >
-          <option value="treadmill">Tapis de course</option>
-          <option value="outside">Dehors</option>
+          <option value="saving">Épargne</option>
+          <option value="current">Chèque</option>
         </select>
       </div>
 
       <div>
         <input
-          type="number"
-          id="kilometers"
-          name="kilometers"
-          placeholder="Kilomètres"
-          step="any"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
-        />
-      </div>
-
-      <div>
-        <input
           type="text"
-          id="durations"
-          name="durations"
-          placeholder="Temps (00:00:00)"
+          id="label"
+          name="label"
+          placeholder="Label *"
+          defaultValue={bankAccount?.label}
           className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
@@ -70,24 +68,18 @@ export default function CreateRunningForm() {
       <div>
         <input
           type="number"
-          id="calories"
-          name="calories"
+          id="balance"
+          name="balance"
+          placeholder="Solde *"
+          defaultValue={bankAccount?.balance}
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
           step="any"
-          placeholder="Calories"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
-        />
-      </div>
-
-      <div>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
       <SubmitButton isPending={isPending} padding={2} />
     </form>
   );
-}
+};
+
+export default UpdateBankAccountForm;

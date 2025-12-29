@@ -27,13 +27,13 @@ const CreateUserFormExternal = () => {
       </h2>
 
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
 
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -44,7 +44,7 @@ const CreateUserFormExternal = () => {
           id="firstname"
           name="firstname"
           placeholder="Prénom *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -54,7 +54,7 @@ const CreateUserFormExternal = () => {
           id="lastname"
           name="lastname"
           placeholder="NOM *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -64,7 +64,7 @@ const CreateUserFormExternal = () => {
           id="email"
           name="email"
           placeholder="Email *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -74,7 +74,7 @@ const CreateUserFormExternal = () => {
           id="password"
           name="password"
           placeholder="Mot de passe *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -84,11 +84,11 @@ const CreateUserFormExternal = () => {
           id="confirm-password"
           name="confirm-password"
           placeholder="Confirmer le mot de passe *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
-      <SubmitButton isPending={isPending} title="S'inscrire" />
+      <SubmitButton isPending={isPending} title="S'inscrire" padding={2} />
 
       <div className="flex justify-between items-center">
         <Link

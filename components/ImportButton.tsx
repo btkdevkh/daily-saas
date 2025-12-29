@@ -16,7 +16,7 @@ const ImportButton = ({ title, label }: ImportButtonProps) => {
     <button
       type="button"
       title={`Exporter en ${label}`}
-      className="w-fit bg-stormy-teal flex items-center gap-1 p-2 md:pr-3 rounded font-semibold cursor-pointer uppercase"
+      className="w-fit bg-stormy-teal flex items-center gap-1 p-1 md:p-2 rounded font-semibold cursor-pointer uppercase"
       onClick={() => setOpenModal(true)}
     >
       <BiSolidFileImport size={UI.iconSize} />

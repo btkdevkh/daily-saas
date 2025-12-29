@@ -48,10 +48,10 @@ const CreateBankExpenseForm = ({
       )}
 
       <div className="flex gap-2">
-        <small className="bg-amber-400 py-1 px-2 w-fit font-bold rounded-xl">
+        <small className="bg-amber-400 py-1 px-3 w-fit font-bold rounded-xl">
           {bankAccount.type === "saving" ? "Épargne" : "Chèque"}
         </small>
-        <small className="bg-blue-700 text-white py-1 px-2 w-fit font-bold rounded-xl">
+        <small className="bg-blue-700 text-white py-1 px-3 w-fit font-bold rounded-xl">
           {bankAccount.label}
         </small>
       </div>
@@ -62,7 +62,7 @@ const CreateBankExpenseForm = ({
           id="object"
           name="object"
           placeholder="Objet *"
-          className="bg-white w-full p-3 outline-stormy-teal rounded"
+          className="bg-white w-full p-2 outline-stormy-teal rounded"
         />
       </div>
       <div>
@@ -71,12 +71,13 @@ const CreateBankExpenseForm = ({
           id="expense"
           name="expense"
           placeholder="Dépense *"
-          className="bg-white w-full p-3 outline-stormy-teal rounded"
+          className="bg-white w-full p-2 outline-stormy-teal rounded"
+          step="any"
         />
       </div>
       <input type="hidden" id="id" name="id" value={bankAccount.id} />
 
-      <SubmitButton isPending={isPending} />
+      <SubmitButton isPending={isPending} padding={2} />
     </form>
   );
 };

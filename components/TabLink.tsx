@@ -20,7 +20,7 @@ const TabLink = ({ url, title }: TabLinkProps) => {
         pathname === url || `${pathname}?order=${order}` === url
           ? "bg-graphite"
           : "bg-[#979696]"
-      } text-white text-center shadow py-1 px-2.5`}
+      } text-white text-center shadow py-1 px-2 rounded`}
     >
       {title}
     </Link>

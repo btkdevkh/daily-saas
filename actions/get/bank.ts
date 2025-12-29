@@ -19,6 +19,9 @@ const getBankAccounts = async () => {
         incomes: true,
         expenses: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return {
@@ -37,4 +40,44 @@ const getBankAccounts = async () => {
   }
 };
 
-export { getBankAccounts };
+const getBankAccountById = async (bankAccountId: string) => {
+  try {
+    const { user } = await getConnectedUser();
+
+    if (!user) {
+      throw new Error("Identification inconnu");
+    }
+
+    const bankAccount = await prisma.bankAccount.findFirst({
+      where: {
+        id: bankAccountId,
+        userId: user.id,
+      },
+    });
+
+    if (!bankAccount) {
+      throw new Error("Compte bancaire n'existe pas");
+    }
+
+    const formatBankAccount = {
+      ...bankAccount,
+      balance: Number(bankAccount.balance),
+    };
+
+    return {
+      success: true,
+      message: "Compte bancaire trouvé",
+      formatBankAccount,
+    };
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      return { error: err.message as string };
+    } else if (typeof err === "object" && err !== null && "message" in err) {
+      return { error: err.message as string };
+    } else {
+      return { error: "Internal server error" as string };
+    }
+  }
+};
+
+export { getBankAccounts, getBankAccountById };

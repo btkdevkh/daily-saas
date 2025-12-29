@@ -23,12 +23,12 @@ export default function CreateRdvForm() {
       <h2 className="text-xl font-bold mb-3 uppercase">Créer un Rendez-vous</h2>
 
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -39,7 +39,7 @@ export default function CreateRdvForm() {
           id="title"
           name="title"
           placeholder="Titre de RDV"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -49,7 +49,7 @@ export default function CreateRdvForm() {
           id="withWhom"
           name="withWhom"
           placeholder="Avec qui ?"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -58,7 +58,7 @@ export default function CreateRdvForm() {
           type="datetime-local"
           id="date"
           name="date"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -68,11 +68,11 @@ export default function CreateRdvForm() {
           id="address"
           name="address"
           placeholder="Adresse de RDV"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
-      <SubmitButton isPending={isPending} />
+      <SubmitButton isPending={isPending} padding={2} />
     </form>
   );
 }
