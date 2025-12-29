@@ -43,7 +43,7 @@ const ExportButton = <T extends Record<string, CSVValue>>({
   return (
     <button
       title={`Exporter en ${label}`}
-      className="w-fit bg-stormy-teal flex items-center gap-1 p-2 md:pr-3 rounded font-semibold cursor-pointer uppercase"
+      className="w-fit bg-stormy-teal flex items-center gap-1 p-1 md:p-2 rounded font-semibold cursor-pointer uppercase"
       onClick={handleExport}
     >
       <BiSolidFileExport size={UI.iconSize} />

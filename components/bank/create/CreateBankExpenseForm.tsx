@@ -72,6 +72,7 @@ const CreateBankExpenseForm = ({
           name="expense"
           placeholder="Dépense *"
           className="bg-white w-full p-2 outline-stormy-teal rounded"
+          step="any"
         />
       </div>
       <input type="hidden" id="id" name="id" value={bankAccount.id} />

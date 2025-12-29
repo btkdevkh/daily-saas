@@ -72,6 +72,7 @@ const CreateBankIncomeForm = ({
           name="income"
           placeholder="Revenu *"
           className="bg-white w-full p-2 outline-stormy-teal rounded"
+          step="any"
         />
       </div>
       <input type="hidden" id="id" name="id" value={bankAccount.id} />

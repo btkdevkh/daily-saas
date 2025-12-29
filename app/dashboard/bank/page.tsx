@@ -38,14 +38,7 @@ const BankPage = async () => {
       </div>
 
       <DashboardSectionWrapper>
-        <div className="flex flex-col md:flex-row gap-3 h-full">
-          <BankList bankAccounts={formatData ?? []} />
-
-          {/* Graphique */}
-          <div className="flex-1 hidden md:block">
-            <></>
-          </div>
-        </div>
+        <BankList bankAccounts={formatData ?? []} />
       </DashboardSectionWrapper>
     </>
   );

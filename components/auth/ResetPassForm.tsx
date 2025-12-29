@@ -28,13 +28,13 @@ export default function ResetPassForm({ token }: ResetPassFormProps) {
   return (
     <form action={formAction} className="flex flex-col gap-3">
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
 
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -45,7 +45,7 @@ export default function ResetPassForm({ token }: ResetPassFormProps) {
           id="password"
           name="password"
           placeholder="Nouveau mot de passe *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
       <div>
@@ -54,11 +54,15 @@ export default function ResetPassForm({ token }: ResetPassFormProps) {
           id="confirm-password"
           name="confirm-password"
           placeholder="Confirmer le nouveau mot de passe *"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
-      <SubmitButton isPending={isPending} title="Réinitialisation" />
+      <SubmitButton
+        isPending={isPending}
+        title="Réinitialisation"
+        padding={2}
+      />
 
       <div className="flex justify-between items-center">
         <Link

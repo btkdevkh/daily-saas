@@ -17,6 +17,7 @@ import {
   deleteBankExpense,
   deleteBankIncome,
 } from "@/actions/delete/bank";
+import BankChart from "./BankChart";
 
 type BankListProps = {
   bankAccounts: IBankAccount[];
@@ -35,25 +36,44 @@ const BankList = ({ bankAccounts }: BankListProps) => {
 
   return (
     <div
-      className={`max-h-full h-full flex-1 grid gap-1 text-graphite overflow-auto`}
+      className={`max-h-full h-fit flex-1 grid gap-2 text-graphite overflow-auto`}
       onScroll={UI.indicatorScroll}
     >
       {bankAccounts &&
         bankAccounts.length > 0 &&
-        bankAccounts.map((bankAccount, idx) => (
+        bankAccounts.map((bankAccount) => (
           <div
             key={bankAccount.id}
-            className="bg-white shadow p-3 relative rounded mr-1"
+            className="bg-white shadow p-3 rounded md:mr-1 grid gap-3 md:grid-cols-2"
           >
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-3">
-                <div className="flex gap-2">
-                  <small className="bg-amber-400 py-1 px-3 w-fit font-bold rounded-xl">
-                    {bankAccount.type === "saving" ? "Épargne" : "Chèque"}
-                  </small>
-                  <small className="bg-blue-700 text-white py-1 px-3 w-fit font-bold rounded-xl">
-                    {bankAccount.label}
-                  </small>
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <small className="bg-amber-400 py-1 px-3 w-fit font-bold rounded-xl">
+                      {bankAccount.type === "saving" ? "Épargne" : "Chèque"}
+                    </small>
+                    <small className="bg-blue-700 text-white py-1 px-3 w-fit font-bold rounded-xl">
+                      {bankAccount.label}
+                    </small>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
+                      <Link href={`/dashboard/bank/update/${bankAccount.id}`}>
+                        <PiPencilDuotone size={20} color="orange" />
+                      </Link>
+                    </div>
+
+                    <ActionButton
+                      id={bankAccount.id}
+                      handler={deleteBankAccount as (id?: string) => void}
+                    >
+                      <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
+                        <RiDeleteBin6Line size={20} color="crimson" />
+                      </div>
+                    </ActionButton>
+                  </div>
                 </div>
 
                 <div className="flex gap-3 items-center justify-center p-6 bg-light-teal rounded">
@@ -64,23 +84,9 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                     })}{" "}
                     €
                   </span>
-                </div>
-
-                <div className="absolute top-2 right-3 flex gap-2">
-                  <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
-                    <Link href={`/dashboard/bank/update/${bankAccount.id}`}>
-                      <PiPencilDuotone size={20} color="orange" />
-                    </Link>
-                  </div>
-
-                  <ActionButton
-                    id={bankAccount.id}
-                    handler={deleteBankAccount as (id?: string) => void}
-                  >
-                    <div className="bg-[rgb(0,0,0,0.1)] hover:bg-[rgb(0,0,0,0.3)] rounded-full p-2 transition">
-                      <RiDeleteBin6Line size={20} color="crimson" />
-                    </div>
-                  </ActionButton>
+                  <small className="font-bold uppercase text-[0.7rem] self-end">
+                    Solde
+                  </small>
                 </div>
               </div>
 
@@ -143,11 +149,11 @@ const BankList = ({ bankAccounts }: BankListProps) => {
 
                       <div className="flex gap-3">
                         <span className="font-bold text-green-700">
-                          +
+                          +{" "}
                           {income.income.toLocaleString("fr-FR", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
-                          })}
+                          })}{" "}
                           €
                         </span>
                         <span>{income.object}</span>
@@ -215,11 +221,11 @@ const BankList = ({ bankAccounts }: BankListProps) => {
 
                       <div className="flex gap-3">
                         <span className="font-bold text-red-700">
-                          -
+                          -{" "}
                           {expense.expense.toLocaleString("fr-FR", {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
-                          })}
+                          })}{" "}
                           €
                         </span>
                         <span>{expense.object}</span>
@@ -227,6 +233,11 @@ const BankList = ({ bankAccounts }: BankListProps) => {
                     </div>
                   ))}
               </div>
+            </div>
+
+            {/* Chart */}
+            <div className="bg-dust-grey md:block rounded pt-3">
+              <BankChart bankAccount={bankAccount} />
             </div>
 
             {/* Modal */}

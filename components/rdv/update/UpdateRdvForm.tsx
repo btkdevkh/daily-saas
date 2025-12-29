@@ -32,13 +32,13 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
       </h2>
 
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
 
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -50,7 +50,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="title"
           defaultValue={rdv?.title}
           placeholder="Titre de RDV"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -61,7 +61,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="withWhom"
           defaultValue={rdv?.withWhom}
           placeholder="Avec qui ?"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -72,7 +72,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="date"
           lang="fr"
           defaultValue={rdv?.date}
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -83,11 +83,11 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="address"
           defaultValue={rdv?.address}
           placeholder="Adresse de RDV"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
-      <SubmitButton isPending={isPending} />
+      <SubmitButton isPending={isPending} padding={2} />
     </form>
   );
 }

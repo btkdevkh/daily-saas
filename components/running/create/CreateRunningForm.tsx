@@ -25,12 +25,12 @@ export default function CreateRunningForm() {
       </h2>
 
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -53,7 +53,7 @@ export default function CreateRunningForm() {
           name="kilometers"
           placeholder="Kilomètres"
           step="any"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -63,7 +63,7 @@ export default function CreateRunningForm() {
           id="durations"
           name="durations"
           placeholder="Temps (00:00:00)"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -74,7 +74,7 @@ export default function CreateRunningForm() {
           name="calories"
           step="any"
           placeholder="Calories"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
@@ -83,11 +83,11 @@ export default function CreateRunningForm() {
           type="date"
           id="date"
           name="date"
-          className="w-full p-3 shadow bg-white rounded outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stormy-teal"
+          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
         />
       </div>
 
-      <SubmitButton isPending={isPending} />
+      <SubmitButton isPending={isPending} padding={2} />
     </form>
   );
 }

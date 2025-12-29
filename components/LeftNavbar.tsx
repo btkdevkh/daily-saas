@@ -12,7 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRunning } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchBar } from "@/context/SearchBarContext";
-import { FaCreditCard } from "react-icons/fa";
+import { BiSolidCreditCard } from "react-icons/bi";
 import Clock from "./Clock";
 
 type LeftNavbarProps = {
@@ -179,8 +179,8 @@ const MENU = [
     title: "Balances",
     pathname: "/dashboard/bank",
     show: false,
-    icon: <FaCreditCard size={ICON_SIZE} color="#353535" />,
-    iconActive: <FaCreditCard size={ICON_SIZE} color="#3C6E71" />,
+    icon: <BiSolidCreditCard size={ICON_SIZE} color="#353535" />,
+    iconActive: <BiSolidCreditCard size={ICON_SIZE} color="#3C6E71" />,
     access: "User",
   },
   {

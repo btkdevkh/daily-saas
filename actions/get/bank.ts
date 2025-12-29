@@ -19,6 +19,9 @@ const getBankAccounts = async () => {
         incomes: true,
         expenses: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return {
