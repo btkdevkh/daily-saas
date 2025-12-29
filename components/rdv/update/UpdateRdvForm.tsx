@@ -50,7 +50,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="title"
           defaultValue={rdv?.title}
           placeholder="Titre de RDV"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -61,7 +61,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="withWhom"
           defaultValue={rdv?.withWhom}
           placeholder="Avec qui ?"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -72,7 +72,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="date"
           lang="fr"
           defaultValue={rdv?.date}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -83,7 +83,7 @@ export default function UpdateRdvForm({ rdv }: UpdateRdvFormProps) {
           name="address"
           defaultValue={rdv?.address}
           placeholder="Adresse de RDV"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

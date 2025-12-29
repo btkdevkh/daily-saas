@@ -18,7 +18,6 @@ export default function LoginPage() {
             Daily SaaS
           </h2>
         </div>
-
         <br />
 
         <LoginForm />

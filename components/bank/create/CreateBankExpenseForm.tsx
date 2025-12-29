@@ -37,12 +37,12 @@ const CreateBankExpenseForm = ({
       </h2>
 
       {state.success && state.message && (
-        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
       {!state.success && state.message && (
-        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+        <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
           {state.message}
         </div>
       )}
@@ -62,7 +62,7 @@ const CreateBankExpenseForm = ({
           id="object"
           name="object"
           placeholder="Objet *"
-          className="bg-white w-full p-2 outline-stormy-teal rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
       <div>
@@ -71,7 +71,7 @@ const CreateBankExpenseForm = ({
           id="expense"
           name="expense"
           placeholder="Dépense *"
-          className="bg-white w-full p-2 outline-stormy-teal rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           step="any"
         />
       </div>

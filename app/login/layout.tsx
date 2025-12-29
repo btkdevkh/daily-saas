@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function LoginLayout({ children }: { children: ReactNode }) {
   return (
     <PageWrapper>
-      <div className="h-svh flex items-center relative">
-        <div className="w-[500px] mx-auto bg-dust-grey flex items-center p-8 md:relative">
+      <div className="h-full flex items-center">
+        <div className="h-full w-[500px] mx-auto bg-dust-grey flex items-center p-8 md:relative">
           {children}
         </div>
 

@@ -39,7 +39,7 @@ export default function CreateRdvForm() {
           id="title"
           name="title"
           placeholder="Titre de RDV"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -49,7 +49,7 @@ export default function CreateRdvForm() {
           id="withWhom"
           name="withWhom"
           placeholder="Avec qui ?"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -58,7 +58,7 @@ export default function CreateRdvForm() {
           type="datetime-local"
           id="date"
           name="date"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -68,7 +68,7 @@ export default function CreateRdvForm() {
           id="address"
           name="address"
           placeholder="Adresse de RDV"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

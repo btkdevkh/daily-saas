@@ -45,7 +45,7 @@ export default function ResetPassForm({ token }: ResetPassFormProps) {
           id="password"
           name="password"
           placeholder="Nouveau mot de passe *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
       <div>
@@ -54,7 +54,7 @@ export default function ResetPassForm({ token }: ResetPassFormProps) {
           id="confirm-password"
           name="confirm-password"
           placeholder="Confirmer le nouveau mot de passe *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

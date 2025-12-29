@@ -28,7 +28,7 @@ const BankPage = async () => {
           </span>
         ) : (
           <div className="w-full flex items-center gap-1">
-            <TabLink url="/dashboard/bank" title="Balances" />
+            <TabLink url="/dashboard/bank" title="Banques" />
           </div>
         )}
 

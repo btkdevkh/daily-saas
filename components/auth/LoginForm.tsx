@@ -89,7 +89,7 @@ export default function LoginForm() {
             id="email"
             name="email"
             placeholder="Email *"
-            className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+            className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           />
         </div>
 
@@ -112,7 +112,7 @@ export default function LoginForm() {
                 id="password"
                 name="password"
                 placeholder="Mot de passe *"
-                className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+                className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
               />
             </div>
 
@@ -144,7 +144,7 @@ export default function LoginForm() {
         {/* Code modal */}
         {openModal && !state.success && state.mode === "code" && (
           <div className="bg-[rgba(0,0,0,0.7)] absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center p-8">
-            <div className="bg-white md:w-full w-[436px] mx-auto md:mx-0 flex flex-col gap-1.5 p-3 rounded shadow">
+            <div className="bg-white min-w-[320px] md:w-full w-[320px] mx-auto md:mx-0 flex flex-col gap-1.5 p-3 rounded shadow">
               <div className="flex justify-between gap-1">
                 <div className="w-full relative">
                   <input
@@ -152,7 +152,7 @@ export default function LoginForm() {
                     name="code"
                     value={code}
                     placeholder="Code unique"
-                    className="w-full p-3 shadow bg-white outline-graphite rounded"
+                    className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
                     onChange={(e) => setCode(e.target.value)}
                   />
 
@@ -168,7 +168,7 @@ export default function LoginForm() {
 
                 <button
                   type="submit"
-                  className="bg-blue-700 px-3 rounded cursor-pointer"
+                  className="bg-stormy-teal p-2 rounded cursor-pointer"
                 >
                   <IoMdSend color="white" size={25} />
                 </button>
@@ -183,7 +183,7 @@ export default function LoginForm() {
                       if (code.length >= 6) return;
                       setCode((prev) => prev + num);
                     }}
-                    className="h-15 border-2 border-graphite flex items-center justify-center cursor-pointer font-semibold hover:bg-graphite hover:text-white transition shadow text-xl"
+                    className="border-2 p-2 border-stormy-teal flex items-center justify-center cursor-pointer font-semibold hover:bg-stormy-teal hover:text-white transition shadow text-xl rounded"
                   >
                     {num}
                   </span>

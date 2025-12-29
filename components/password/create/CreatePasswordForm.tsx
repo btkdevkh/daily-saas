@@ -49,7 +49,7 @@ export default function CreatePasswordForm() {
           id="username"
           name="username"
           placeholder="Username"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -59,7 +59,7 @@ export default function CreatePasswordForm() {
           id="password"
           name="password"
           placeholder="Password"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -69,7 +69,7 @@ export default function CreatePasswordForm() {
           id="sites"
           name="sites"
           placeholder="Sites"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -78,7 +78,7 @@ export default function CreatePasswordForm() {
           id="note"
           name="note"
           placeholder="Note"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

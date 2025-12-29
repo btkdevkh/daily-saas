@@ -47,7 +47,7 @@ export default function UpdateRunningForm({ running }: UpdateRunningFormProps) {
           id="mode"
           name="mode"
           defaultValue={running?.mode}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         >
           <option value="treadmill">Tapis de course</option>
           <option value="outside">Dehors</option>
@@ -62,7 +62,7 @@ export default function UpdateRunningForm({ running }: UpdateRunningFormProps) {
           name="kilometers"
           placeholder="Kilomètres"
           defaultValue={Number(running?.kilometers)}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -73,7 +73,7 @@ export default function UpdateRunningForm({ running }: UpdateRunningFormProps) {
           name="durations"
           placeholder="Temps (00:00:00)"
           defaultValue={running?.durations}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -85,7 +85,7 @@ export default function UpdateRunningForm({ running }: UpdateRunningFormProps) {
           name="calories"
           placeholder="Calories"
           defaultValue={Number(running?.calories)}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -95,7 +95,7 @@ export default function UpdateRunningForm({ running }: UpdateRunningFormProps) {
           id="date"
           name="date"
           defaultValue={running?.date}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 

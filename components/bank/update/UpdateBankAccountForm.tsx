@@ -47,7 +47,7 @@ const UpdateBankAccountForm = ({ bankAccount }: UpdateBankAccountFormProps) => {
           id="type"
           name="type"
           defaultValue={bankAccount?.type}
-          className="w-full p-2.5 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         >
           <option value="saving">Épargne</option>
           <option value="current">Chèque</option>
@@ -61,7 +61,7 @@ const UpdateBankAccountForm = ({ bankAccount }: UpdateBankAccountFormProps) => {
           name="label"
           placeholder="Label *"
           defaultValue={bankAccount?.label}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -72,7 +72,7 @@ const UpdateBankAccountForm = ({ bankAccount }: UpdateBankAccountFormProps) => {
           name="balance"
           placeholder="Solde *"
           defaultValue={bankAccount?.balance}
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           step="any"
         />
       </div>

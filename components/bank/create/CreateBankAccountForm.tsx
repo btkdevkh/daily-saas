@@ -40,7 +40,7 @@ const CreateBankAccountForm = () => {
         <select
           id="type"
           name="type"
-          className="w-full p-2.5 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2.5 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         >
           <option value="saving">Épargne</option>
           <option value="current">Chèque</option>
@@ -53,7 +53,7 @@ const CreateBankAccountForm = () => {
           id="label"
           name="label"
           placeholder="Label *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
         />
       </div>
 
@@ -63,7 +63,7 @@ const CreateBankAccountForm = () => {
           id="balance"
           name="balance"
           placeholder="Solde *"
-          className="w-full p-2 bg-white outline-stormy-teal shadow rounded"
+          className="w-full p-2 bg-white outline-0 focus:border-2 border-stormy-teal shadow rounded"
           step="any"
         />
       </div>
