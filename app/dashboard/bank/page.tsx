@@ -3,6 +3,10 @@ import CreateButton from "@/components/CreateButton";
 import DashboardSectionWrapper from "@/components/DashboardSectionWrapper";
 import { getBankAccounts } from "@/actions/get/bank";
 import BankList from "@/components/bank/BankList";
+import ExportData from "@/components/ExportData";
+import ImportButton from "@/components/ImportButton";
+import ModalWrapper from "@/components/ModalWrapper";
+import BankImportForm from "@/components/bank/BankImportForm";
 
 const BankPage = async () => {
   const data = await getBankAccounts();
@@ -33,6 +37,16 @@ const BankPage = async () => {
         )}
 
         <div className="flex items-center gap-1">
+          <ImportButton title="Importer" label="CSV" />
+          {formatData && formatData.length > 0 && (
+            <ExportData
+              title="Exporter"
+              label="CSV"
+              fileName="bank.csv"
+              data={formatData}
+            />
+          )}
+
           <CreateButton page="bank" />
         </div>
       </div>
@@ -40,6 +54,11 @@ const BankPage = async () => {
       <DashboardSectionWrapper>
         <BankList bankAccounts={formatData ?? []} />
       </DashboardSectionWrapper>
+
+      {/* Modal */}
+      <ModalWrapper>
+        <BankImportForm bankAccounts={formatData ?? []} />
+      </ModalWrapper>
     </>
   );
 };

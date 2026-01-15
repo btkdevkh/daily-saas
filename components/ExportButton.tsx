@@ -76,7 +76,15 @@ const objectToCSV = <T extends Record<string, CSVValue>>(
 
           if (value === null || value === undefined) return "";
 
-          const stringValue = String(value).replace(/"/g, '""');
+          let stringValue: string;
+
+          if (Array.isArray(value)) {
+            stringValue = JSON.stringify(value);
+          } else {
+            stringValue = String(value);
+          }
+
+          stringValue = stringValue.replace(/"/g, '""');
           return `"${stringValue}"`;
         })
         .join(separator)
