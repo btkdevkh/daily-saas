@@ -8,7 +8,7 @@ import { IBankAccount } from "@/types/interfaces/IBankAccount";
 import { useModalContext } from "@/context/ModalContext";
 import ModalWrapper from "../ModalWrapper";
 import CreateBankIncomeForm from "./create/CreateBankIncomeForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateBankExpenseForm from "./create/CreateBankExpenseForm";
 import ActionButton from "../ActionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -18,12 +18,13 @@ import {
   deleteBankIncome,
 } from "@/actions/delete/bank";
 import BankChart from "./BankChart";
+import BankImportForm from "./BankImportForm";
 
 type BankListProps = {
   bankAccounts: IBankAccount[];
 };
 const BankList = ({ bankAccounts }: BankListProps) => {
-  const { setOpenModal } = useModalContext();
+  const { openModal, setOpenModal } = useModalContext();
   const [selectedAccount, setSelectedAccount] = useState<{
     id: string;
     income: boolean;
@@ -33,6 +34,16 @@ const BankList = ({ bankAccounts }: BankListProps) => {
     income: false,
     expense: false,
   });
+
+  useEffect(() => {
+    if (!openModal) {
+      setSelectedAccount({
+        id: "",
+        income: false,
+        expense: false,
+      });
+    }
+  }, [openModal]);
 
   return (
     <div
@@ -264,6 +275,13 @@ const BankList = ({ bankAccounts }: BankListProps) => {
               )}
           </div>
         ))}
+
+      {/* Modal */}
+      {!selectedAccount.id && (
+        <ModalWrapper>
+          <BankImportForm bankAccounts={bankAccounts ?? []} />
+        </ModalWrapper>
+      )}
     </div>
   );
 };

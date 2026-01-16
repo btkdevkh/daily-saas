@@ -69,4 +69,8 @@ const Navbar = ({ open }: NavbarProps) => {
 
 export default Navbar;
 
-const sectionsWithNoSearchBar = ["/dashboard/running", "/dashboard/chatai"];
+const sectionsWithNoSearchBar = [
+  "/dashboard/running",
+  "/dashboard/chatai",
+  "/dashboard/bank",
+];
