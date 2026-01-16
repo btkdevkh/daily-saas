@@ -5,8 +5,6 @@ import { getBankAccounts } from "@/actions/get/bank";
 import BankList from "@/components/bank/BankList";
 import ExportData from "@/components/ExportData";
 import ImportButton from "@/components/ImportButton";
-import ModalWrapper from "@/components/ModalWrapper";
-import BankImportForm from "@/components/bank/BankImportForm";
 
 const BankPage = async () => {
   const data = await getBankAccounts();
@@ -54,11 +52,6 @@ const BankPage = async () => {
       <DashboardSectionWrapper>
         <BankList bankAccounts={formatData ?? []} />
       </DashboardSectionWrapper>
-
-      {/* Modal */}
-      <ModalWrapper>
-        <BankImportForm bankAccounts={formatData ?? []} />
-      </ModalWrapper>
     </>
   );
 };
