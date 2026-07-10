@@ -13,7 +13,6 @@ import { FaRunning } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchBar } from "@/context/SearchBarContext";
 import { BiSolidCreditCard } from "react-icons/bi";
-import Clock from "./Clock";
 
 type LeftNavbarProps = {
   open: boolean;
@@ -108,8 +107,6 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
 
       {open ? (
         <>
-          <Clock />
-
           <button
             type="button"
             title="Déconnexion"
