@@ -1,25 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { format } from "date-fns";
-import { Rdv } from "@prisma/client";
-import { deleteRdv } from "@/actions/delete/rdv";
+import {useEffect} from "react";
+import {format} from "date-fns";
+import {Rdv} from "@prisma/client";
+import {deleteRdv} from "@/actions/delete/rdv";
 import ActionButton from "@/components/ActionButton";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { PiPencilDuotone } from "react-icons/pi";
-import { useSearchBar } from "@/context/SearchBarContext";
-import { UI } from "@/lib/ui-config";
+import {RiDeleteBin6Line} from "react-icons/ri";
+import {PiPencilDuotone} from "react-icons/pi";
+import {useSearchBar} from "@/context/SearchBarContext";
+import {UI} from "@/lib/ui-config";
 
 type RdvListProps = {
   rdvs: Rdv[];
 };
-const RdvList = ({ rdvs }: RdvListProps) => {
-  const { term, setSearchData } = useSearchBar();
+const RdvList = ({rdvs}: RdvListProps) => {
+  const {term, setSearchData} = useSearchBar();
 
-  const filteredRdvs = rdvs.filter((rdv) =>
-    rdv.title.toLowerCase().includes(term.toLowerCase())
-  );
+  const filteredRdvs = rdvs
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .filter((rdv) => rdv.title.toLowerCase().includes(term.toLowerCase()));
 
   useEffect(() => {
     setSearchData(filteredRdvs);
